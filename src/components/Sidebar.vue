@@ -144,11 +144,11 @@ export default {
             this.showMenu = !this.showMenu;
         }
     },
-    computed: {
-        class() {
-            return this.showMenu ? this.height : "h-0";
-        }
-    }
+    /*     computed: {
+            class() {
+                return this.showMenu ? this.height : "h-0";
+            }
+        } */
 };
 </script>
 
@@ -204,7 +204,7 @@ export default {
                                 </svg>
                             </a>
                             <!-- Submenu children -->
-                            <ul class="overflow-hidden dropdown-menu font-normal transform transition" :class="this.class">
+                            <ul class="overflow-hidden dropdown-menu font-normal transform transition duration-300" :class="{ 'h-0': !showMenu }">
                                 <li v-for="s in a.children">
                                     <router-link
                                         :to="s.route"
@@ -281,7 +281,7 @@ export default {
                                                         </svg>
                                                     </a>
                                                     <!-- Submenu children -->
-                                                    <ul class="overflow-hidden dropdown-menu font-normal transform transition" :class="this.class">
+                                                    <ul class="overflow-hidden dropdown-menu font-normal transform transition duration-300" :class="{ 'h-0': !showMenu }">
                                                         <li v-for="s in a.children">
                                                             <router-link
                                                                 @click="open = false"
