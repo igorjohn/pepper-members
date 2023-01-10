@@ -1,6 +1,8 @@
 <script setup>
 import { ref } from 'vue'
 
+import PlayIcon from "@/assets/img/icon-play.png";
+
 defineProps({
     img: String,
     title: String,
@@ -12,8 +14,8 @@ const count = ref(0)
 </script>
 
 <template>
-    <router-link v-if="productRoute" :to="productRoute" class="w-full overflow-hidden">
-        <div class="thumb-container w-full rounded-lg overflow-hidden">
+    <router-link v-if="productRoute" :to="productRoute" class="thumb-link">
+        <div class="thumb-container">
             <img
                 class="w-full aspect-video bg-slate-500 bg-opacity-10"
                 :src="img" />
@@ -21,13 +23,16 @@ const count = ref(0)
                 Não publicado
             </span>
         </div>
+        <div class="thumb-play-wrapper">
+            <img :src="PlayIcon" />
+        </div>
         <div v-if="title" class="px-1 py-3">
             <div class="font-medium text-gray-100 hover:text-indigo-600 transition duration-300 text-base md:text-sm mb-2">{{ title }}</div>
         </div>
     </router-link>
 
     <div v-if="!productRoute" class="flex flex-col">
-        <div class="thumb-container cursor-default w-full rounded-lg overflow-hidden">
+        <div class="thumb-container cursor-default">
             <img
                 class="w-full aspect-video bg-slate-500 bg-opacity-10"
                 :src="img" />

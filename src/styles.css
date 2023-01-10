@@ -16,7 +16,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: rgb(17, 24, 39, 1);
+  background-color: rgb(17, 24, 39);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -76,6 +76,24 @@ button:focus-visible {
   padding: 2em;
 }
 
+@media (min-width: 992px){
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #1f2837;
+  border: 1px solid rgba(0, 0, 0, 0);
+  background-clip: padding-box;
+  border-radius: 9999px;
+}
+}
+
+::-webkit-scrollbar-corner {
+  background: rgba(0, 0, 0, 0);
+}
+
 #app {
   width: 100%;
   margin: 0 auto;
@@ -85,26 +103,57 @@ button:focus-visible {
   position: relative;
   transition: all .3s ease-in-out;
   border: 1px solid transparent;
-}
-
-.thumb-container::after{
-  opacity: 0;
-  position: absolute;
   width: 100%;
-  height: 100%;
-  top:0;
-  left:0;
-  content: '';
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.thumb-link{
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.thumb-play-wrapper:hover {
+  opacity: 1;
+  transition: background-color 1000ms linear, opacity 600ms linear, border-color 600ms linear;
+  background-color: transparent;
   background-image: linear-gradient(to bottom, #00000022, #00000055, #000000aa 95%);
-  transition: all .3s ease-in-out;
+  border-color: #871b10;
 }
 
-a .thumb-container::after{
+.thumb-play-wrapper{
+  opacity: 0;
+  border:1px solid transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  transition: background-color 1000ms linear, opacity 600ms linear, border-color 600ms linear;
   cursor: pointer;
+  border-radius: 0.5rem;
 }
 
-.thumb-container:hover::after{
-  opacity: 1 !important;
+.thumb-play-wrapper img{
+  transform: translateY(300%);
+  opacity: 0;
+  color: var(--pepper-primary);
+  width: 3rem;
+  height: 3rem;
+  transition: transform .7s ease, opacity .5s ease;
+  filter: hue-rotate(182deg) saturate(1.5) contrast(1.15) drop-shadow(0 1px 5px var(--pepper-dark-primary));
+}
+
+.thumb-play-wrapper:hover img{
+  transform: translateY(0);
+  opacity: 1;
+  transition: transform .7s ease, opacity .5s ease;
 }
 
 .thumb-container > img{
