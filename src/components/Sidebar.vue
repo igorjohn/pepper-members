@@ -1,9 +1,8 @@
 <script setup>
-import { ref, h } from 'vue'
+import { ref } from 'vue'
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 
-const count = ref(0);
 const open = ref(false);
 
 let showHeaderDropdown = ref(false);
