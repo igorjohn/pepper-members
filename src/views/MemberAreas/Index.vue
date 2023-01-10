@@ -4,6 +4,10 @@ import { PlusIcon } from '@heroicons/vue/20/solid'
 
 <script type="text/javascript">
 
+// Mock images
+import Cinetica from "@/assets/img/mock/cinetica.png";
+
+
 const memberAreas = [
     {
         router: '/area',
@@ -18,7 +22,7 @@ const memberAreas = [
     {
         router: '/area',
         title: 'Cinética - Escola do Movimento!',
-        thumbnail: '../../assets/img/mock/cinetica.png',
+        thumbnail: Cinetica,
     },
 ]
 

@@ -17,6 +17,12 @@ import { CheckIcon, ChevronUpDownIcon, PlusIcon } from '@heroicons/vue/20/solid'
 import { TrashIcon } from '@heroicons/vue/24/outline'
 
 
+// Mock images
+import CursoPowerlifting from "@/assets/img/mock/curso-powerlifting.png";
+import CursoBiomecanica from "@/assets/img/mock/curso-biomecanica.png";
+import CursoPeriodizacao from "@/assets/img/mock/curso-periodizacao.png";
+
+
 // Modal 'Add Course'
 let isOpenModalAddProduct = ref(false);
 function openModalAddProduct() {
@@ -64,7 +70,7 @@ const product = [
         isPublished: true,
         title: 'Curso de biomecânica avançada',
         route: '/area/produto',
-        thumbnail: '../../../../assets/img/mock/curso-biomecanica.png'
+        thumbnail: CursoBiomecanica
     },
     {
         id: 4,
@@ -72,7 +78,7 @@ const product = [
         isPublished: true,
         title: 'Curso de Powerlifting e Agachamento',
         route: '/area/produto',
-        thumbnail: '../../../../assets/img/mock/curso-powerlifting.png'
+        thumbnail: CursoPowerlifting
     },
     {
         id: 5,
@@ -80,7 +86,7 @@ const product = [
         isPublished: true,
         title: 'Periodização e Controle de Carga no Treinamento Físico',
         route: '/area/produto',
-        thumbnail: '../../../../assets/img/mock/curso-periodizacao.png'
+        thumbnail: CursoPeriodizacao
     },
     {
         id: 6,
