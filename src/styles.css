@@ -99,6 +99,10 @@ button:focus-visible {
   margin: 0 auto;
 }
 
+main{
+  overflow: hidden;
+}
+
 .thumb-container{
   position: relative;
   transition: all .3s ease-in-out;
@@ -119,7 +123,7 @@ button:focus-visible {
   transition: background-color 1000ms linear, opacity 600ms linear, border-color 600ms linear;
   background-color: transparent;
   background-image: linear-gradient(to bottom, #00000022, #00000055, #000000aa 95%);
-  border-color: #871b10;
+  border-color: #384358;
 }
 
 .thumb-play-wrapper{

@@ -210,7 +210,7 @@ export default {
     </div>
 
     <!-- For: Category -->
-    <div v-for="c in category" class="pt-10">
+    <div v-for="c in category" class="pt-8">
         <div class="md:flex md:items-center mb-6">
             <h3 class="font-bold text-white text-xl md:w-auto mb-3 md:mb-0">
                 {{ c.name }}
