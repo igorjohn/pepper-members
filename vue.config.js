@@ -1,6 +1,7 @@
 const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
   transpileDependencies: true,
+  publicPath: '/pepper-members/',
   chainWebpack: config => {
     config
       .plugin('html')
