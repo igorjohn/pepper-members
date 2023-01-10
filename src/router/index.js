@@ -7,6 +7,7 @@ import MemberAreasView from '../views/MemberAreas/Index.vue';
 import MemberAreaView from '../views/MemberAreas/Area/Index.vue';
 import ProfileView from '../views/MemberAreas/Area/pages/Profile.vue';
 import ProductsView from '../views/MemberAreas/Area/pages/Products.vue';
+import CreateProductView from '../views/MemberAreas/Area/pages/CreateProduct.vue';
 import ContentsView from '../views/MemberAreas/Area/pages/Contents.vue';
 import SettingsView from '../views/MemberAreas/Area/pages/Settings.vue';
 import ContactView from '../views/MemberAreas/Area/pages/Contact.vue';
@@ -29,7 +30,7 @@ const routes = [
     component: ForgotPasswordView
   },
   {
-    path: '/:catchAll(.*)', redirect: 'Login'
+    path: '/:catchAll(.*)', redirect: 'login'
   },
   {
     path: '/memberareas',
@@ -45,11 +46,11 @@ const routes = [
         component: ProductsView
       },
       {
-        path: '/area/:produto',
+        path: '/area/produto',
         component: ContentsView
       },
       {
-        path: '/area/:produto/:modulo/:conteudo',
+        path: '/area/produto/modulo/conteudo',
         component: ClassroomView
       },
       {
@@ -59,6 +60,10 @@ const routes = [
       {
         path: '/area/criar-certificado',
         component: CreateCertificateView
+      },
+      {
+        path: '/area/criar-curso',
+        component: CreateProductView
       },
       {
         path: '/area/perfil',

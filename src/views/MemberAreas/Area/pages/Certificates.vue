@@ -1,18 +1,14 @@
 <script setup>
-
 import { PlusIcon } from '@heroicons/vue/20/solid'
-
 </script>
-
 
 <script type="text/javascript">
 
 import Header from "@/components/Header.vue";
+import ModalConfirmDelete from '@/components/ModalConfirmDelete.vue';
 
 export default {
-    components: {
-        Header
-    }
+
 };
 </script>
 
@@ -24,15 +20,13 @@ export default {
         <div class="mt-5 flex lg:mt-0 lg:ml-4">
             <button
                 type="button"
-                @click="openModal"
+                @click="ModalConfirmDelete"
                 class="inline-flex justify-center items-center rounded-md border border-transparent bg-red-600 hover:bg-red-700 py-2 px-4 text-sm font-semibold text-white focus:outline-none focus:ring-2 focus:ring-red-700 focus:ring-offset-1">
                 <PlusIcon class="-ml-1 mr-1 h-4 w-4 font-bold" aria-hidden="true" />
                 Novo certificado
             </button>
         </div>
     </div>
-
-
 
     <!-- Empty state -->
     <div class="bg-gray-800 rounded-md p-5 w-full border border-gray-700 mt-6">
@@ -44,42 +38,32 @@ export default {
         </div>
     </div>
 
-
     <div class="pt-8">
         <div class="md:flex md:items-center mb-6">
             <h3 class="flex items-center font-bold text-white text-xl md:w-auto mb-3 md:mb-0">
-                <img
-                    src="../../../../assets/img/emoji-trophy.png"
-                    class="w-5 h-5 mr-2" />
                 Cursos concluídos
             </h3>
         </div>
-
-        <div class="w-full grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
             <router-link to="#" class="w-full overflow-hidden cursor-pointer">
                 <div class="thumb-container w-full rounded-lg overflow-hidden">
-                    <img class="w-full aspect-video bg-slate-500 bg-opacity-10" src="https://wallpaperset.com/w/full/3/f/d/22523.jpg" />
+                    <img class="w-full aspect-video bg-slate-500 bg-opacity-10" src="https://www.memesmonkey.com/images/memesmonkey/9f/9f098b405bac22358a2f73abc09f3c24.jpeg" />
                 </div>
                 <div class="px-1 py-3">
-                    <div class="font-semibold text-base mb-1">Curso Online de Medicina</div>
+                    <div class="font-semibold text-base mb-1">Curso de Programação</div>
                     <p class="font-medium text-sm mb-2 text-gray-500">Data da conclusão: 22/11/2022</p>
                 </div>
             </router-link>
         </div>
     </div>
 
-
     <div class="pt-8">
         <div class="md:flex md:items-center mb-6">
             <h3 class="flex items-center font-bold text-white text-xl md:w-auto mb-3 md:mb-0">
-                <img
-                    src="../../../../assets/img/emoji-hourglass.png"
-                    class="w-5 h-5 mr-2" />
                 Em andamento
             </h3>
         </div>
-
-        <div class="w-full grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
             <router-link to="#" class="w-full overflow-hidden cursor-pointer">
                 <div class="thumb-container w-full rounded-lg overflow-hidden">
                     <img class="w-full aspect-video bg-slate-500 bg-opacity-10" src="https://nerdreactor.com/wp-content/uploads/2017/09/The-Walking-Dead-_S8_14x48BB_REF1-thumb.jpg" />
@@ -101,10 +85,4 @@ export default {
             </router-link>
         </div>
     </div>
-
-
 </template>
-
-<style scoped>
-
-</style>
