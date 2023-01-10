@@ -64,7 +64,7 @@ const product = [
         isPublished: true,
         title: 'Curso de biomecânica avançada',
         route: '/area/produto',
-        thumbnail: 'https://cineticaedu.com/assets/images/cursos/curso-biomecanica.png'
+        thumbnail: '../../../../assets/img/mock/curso-biomecanica.png'
     },
     {
         id: 4,
@@ -72,7 +72,7 @@ const product = [
         isPublished: true,
         title: 'Curso de Powerlifting e Agachamento',
         route: '/area/produto',
-        thumbnail: 'https://cineticaedu.com/assets/images/cursos/curso-powerlifting.png'
+        thumbnail: '../../../../assets/img/mock/curso-powerlifting.png'
     },
     {
         id: 5,
@@ -80,7 +80,7 @@ const product = [
         isPublished: true,
         title: 'Periodização e Controle de Carga no Treinamento Físico',
         route: '/area/produto',
-        thumbnail: 'https://cineticaedu.com/assets/images/cursos/curso-periodizacao.png'
+        thumbnail: '../../../../assets/img/mock/curso-periodizacao.png'
     },
     {
         id: 6,

@@ -18,7 +18,7 @@ const memberAreas = [
     {
         router: '/area',
         title: 'Cinética - Escola do Movimento!',
-        thumbnail: 'https://cineticaedu.com/assets/images/meta-image.png',
+        thumbnail: '../../assets/img/mock/cinetica.png',
     },
 ]
 
