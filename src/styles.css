@@ -25,6 +25,10 @@
   -webkit-text-size-adjust: 100%;
 }
 
+body, #app{
+  overflow-x: hidden;
+}
+
 .ppr-logo-fill{
   fill: #fff;
 }
