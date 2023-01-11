@@ -327,15 +327,3 @@ main::before{
       -webkit-transform: rotate(360deg)
   }
 }
-
-.player-btn{
-  margin: 0 auto;
-  border-radius: 100%;
-  color:rgb(220 38 38);
-  width:3rem;
-  height:3rem;
-  display: flex;
-  align-items:center;
-  justify-content: center;
-  background-color: #00000062; border:1px solid #ffffff45
-}

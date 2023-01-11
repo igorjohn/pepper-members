@@ -22,11 +22,15 @@ const integrations = [
 
 <script type="text/javascript">
 
-import { ref } from 'vue'
 import Header from "@/components/Header.vue";
 
 export default {
-};
+    data() {
+        return {
+            pepper: this.pepper
+        }
+    }
+}
 </script>
 
 <template>
@@ -37,7 +41,7 @@ export default {
     <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 pt-4">
 
         <div
-            class="w-full overflow-hidden bg-pepper-dark-2 rounded-md p-5 border border-pepper-dark-3"
+            :class="pepper.darkMode.card.container" class="p-5 pb-4"
             v-for="integration in integrations">
             <router-link
                 v-if="integration.isActive"
@@ -51,7 +55,8 @@ export default {
                     <router-link
                         :to="integration.router"
                         role="button"
-                        class="rounded-md border border-transparent bg-red-600 hover:bg-red-700 py-2 px-2.5 text-sm hover:text-white font-semibold text-white focus:outline-none focus:ring-2 focus:ring-red-700 focus:ring-offset-1">
+                        :class="pepper.darkMode.button.headerPrimary">
+                        <!-- rounded-md border border-transparent bg-red-600 hover:bg-red-700 py-2 px-2.5 text-sm hover:text-white font-semibold text-white focus:outline-none focus:ring-2 focus:ring-red-700 focus:ring-offset-1 -->
                         Configurar integração
                     </router-link>
                 </div>

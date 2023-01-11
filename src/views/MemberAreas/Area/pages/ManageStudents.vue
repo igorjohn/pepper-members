@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import {
     TransitionRoot,
     TransitionChild,
@@ -120,21 +120,26 @@ import {
     DialogTitle,
 } from '@headlessui/vue'
 
-export default {
 
-};
+export default {
+    data() {
+        return {
+            pepper: this.pepper
+        }
+    }
+}
 </script>
 
 <template>
 
     <div class="lg:flex lg:justify-between pb-4">
         <Header title="Gerenciar alunos"></Header>
-        <div class="mt-5 flex lg:mt-0 lg:ml-4">
+        <div :class="pepper.darkMode.header.buttonsContainer">
             <span class="block">
                 <button
                     type="button"
                     @click="openModalAddMultiple"
-                    class="inline-flex items-center rounded-md bg-gray-800 border border-gray-700 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:ring-offset-1">
+                    :class="pepper.darkMode.button.headerSecondary">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="-ml-1 mr-2 h-4 w-4 font-bold">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
                     </svg>
@@ -145,7 +150,7 @@ export default {
                 <button
                     type="button"
                     @click="openModalAddStudent"
-                    class="inline-flex justify-center items-center rounded-md border border-transparent bg-red-600 hover:bg-red-700 py-2 px-4 text-sm font-semibold text-white focus:outline-none focus:ring-2 focus:ring-red-700 focus:ring-offset-1">
+                    :class="pepper.darkMode.button.headerPrimary">
                     <PlusIcon class="-ml-1 mr-1 h-4 w-4 font-bold" aria-hidden="true" />
                     Adicionar aluno
                 </button>
@@ -153,163 +158,147 @@ export default {
         </div>
     </div>
 
-    <div class="w-full mx-auto">
-        <div class="py-4">
-            <div class="group w-100 md:w-1/2 lg:w-1/3">
-                <label for="4" class="block w-full text-sm font-medium text-gray-400 mb-2">Pesquisar aluno:</label>
-                <div class="relative flex items-center">
-                    <input
-                        type="text"
-                        placeholder="Digite e-mail ou nome..."
-                        class="border-zinc-700 text-gray-300 text-sm bg-pepper-dark-3 placeholder-zinc-500 focus:border-indigo-600 focus:ring-0 w-full rounded-md py-2 pl-10 pr-3 font-medium outline-none transition duration-500" />
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 ml-1 text-gray-400 absolute left-2 transition-all duration-200 ease-in-out group-focus-within:text-indigo-400">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                    </svg>
-                </div>
+    <div class="w-full mx-auto py-4">
+        <div class="group w-100 md:w-1/2 lg:w-1/3">
+            <label for="4" class="block w-full text-sm font-medium text-gray-400 mb-2">Pesquisar aluno:</label>
+            <div class="relative flex items-center">
+                <input
+                    type="text"
+                    placeholder="Digite e-mail ou nome..."
+                    :class="pepper.darkMode.form.input" class="pl-10" />
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 ml-1 text-gray-400 absolute left-2 transition-all duration-200 ease-in-out group-focus-within:text-indigo-400">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                </svg>
             </div>
+        </div>
 
-            <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
-                <div class="inline-block min-w-full rounded-md bg-pepper-dark-2 border border-pepper-dark-4">
-                    <table class="min-w-full leading-normal">
-                        <thead>
-                            <tr>
-                                <th class="px-5 py-3 border-b-2 border-pepper-dark-4 bg-pepper-dark-3 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider rounded-tl-md">
-                                    Nome:
-                                </th>
-                                <th class="px-5 py-3 border-b-2 border-pepper-dark-4 bg-pepper-dark-3 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider">
-                                    Incluído em:
-                                </th>
-                                <th class="px-5 py-3 border-b-2 border-pepper-dark-4 bg-pepper-dark-3 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider">
-                                    Último acesso:
-                                </th>
-                                <th class="px-5 py-3 border-b-2 border-pepper-dark-4 bg-pepper-dark-3 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider">
-                                    Status:
-                                </th>
-                                <th class="px-5 py-3 border-b-2 border-pepper-dark-4 bg-pepper-dark-3 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider rounded-tr-md">
-                                    Ações:
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
+        <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+            <table class="min-w-full leading-normal min-w-full rounded-md bg-pepper-dark-3">
+                <thead>
+                    <tr>
+                        <th :class="pepper.darkMode.table.th" class="rounded-tl-md">
+                            Nome:
+                        </th>
+                        <th :class="pepper.darkMode.table.th">
+                            Incluído em:
+                        </th>
+                        <th :class="pepper.darkMode.table.th">
+                            Último acesso:
+                        </th>
+                        <th :class="pepper.darkMode.table.th">
+                            Status:
+                        </th>
+                        <th :class="pepper.darkMode.table.th" class="rounded-tr-md">
+                            Ações:
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
 
-                            <!-- Empty state -->
-                            <tr v-if="students.length == 0">
-                                <td class="px-4 py-3 lg:py-4 border-b border-pepper-dark-4" colspan="5">
-                                    <div class="flex items-center justify-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="flex-none fill-none text-red-500 h-5 w-5 mr-2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-                                        </svg>
-                                        <span class="text-sm font-medium text-gray-200">
-                                            Nenhum aluno adicionado ainda.
-                                        </span>
-                                    </div>
-                                </td>
-                            </tr>
+                    <!-- Empty state -->
+                    <tr v-if="students.length == 0">
+                        <td class="px-4 py-3 lg:py-4 border-b border-pepper-dark-5" colspan="5">
+                            <div class="flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="flex-none fill-none text-red-500 h-5 w-5 mr-2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                                </svg>
+                                <span class="text-sm font-medium text-gray-200">
+                                    Nenhum aluno adicionado ainda.
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
 
-                            <tr v-for="student in students">
-                                <td class="px-4 py-3 border-b border-pepper-dark-4 bg-pepper-dark-2 text-sm">
-                                    <div class="flex items-center">
-                                        <div class="flex-shrink-0 w-8 h-8">
-                                            <img class="w-full h-full rounded-full" :src="student.image" />
-                                        </div>
-                                        <div class="ml-3">
-                                            <p class="text-gray-200 font-medium whitespace-no-wrap">
-                                                {{ student.name }}
-                                            </p>
-                                            <p class="text-gray-400 whitespace-no-wrap text-xs mt-1">
-                                                {{ student.email }}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="px-4 py-3 border-b border-pepper-dark-4 bg-pepper-dark-2 text-sm">
-                                    <p class="text-gray-400 whitespace-no-wrap">
-                                        {{ student.dateIncluded }}
+                    <tr v-for="student in students">
+                        <td class="px-4 py-3 border-b border-pepper-dark-5 bg-pepper-dark-3 text-sm">
+                            <div class="flex items-center">
+                                <img class="w-8 h-8 rounded-full" :src="student.image" />
+                                <div class="ml-3">
+                                    <p class="text-gray-200 font-semibold whitespace-no-wrap">
+                                        {{ student.name }}
                                     </p>
-                                </td>
-                                <td class="px-4 py-3 border-b border-pepper-dark-4 bg-pepper-dark-2 text-sm">
-                                    <p v-if="student.dateLastAccess" class="text-gray-400 whitespace-no-wrap">
-                                        {{ student.dateLastAccess }}
+                                    <p class="text-xs mt-1">
+                                        {{ student.email }}
                                     </p>
-                                    <p v-if="!student.dateLastAccess" class="text-gray-400 whitespace-no-wrap">
-                                        –
-                                    </p>
-                                </td>
-                                <td class="px-4 py-3 border-b border-pepper-dark-4 bg-pepper-dark-2 text-sm">
-                                    <span
-                                        v-if="student.status == 'active'"
-                                        class="inline-block px-2 py-1 font-semibold text-green-900 bg-green-100 text-xs rounded-full leading-tight">
-                                        Ativo
-                                    </span>
-                                    <span
-                                        v-if="student.status == 'blocked'"
-                                        class="inline-block px-2 py-1 font-semibold text-red-900 bg-red-100 text-xs rounded-full leading-tight">
-                                        Bloqueado
-                                    </span>
-                                </td>
-                                <td class="px-5 py-5 border-b border-pepper-dark-4 bg-pepper-dark-2 text-sm text-left">
-                                    <Menu as="div" class="relative z-5 mt-1">
-                                        <div class="inline-flex flex-row justify-center items-center h-full">
-                                            <MenuButton @click="stopPropagation" class="flex p-0 rounded-md bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-gray-800">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
-                                                </svg>
-                                            </MenuButton>
-                                        </div>
-                                        <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
-                                            <MenuItems class="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                                <MenuItem v-slot="{ active }">
-                                                <a
-                                                    href="javascript:void(0);"
-                                                    @click="openModalEditStudent"
-                                                    :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-xs text-left text-gray-700']">
-                                                    Editar aluno
-                                                </a>
-                                                </MenuItem>
-                                                <MenuItem v-slot="{ active }">
-                                                <a href="javascript:void(0);" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-xs text-left text-gray-700']">
-                                                    Reenviar acesso
-                                                </a>
-                                                </MenuItem>
-                                                <MenuItem v-slot="{ active }">
-                                                <a @click="openModalConfirmDelete" href="javascript:void(0);" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-xs text-left text-red-500']">
-                                                    Excluir aluno
-                                                </a>
-                                                </MenuItem>
-                                            </MenuItems>
-                                        </transition>
-                                    </Menu>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between p-4 lg:px-6 lg:py-5">
-                        <div>
-                            <p class="text-sm text-gray-400">
-                                Total de:
-                                <span class="font-semibold text-gray-300">11.834 alunos</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td :class="pepper.darkMode.table.tdNoWrap">
+                            {{ student.dateIncluded }}
+                        </td>
+                        <td :class="pepper.darkMode.table.tdNoWrap">
+                            <p v-if="student.dateLastAccess">
+                                {{ student.dateLastAccess }}
                             </p>
-                        </div>
-                        <div>
-                            <nav class="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
-                                <a href="#" class="relative inline-flex items-center rounded-l-md border border-pepper-dark-5 bg-pepper-dark-3 px-2 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20">
-                                    <span class="sr-only">Anterior</span>
-                                    <ChevronLeftIcon class="h-5 w-5" aria-hidden="true" />
-                                </a>
-                                <a href="#" aria-current="page" class="relative z-10 inline-flex items-center border border-zinc-400 bg-pepper-dark-3 px-4 py-2 text-sm font-medium text-white focus:z-20">1</a>
-                                <a href="#" class="relative inline-flex items-center border border-pepper-dark-5 bg-pepper-dark-3 px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20">2</a>
-                                <a href="#" class="relative hidden items-center border border-pepper-dark-5 bg-pepper-dark-3 px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20 md:inline-flex">3</a>
-                                <span class="relative inline-flex items-center border border-pepper-dark-5 bg-pepper-dark-3 px-4 py-2 text-sm font-medium text-gray-700">...</span>
-                                <a href="#" class="relative hidden items-center border border-pepper-dark-5 bg-pepper-dark-3 px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20 md:inline-flex">8</a>
-                                <a href="#" class="relative inline-flex items-center border border-pepper-dark-5 bg-pepper-dark-3 px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20">9</a>
-                                <a href="#" class="relative inline-flex items-center border border-pepper-dark-5 bg-pepper-dark-3 px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20">10</a>
-                                <a href="#" class="relative inline-flex items-center rounded-r-md border border-pepper-dark-5 bg-pepper-dark-3 px-2 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20">
-                                    <span class="sr-only">Next</span>
-                                    <ChevronRightIcon class="h-5 w-5" aria-hidden="true" />
-                                </a>
-                            </nav>
-                        </div>
-                    </div>
+                            <p v-if="!student.dateLastAccess">
+                                –
+                            </p>
+                        </td>
+                        <td :class="pepper.darkMode.table.tdNoWrap">
+                            <span v-if="student.status == 'active'" :class="pepper.darkMode.pill.success">
+                                Ativo
+                            </span>
+                            <span v-if="student.status == 'blocked'" :class="pepper.darkMode.pill.danger">
+                                Bloqueado
+                            </span>
+                        </td>
+                        <td class="px-5 py-5 border-b border-pepper-dark-5 bg-pepper-dark-3 text-sm text-left">
+                            <Menu as="div" class="relative z-5">
+                                <MenuButton @click="stopPropagation" class="flex p-0 rounded-md bg-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-gray-800">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
+                                    </svg>
+                                </MenuButton>
+                                <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
+                                    <MenuItems class="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                        <MenuItem v-slot="{ active }">
+                                        <a
+                                            href="javascript:void(0);"
+                                            @click="openModalEditStudent"
+                                            :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-xs text-left text-gray-700']">
+                                            Editar aluno
+                                        </a>
+                                        </MenuItem>
+                                        <MenuItem v-slot="{ active }">
+                                        <a href="javascript:void(0);" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-xs text-left text-gray-700']">
+                                            Reenviar acesso
+                                        </a>
+                                        </MenuItem>
+                                        <MenuItem v-slot="{ active }">
+                                        <a @click="openModalConfirmDelete" href="javascript:void(0);" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-xs text-left text-red-500']">
+                                            Excluir aluno
+                                        </a>
+                                        </MenuItem>
+                                    </MenuItems>
+                                </transition>
+                            </Menu>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="flex flex-1 flex-col-reverse md:flex-row gap-y-6 md:gap-y-0 items-center justify-between p-4 lg:px-6 lg:py-5 rounded-b-md bg-pepper-dark-3">
+                <p class="text-sm text-gray-300">
+                    Total de:
+                    <span class="font-semibold text-gray-200">11.834 alunos</span>
+                </p>
+                <div>
+                    <nav class="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
+                        <a href="#" class="relative inline-flex items-center rounded-l-md border border-zinc-700 bg-pepper-dark-3 px-2 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20">
+                            <span class="sr-only">Anterior</span>
+                            <ChevronLeftIcon class="h-5 w-5" aria-hidden="true" />
+                        </a>
+                        <a href="#" aria-current="page" class="relative z-10 inline-flex items-center border border-indigo-400 bg-indigo-600 px-4 py-2 text-sm font-medium text-white focus:z-20">1</a>
+                        <a href="#" class="relative inline-flex items-center border border-zinc-700 bg-pepper-dark-3 px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20">2</a>
+                        <a href="#" class="relative hidden items-center border border-zinc-700 bg-pepper-dark-3 px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20 md:inline-flex">3</a>
+                        <span class="relative inline-flex items-center border border-zinc-700 bg-pepper-dark-3 px-4 py-2 text-sm font-medium text-gray-700">...</span>
+                        <a href="#" class="relative hidden items-center border border-zinc-700 bg-pepper-dark-3 px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20 md:inline-flex">8</a>
+                        <a href="#" class="relative inline-flex items-center border border-zinc-700 bg-pepper-dark-3 px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20">9</a>
+                        <a href="#" class="relative inline-flex items-center border border-zinc-700 bg-pepper-dark-3 px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20">10</a>
+                        <a href="#" class="relative inline-flex items-center rounded-r-md border border-zinc-700 bg-pepper-dark-3 px-2 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20">
+                            <span class="sr-only">Next</span>
+                            <ChevronRightIcon class="h-5 w-5" aria-hidden="true" />
+                        </a>
+                    </nav>
                 </div>
             </div>
         </div>

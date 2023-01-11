@@ -150,7 +150,7 @@ export default {
 <template>
     <div id="navbar-container" class="flex flex-col w-screen md:w-auto md:flex-row md:h-screen md:fixed z-10">
         <!-- Header MOBILE -->
-        <header id="header-mobile" class="bg-pepper-dark-2 flex justify-between w-full md:hidden">
+        <header id="header-mobile" class="bg-pepper-dark-3 flex justify-between w-full md:hidden">
             <!-- Logo -->
             <div v-html="menuLogo"></div>
             <!-- Menu toggle icon -->
@@ -317,7 +317,7 @@ export default {
 
 
         <!-- Header on DESKTOP -->
-        <header id="header-desktop" class="bg-pepper-dark-2 justify-end h-auto hidden md:flex md:w-screen md:pl-72 w-3/4 absolute left-0 z-10">
+        <header id="header-desktop" class="bg-pepper-dark-3 justify-end h-auto hidden md:flex md:w-screen md:pl-72 w-3/4 absolute left-0 z-10">
             <div class="block py-4 px-3">
                 <h6 class="font-bold text-sm">Olá, Gilney</h6>
             </div>

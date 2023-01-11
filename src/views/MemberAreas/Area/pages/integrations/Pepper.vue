@@ -109,7 +109,7 @@ export default {
             <button
                 @click="openModalAddIntegration"
                 type="button"
-                class="ml-1 inline-flex justify-center items-center rounded-md border border-transparent bg-pepper-primary px-4 py-2 text-sm font-semibold text-white hover:bg-red-700">
+                :class="pepper.darkMode.button.headerPrimary">
                 <PlusIcon class="-ml-1 mr-1 h-4 w-4 font-bold" aria-hidden="true" />
                 <span>Adicionar integração</span>
             </button>
@@ -122,7 +122,10 @@ export default {
     </div>
 
     <!-- Empty state -->
-    <div class="bg-pepper-dark-2 rounded-md p-5 w-full border border-pepper-dark-3 mt-4">
+    <div
+        v-if="integration == 0"
+        class="p-5 lg:px-6 mt-4"
+        :class="pepper.darkMode.card.container">
         <div class="flex space-x-2 justify-center items-center">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="flex-none fill-none text-red-500 h-5 w-5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
@@ -131,18 +134,18 @@ export default {
         </div>
     </div>
 
-    <div class="w-full overflow-hidden bg-pepper-dark-2 rounded-md p-5 border border-pepper-dark-3 mt-4">
+    <div class="p-5 lg:p-6 mt-4" :class="pepper.darkMode.card.container">
         <div class="w-full flex flex-col md:flex-row items-start md:items-center md:justify-between gap-y-4">
             <div class="inline-flex items-center justify-start gap-x-2">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-gray-400">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
                 </svg>
-                <span class="leading-tight text-sm text-white font-bold block">
+                <span class="leading-tight text-base text-white font-bold block">
                     Nome da integração configurada
                 </span>
             </div>
-            <div class="flex justify-center rounded-lg text-lg" role="group">
-                <button class="inline-flex items-center justify-center bg-transparent text-xs text-red-500 hover:bg-red-600 hover:text-white border border-r-0 border-red-600 rounded-r-none rounded-l-md px-3 py-1.5 mx-0 outline-none focus:shadow-outline">
+            <div class="flex justify-center rounded-lg text-lg mb-3 md:mb-0" role="group">
+                <button :class="pepper.darkMode.button.group.outline.first">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3.5 h-3.5 mr-1 -ml-1">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                     </svg>
@@ -150,7 +153,7 @@ export default {
                 </button>
                 <button
                     @click="openModalConfirmDelete"
-                    class="inline-flex items-center justify-center bg-transparent text-xs text-red-500 hover:bg-red-600 hover:text-white border border-red-600 rounded-l-none rounded-r-md px-3 py-1.5 mx-0 outline-none focus:shadow-outline">
+                    :class="pepper.darkMode.button.group.outline.second">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3.5 h-3.5 mr-1 -ml-1">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                     </svg>
@@ -158,36 +161,35 @@ export default {
                 </button>
             </div>
         </div>
-        <div class="mt-4 mb-2 text-xs block">
-            <span class="text-gray-200 font-semibold">Data de criação:</span>
+        <div class="mt-4 mb-2 text-sm block">
+            <span :class="pepper.darkMode.text.integration.label">Data de criação:</span>
             <span class="text-gray-400 font-medium ml-2">28/11/2022</span>
         </div>
-        <div class="mt-4 mb-6 text-xs block w-full">
-            <span class="block mb-4 text-gray-200 font-semibold">Esta integração libera o acesso aos conteúdos:</span>
-
-            <ul class="block w-full text-sm">
-                <li v-for="p in products" class="text-gray-400 font-medium text-left flex items-center justify-start gap-x-2 mb-3">
+        <div class="mt-4 mb-6 text-sm block w-full">
+            <span :class="pepper.darkMode.text.integration.label">Esta integração libera o acesso aos conteúdos:</span>
+            <ul class="block w-full text-sm mt-3">
+                <li v-for="p in products" class="text-gray-400 font-medium text-left flex items-center justify-start gap-x-2 xl:gap-x-2.5 mb-3">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-4 h-4 text-green-400" viewBox="0 0 16 16">
                         <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
                     </svg>
-                    <span class="text-xs">
-                        {{ p.title }}
-                    </span>
+                    {{ p.title }}
                 </li>
             </ul>
         </div>
-        <div class="mt-4 mb-2 text-xs block w-full">
-            <span class="block mb-2 text-gray-200 font-semibold">URL de webhook:</span>
-            <div class="w-full flex items-center justify-center">
+        <div class="mt-4 mb-2 text-sm block w-full">
+            <span :class="pepper.darkMode.text.integration.label">URL de webhook:</span>
+            <div class="w-full flex items-center justify-center mt-3">
                 <input
                     type="text"
                     value="https://b90gs20b09.execute-api.us-east-1.amazonaws.com/api/webhook/982d9515-73cd-4f99-b4fe-2304acd6b00b"
                     readonly
-                    class="border border-gray-300 text-gray-700 text-xs bg-white placeholder-gray-400 focus:border-indigo-500 w-full rounded-md py-2 px-3 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]" />
+                    class="rounded-r-none font-light"
+                    :class="pepper.darkMode.form.input" />
                 <button
                     type="button"
                     @click="copyToClipboard"
-                    class="ml-1 inline-flex justify-center rounded-md border border-red-600 bg-pepper-primary px-4 md:px-6 py-2 text-xs font-medium text-white hover:bg-red-700">
+                    class="rounded-l-none px-4 lg:px-5 xl:px-6"
+                    :class="pepper.darkMode.button.primary">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3.5 h-3.5 mr-1 -ml-1">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" />
                     </svg>
