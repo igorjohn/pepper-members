@@ -1,6 +1,6 @@
 <script setup>
-import { ref, computed, reactive } from 'vue'
-import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
+import { ref } from 'vue'
+import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 
 const open = ref(false);
@@ -178,7 +178,7 @@ export default {
                             <span>{{ u.text }}</span>
                         </router-link>
                     </div>
-                    <!-- Rotas do Admin -->
+                    <!-- Admin -->
                     <span class="text-xs font-bold tracking-wide mt-8 mb-4 block px-6 uppercase text-gray-300">
                         Administrador
                     </span>

@@ -72,6 +72,10 @@ body, #app{
   max-width: 100vw;
 }
 
+body,html{
+  overflow:hidden;
+}
+
 .ppr-logo-fill{
   fill: #fff;
 }
