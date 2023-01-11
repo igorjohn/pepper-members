@@ -292,7 +292,7 @@ export default {
                     Gerenciar este curso:
                 </span>
                 <div
-                    class="flex flex-col lg:flex-row lg:items-center lg:gap-x-2">
+                    class="flex flex-row items-center gap-x-2">
                     <button
                         type="button"
                         @click=""
@@ -303,7 +303,6 @@ export default {
                         </svg>
                         Editar curso
                     </button>
-
                     <button
                         type="button"
                         @click=""
@@ -320,18 +319,18 @@ export default {
                 <span class="block text-sm text-gray-300 font-semibold mb-2">
                     Status do curso (visibilidade):
                 </span>
-                <div class="relative w-full">
+                <div class="relative w-full z-10">
                     <button
-                        class="flex items-center px-3 py-2.5 bg-white w-full border border-gray-500 rounded-lg"
+                        class="flex items-center px-3 py-2.5 bg-pepper-dark-3 w-full border border-pepper-dark-5 rounded-lg"
                         @click="isOptionsExpanded = !isOptionsExpanded"
                         @blur="isOptionsExpanded = false">
-                        <svg v-if="selectedOption == 'Rascunho'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="flex-none fill-none text-red-400 h-4 w-4 mr-2">
+                        <svg v-if="selectedOption == 'Rascunho'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="flex-none fill-none text-red-500 h-4 w-4 mr-2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
                         </svg>
                         <svg v-if="selectedOption == 'Publicado'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="flex-none fill-none text-emerald-400 h-4 w-4 mr-2">
                             <path fill-rule="evenodd" d="M19.916 4.626a.75.75 0 01.208 1.04l-9 13.5a.75.75 0 01-1.154.114l-6-6a.75.75 0 011.06-1.06l5.353 5.353 8.493-12.739a.75.75 0 011.04-.208z" clip-rule="evenodd" />
                         </svg>
-                        <span class="text-sm text-gray-600">{{ selectedOption }}</span>
+                        <span class="text-sm text-medium text-gray-100">{{ selectedOption }}</span>
                         <ChevronDownIcon class="h-5 w-5 text-gray-400 ml-auto" aria-hidden="true" />
                     </button>
                     <transition
@@ -341,11 +340,11 @@ export default {
                         leave-active-class="transform transition duration-300 ease-custom"
                         leave-class="translate-y-0 scale-y-100 opacity-100"
                         leave-to-class="-translate-y-1/2 scale-y-0 opacity-0">
-                        <ul v-show="isOptionsExpanded" class="absolute left-0 right-0 mb-4 bg-white divide-y rounded-lg shadow-lg overflow-hidden">
+                        <ul v-show="isOptionsExpanded" class="absolute left-0 right-0 mb-4 bg-pepper-dark-3 border border-pepper-dark-5 rounded-lg overflow-hidden">
                             <li
                                 v-for="(option, index) in options"
                                 :key="index"
-                                class="px-3 py-2 transition-colors text-sm cursor-pointer text-gray-600 duration-300 hover:bg-indigo-500 hover:text-white"
+                                class="px-3 py-2 transition-colors text-sm cursor-pointer border-b border-pepper-dark-5 text-gray-200 text-medium duration-300 hover:bg-gray-800 hover:text-white"
                                 @mousedown.prevent="setOption(option)">
                                 {{ option }}
                             </li>
@@ -358,9 +357,9 @@ export default {
 
         <div class="mx-auto w-full lg:w-4/6">
             <!-- Empty state -->
-            <div v-if="modules.length < 1" class="bg-gray-800 rounded-md p-5 w-full border border-gray-700 mt-6 lg:mt-0 mb-2">
+            <div v-if="modules.length < 1" class="bg-pepper-dark-2 rounded-md p-5 w-full border border-pepper-dark-3 mt-6 lg:mt-0 mb-2">
                 <div class="flex space-x-2 justify-center items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="flex-none fill-none text-indigo-500 h-5 w-5">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="flex-none fill-none text-red-500 h-5 w-5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
                     </svg>
                     <div class="leading-tight text-sm text-gray-200 font-medium">Adicione um módulo para incluir aulas.</div>
@@ -370,7 +369,7 @@ export default {
             <div v-for="mod in modules" class="mx-auto w-full">
                 <Disclosure v-slot="{ open }">
                     <DisclosureButton
-                        class="flex w-full justify-between items-center rounded-lg bg-gray-800 px-4 py-3 text-left border border-gray-700 hover:border-gray-600 focus:outline-none focus-visible:ring focus-visible:ring-indigo-500 focus-visible:ring-opacity-75">
+                        class="flex w-full justify-between items-center rounded-lg bg-pepper-dark-2 px-4 py-3 text-left border border-pepper-dark-3 hover:border-gray-600 hover:cursor-pointer focus:outline-none focus-visible:ring focus-visible:ring-indigo-500 focus-visible:ring-opacity-75">
                         <span class="inline-flex items-center justify-center gap-x-2">
                             <ChevronUpIcon
                                 :class="open ? '' : 'rotate-180 transform'"
@@ -382,7 +381,7 @@ export default {
                         <div class="inline-flex">
                             <Menu as="div" class="relative z-5">
                                 <div class="inline-flex flex-row justify-center items-center h-full">
-                                    <MenuButton @click="stopPropagation" class="flex p-0 rounded-md bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-gray-800">
+                                    <MenuButton @click="stopPropagation" class="flex p-0 rounded-md bg-pepper-dark-5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-gray-800">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
                                         </svg>
@@ -412,7 +411,7 @@ export default {
                     <div class="content-wrapper">
                         <template v-if="mod.content.length < 1">
                             <transition name="slide-fade">
-                                <DisclosurePanel class="px-2 py-2 text-sm text-gray-400">
+                                <DisclosurePanel class="px-2 py-2 text-sm text-gray-300 text-medium">
                                     <div class="w-full inline-flex justify-center items-center gap-x-2">
                                         <div class="w-6 inline-flex items-center justify-center -ml-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-400">
@@ -427,7 +426,7 @@ export default {
 
                         <template v-for="content in mod.content">
                             <transition name="slide-fade">
-                                <DisclosurePanel class="px-2 py-2 text-sm text-gray-400">
+                                <DisclosurePanel class="px-2 py-2">
                                     <div class="w-full flex items-center justify-between">
                                         <router-link
                                             to="/area/produto/modulo/conteudo"
@@ -450,7 +449,10 @@ export default {
                                                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
                                                 </svg>
                                             </div>
-                                            {{ content.name }}
+
+                                            <span class="text-sm text-gray-300 text-medium">
+                                                {{ content.name }}
+                                            </span>
                                         </router-link>
 
                                         <Menu as="div" class="relative ml-2 mr-2 z-5">
@@ -503,7 +505,7 @@ export default {
                 leave="duration-200 ease-in"
                 leave-from="opacity-100"
                 leave-to="opacity-0">
-                <div class="fixed inset-0 bg-black bg-opacity-30"></div>
+                <div class="fixed inset-0 bg-black bg-opacity-50"></div>
             </TransitionChild>
             <div class="fixed inset-0 overflow-y-auto">
                 <div class="flex min-h-full items-center justify-center p-4 text-center">
@@ -674,7 +676,7 @@ export default {
                 leave="duration-200 ease-in"
                 leave-from="opacity-100"
                 leave-to="opacity-0">
-                <div class="fixed inset-0 bg-black bg-opacity-30"></div>
+                <div class="fixed inset-0 bg-black bg-opacity-50"></div>
             </TransitionChild>
             <div class="fixed inset-0 overflow-y-auto">
                 <div class="flex min-h-full items-center justify-center p-4 text-center">

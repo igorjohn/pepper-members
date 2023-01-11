@@ -128,9 +128,7 @@ export default {
 <template>
 
     <div class="lg:flex lg:justify-between pb-4">
-        <!-- Header -->
         <Header title="Gerenciar alunos"></Header>
-        <!-- Action buttons -->
         <div class="mt-5 flex lg:mt-0 lg:ml-4">
             <span class="block">
                 <button
@@ -157,38 +155,37 @@ export default {
 
     <div class="w-full mx-auto">
         <div class="py-4">
-
             <div class="group w-100 md:w-1/2 lg:w-1/3">
                 <label for="4" class="block w-full text-sm font-medium text-gray-400 mb-2">Pesquisar aluno:</label>
                 <div class="relative flex items-center">
                     <input
                         type="text"
                         placeholder="Digite e-mail ou nome..."
-                        class="relative border-primary text-gray-700 text-sm bg-white placeholder-gray-400 focus:border-indigo-500 w-full rounded-md border border-gray-700 py-2 pr-3 pl-10 font-medium outline-none transition" />
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-400 absolute left-2 transition-all duration-200 ease-in-out group-focus-within:text-indigo-400">
+                        class="border-zinc-700 text-gray-300 text-sm bg-pepper-dark-3 placeholder-zinc-500 focus:border-indigo-600 focus:ring-0 w-full rounded-md py-2 pl-10 pr-3 font-medium outline-none transition duration-500" />
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 ml-1 text-gray-400 absolute left-2 transition-all duration-200 ease-in-out group-focus-within:text-indigo-400">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                     </svg>
                 </div>
             </div>
 
             <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
-                <div class="inline-block min-w-full rounded-md bg-gray-900 border border-gray-700">
+                <div class="inline-block min-w-full rounded-md bg-pepper-dark-2 border border-pepper-dark-4">
                     <table class="min-w-full leading-normal">
                         <thead>
                             <tr>
-                                <th class="px-5 py-3 border-b-2 border-gray-700 bg-gray-800 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider rounded-tl-md">
+                                <th class="px-5 py-3 border-b-2 border-pepper-dark-4 bg-pepper-dark-3 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider rounded-tl-md">
                                     Nome:
                                 </th>
-                                <th class="px-5 py-3 border-b-2 border-gray-700 bg-gray-800 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider">
+                                <th class="px-5 py-3 border-b-2 border-pepper-dark-4 bg-pepper-dark-3 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider">
                                     Incluído em:
                                 </th>
-                                <th class="px-5 py-3 border-b-2 border-gray-700 bg-gray-800 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider">
+                                <th class="px-5 py-3 border-b-2 border-pepper-dark-4 bg-pepper-dark-3 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider">
                                     Último acesso:
                                 </th>
-                                <th class="px-5 py-3 border-b-2 border-gray-700 bg-gray-800 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider">
+                                <th class="px-5 py-3 border-b-2 border-pepper-dark-4 bg-pepper-dark-3 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider">
                                     Status:
                                 </th>
-                                <th class="px-5 py-3 border-b-2 border-gray-700 bg-gray-800 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider rounded-tr-md">
+                                <th class="px-5 py-3 border-b-2 border-pepper-dark-4 bg-pepper-dark-3 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider rounded-tr-md">
                                     Ações:
                                 </th>
                             </tr>
@@ -197,9 +194,9 @@ export default {
 
                             <!-- Empty state -->
                             <tr v-if="students.length == 0">
-                                <td class="px-4 py-3 lg:py-4 border-b border-gray-200" colspan="5">
+                                <td class="px-4 py-3 lg:py-4 border-b border-pepper-dark-4" colspan="5">
                                     <div class="flex items-center justify-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="flex-none fill-none text-indigo-500 h-5 w-5 mr-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="flex-none fill-none text-red-500 h-5 w-5 mr-2">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
                                         </svg>
                                         <span class="text-sm font-medium text-gray-200">
@@ -210,7 +207,7 @@ export default {
                             </tr>
 
                             <tr v-for="student in students">
-                                <td class="px-4 py-3 border-b border-gray-700 bg-gray-900 text-sm">
+                                <td class="px-4 py-3 border-b border-pepper-dark-4 bg-pepper-dark-2 text-sm">
                                     <div class="flex items-center">
                                         <div class="flex-shrink-0 w-8 h-8">
                                             <img class="w-full h-full rounded-full" :src="student.image" />
@@ -225,12 +222,12 @@ export default {
                                         </div>
                                     </div>
                                 </td>
-                                <td class="px-4 py-3 border-b border-gray-700 bg-gray-900 text-sm">
+                                <td class="px-4 py-3 border-b border-pepper-dark-4 bg-pepper-dark-2 text-sm">
                                     <p class="text-gray-400 whitespace-no-wrap">
                                         {{ student.dateIncluded }}
                                     </p>
                                 </td>
-                                <td class="px-4 py-3 border-b border-gray-700 bg-gray-900 text-sm">
+                                <td class="px-4 py-3 border-b border-pepper-dark-4 bg-pepper-dark-2 text-sm">
                                     <p v-if="student.dateLastAccess" class="text-gray-400 whitespace-no-wrap">
                                         {{ student.dateLastAccess }}
                                     </p>
@@ -238,7 +235,7 @@ export default {
                                         –
                                     </p>
                                 </td>
-                                <td class="px-4 py-3 border-b border-gray-700 bg-gray-900 text-sm">
+                                <td class="px-4 py-3 border-b border-pepper-dark-4 bg-pepper-dark-2 text-sm">
                                     <span
                                         v-if="student.status == 'active'"
                                         class="inline-block px-2 py-1 font-semibold text-green-900 bg-green-100 text-xs rounded-full leading-tight">
@@ -250,8 +247,8 @@ export default {
                                         Bloqueado
                                     </span>
                                 </td>
-                                <td class="px-5 py-5 border-b border-gray-700 bg-gray-900 text-sm text-left">
-                                    <Menu as="div" class="relative z-5">
+                                <td class="px-5 py-5 border-b border-pepper-dark-4 bg-pepper-dark-2 text-sm text-left">
+                                    <Menu as="div" class="relative z-5 mt-1">
                                         <div class="inline-flex flex-row justify-center items-center h-full">
                                             <MenuButton @click="stopPropagation" class="flex p-0 rounded-md bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-gray-800">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
@@ -295,19 +292,18 @@ export default {
                         </div>
                         <div>
                             <nav class="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
-                                <a href="#" class="relative inline-flex items-center rounded-l-md border border-gray-700 bg-gray-900 px-2 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20">
+                                <a href="#" class="relative inline-flex items-center rounded-l-md border border-pepper-dark-5 bg-pepper-dark-3 px-2 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20">
                                     <span class="sr-only">Anterior</span>
                                     <ChevronLeftIcon class="h-5 w-5" aria-hidden="true" />
                                 </a>
-                                <!-- Current: "z-10 bg-indigo-50 border-indigo-500 text-indigo-600", Default: "bg-white border-gray-300 text-gray-500 hover:bg-gray-50" -->
-                                <a href="#" aria-current="page" class="relative z-10 inline-flex items-center border border-indigo-500 bg-indigo-600 px-4 py-2 text-sm font-medium text-white focus:z-20">1</a>
-                                <a href="#" class="relative inline-flex items-center border border-gray-700 bg-gray-900 px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20">2</a>
-                                <a href="#" class="relative hidden items-center border border-gray-700 bg-gray-900 px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20 md:inline-flex">3</a>
-                                <span class="relative inline-flex items-center border border-gray-700 bg-gray-900 px-4 py-2 text-sm font-medium text-gray-700">...</span>
-                                <a href="#" class="relative hidden items-center border border-gray-700 bg-gray-900 px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20 md:inline-flex">8</a>
-                                <a href="#" class="relative inline-flex items-center border border-gray-700 bg-gray-900 px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20">9</a>
-                                <a href="#" class="relative inline-flex items-center border border-gray-700 bg-gray-900 px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20">10</a>
-                                <a href="#" class="relative inline-flex items-center rounded-r-md border border-gray-700 bg-gray-900 px-2 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20">
+                                <a href="#" aria-current="page" class="relative z-10 inline-flex items-center border border-zinc-400 bg-pepper-dark-3 px-4 py-2 text-sm font-medium text-white focus:z-20">1</a>
+                                <a href="#" class="relative inline-flex items-center border border-pepper-dark-5 bg-pepper-dark-3 px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20">2</a>
+                                <a href="#" class="relative hidden items-center border border-pepper-dark-5 bg-pepper-dark-3 px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20 md:inline-flex">3</a>
+                                <span class="relative inline-flex items-center border border-pepper-dark-5 bg-pepper-dark-3 px-4 py-2 text-sm font-medium text-gray-700">...</span>
+                                <a href="#" class="relative hidden items-center border border-pepper-dark-5 bg-pepper-dark-3 px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20 md:inline-flex">8</a>
+                                <a href="#" class="relative inline-flex items-center border border-pepper-dark-5 bg-pepper-dark-3 px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20">9</a>
+                                <a href="#" class="relative inline-flex items-center border border-pepper-dark-5 bg-pepper-dark-3 px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20">10</a>
+                                <a href="#" class="relative inline-flex items-center rounded-r-md border border-pepper-dark-5 bg-pepper-dark-3 px-2 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20">
                                     <span class="sr-only">Next</span>
                                     <ChevronRightIcon class="h-5 w-5" aria-hidden="true" />
                                 </a>
@@ -330,7 +326,7 @@ export default {
                 leave="duration-200 ease-in"
                 leave-from="opacity-100"
                 leave-to="opacity-0">
-                <div class="fixed inset-0 bg-black bg-opacity-30"></div>
+                <div class="fixed inset-0 bg-black bg-opacity-50"></div>
             </TransitionChild>
             <div class="fixed inset-0 overflow-y-auto">
                 <div class="flex min-h-full items-center justify-center p-4 text-center">
@@ -441,7 +437,7 @@ export default {
                 leave="duration-200 ease-in"
                 leave-from="opacity-100"
                 leave-to="opacity-0">
-                <div class="fixed inset-0 bg-black bg-opacity-30"></div>
+                <div class="fixed inset-0 bg-black bg-opacity-50"></div>
             </TransitionChild>
             <div class="fixed inset-0 overflow-y-auto">
                 <div class="flex min-h-full items-center justify-center p-4 text-center">
@@ -554,7 +550,7 @@ export default {
                 leave="duration-200 ease-in"
                 leave-from="opacity-100"
                 leave-to="opacity-0">
-                <div class="fixed inset-0 bg-black bg-opacity-30"></div>
+                <div class="fixed inset-0 bg-black bg-opacity-50"></div>
             </TransitionChild>
             <div class="fixed inset-0 overflow-y-auto">
                 <div class="flex min-h-full items-center justify-center p-4 text-center">
@@ -667,7 +663,7 @@ export default {
                 leave="duration-200 ease-in"
                 leave-from="opacity-100"
                 leave-to="opacity-0">
-                <div class="fixed inset-0 bg-black bg-opacity-30"></div>
+                <div class="fixed inset-0 bg-black bg-opacity-50"></div>
             </TransitionChild>
             <div class="fixed inset-0 overflow-y-auto">
                 <div class="flex min-h-full items-center justify-center p-4 text-center">

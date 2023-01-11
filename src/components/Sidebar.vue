@@ -143,23 +143,18 @@ export default {
         toggleShow() {
             this.showMenu = !this.showMenu;
         }
-    },
-    /*     computed: {
-            class() {
-                return this.showMenu ? this.height : "h-0";
-            }
-        } */
+    }
 };
 </script>
 
 <template>
     <div id="navbar-container" class="flex flex-col w-screen md:w-auto md:flex-row md:h-screen md:fixed z-10">
         <!-- Header MOBILE -->
-        <header class="bg-gray-800 flex justify-between w-full md:hidden" data-dev-hint="mobile menu bar">
+        <header id="header-mobile" class="bg-pepper-dark-2 flex justify-between w-full md:hidden">
             <!-- Logo -->
             <div v-html="menuLogo"></div>
             <!-- Menu toggle icon -->
-            <div @click="open = true" id="mobile-menu-button" class="m-2 p-2 focus:outline-none hover:text-white hover:bg-gray-700 text-gray-500 rounded-md">
+            <div @click="open = true" id="mobile-menu-button" class="m-2 p-2 focus:outline-none hover:text-white hover:bg-gray-900 text-gray-500 rounded-md">
                 <svg id="menu-open-icon" class="h-6 w-6 transition duration-200 ease-in-out" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
@@ -168,7 +163,7 @@ export default {
         <!-- Header MOBILE end -->
 
         <!-- Sidebar DESKTOP -->
-        <aside id="sidebar" class="hidden md:flex bg-gray-900 border border-transparent border-r-gray-700 md:h-full h-full md:w-64 w-3/4 space-y-6 pt-5 px-0 absolute inset-y-0 left-0 transform md:relative md:translate-x-0 transition duration-200 ease-in-out flex-col justify-between overflow-y-auto z-50">
+        <aside id="sidebar" class="hidden md:flex bg-pepper-dark-2 md:h-full h-full md:w-64 2xl:w-72 w-3/4 space-y-6 pt-5 px-0 absolute inset-y-0 left-0 transform md:relative md:translate-x-0 transition duration-200 ease-in-out flex-col justify-between overflow-y-auto z-50">
             <div class="flex flex-col space-y-6">
                 <!-- Logo -->
                 <div v-html="menuLogo"></div>
@@ -208,7 +203,7 @@ export default {
                                 <li v-for="s in a.children">
                                     <router-link
                                         :to="s.route"
-                                        class="font-medium flex cursor-pointer items-center space-x-3 py-3 pr-6 pl-14 text-sm transition duration-200 bg-gray-800 hover:bg-gray-700 hover:text-white border-b border-gray-700">
+                                        class="font-medium flex cursor-pointer items-center space-x-3 py-3 pr-6 pl-14 text-sm transition duration-200 bg-pepper-dark-3 hover:bg-gray-800 hover:text-white">
                                         {{ s.text }}
                                     </router-link>
                                 </li>
@@ -239,14 +234,14 @@ export default {
         <TransitionRoot as="template" :show="open">
             <Dialog as="div" class="relative z-10 lg:hidden" @close="open = false">
                 <TransitionChild as="template" enter="ease-in-out duration-500" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in-out duration-500" leave-from="opacity-100" leave-to="opacity-0">
-                    <div class="fixed inset-0 bg-black bg-opacity-40 transition-opacity" />
+                    <div class="fixed inset-0 bg-black bg-opacity-60 transition-opacity" />
                 </TransitionChild>
                 <div class="fixed inset-0 overflow-hidden">
                     <div class="absolute inset-0 overflow-hidden">
                         <div class="pointer-events-none fixed inset-y-0 left-0 flex max-w-full pr-24">
                             <TransitionChild as="template" enter="transform transition ease-in-out duration-500 sm:duration-700" enter-from="-translate-x-full" enter-to="translate-x-0" leave="transform transition ease-in-out duration-500 sm:duration-700" leave-from="translate-x-0" leave-to="-translate-x-full">
                                 <DialogPanel class="pointer-events-auto relative w-screen max-w-md">
-                                    <div class="flex h-full flex-col overflow-y-scroll bg-gray-900 py-6 shadow-xl">
+                                    <div id="sidebar-mobile" class="flex h-full flex-col overflow-y-scroll bg-pepper-dark-2 py-6 shadow-xl">
                                         <div class="h-full" aria-hidden="true">
                                             <!-- Logo -->
                                             <div v-html="menuLogo" class="mb-4 mx-2"></div>
@@ -260,8 +255,8 @@ export default {
                                                     <span>{{ u.text }}</span>
                                                 </router-link>
                                             </div>
-                                            <!-- Rotas do Admin -->
-                                            <span class="text-xs font-bold tracking-wide mt-8 mb-4 block px-6 uppercase text-gray-300">
+                                            <!-- Admin -->
+                                            <span class="text-xs font-bold tracking-wide mt-6 mb-4 block px-6 uppercase text-gray-300">
                                                 Administrador
                                             </span>
                                             <div v-for="a in sidebarLinks">
@@ -286,7 +281,7 @@ export default {
                                                             <router-link
                                                                 @click="open = false"
                                                                 :to="s.route"
-                                                                class="font-medium flex cursor-pointer items-center space-x-3 py-3 pr-6 pl-14 text-sm transition duration-200 bg-gray-800 hover:bg-gray-700 hover:text-white border-b border-gray-700">
+                                                                class="font-medium flex cursor-pointer items-center space-x-3 py-3 pr-6 pl-14 text-sm transition duration-200 bg-pepper-dark-3 hover:bg-gray-800 hover:text-white">
                                                                 {{ s.text }}
                                                             </router-link>
                                                         </li>
@@ -301,6 +296,14 @@ export default {
                                                     <span>{{ a.text }}</span>
                                                 </router-link>
                                             </div>
+                                            <nav class="p-6 pb-2 mt-auto">
+                                                <button type="button" class="w-full inline-flex justify-center items-center rounded-md border border-pepper-primary bg-pepper-primary px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-danger-700 focus:outline-none focus:ring-1 focus:ring-danger-500 focus:ring-offset-1">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+                                                    </svg>
+                                                    <span>Desconectar</span>
+                                                </button>
+                                            </nav>
                                         </div>
                                     </div>
                                 </DialogPanel>
@@ -314,12 +317,10 @@ export default {
 
 
         <!-- Header on DESKTOP -->
-        <header class="bg-gray-800 justify-end w-full h-auto hidden md:flex md:w-screen md:pl-72 w-3/4 absolute left-0 z-10">
-            <!-- Logo -->
+        <header id="header-desktop" class="bg-pepper-dark-2 justify-end h-auto hidden md:flex md:w-screen md:pl-72 w-3/4 absolute left-0 z-10">
             <div class="block py-4 px-3">
                 <h6 class="font-bold text-sm">Olá, Gilney</h6>
             </div>
-
             <Menu as="div" :show="showHeaderDropdown" @close="showHeaderDropdown = false" class="relative ml-2 mr-2">
                 <div class="inline-flex flex-row justify-center items-center h-full">
                     <MenuButton class="flex p-0 rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-gray-800">
@@ -348,19 +349,16 @@ export default {
                         <MenuItem v-slot="{ active }">
                         <router-link
                             to="#"
-                            :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">
+                            :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-red-600']">
                             Desconectar
                         </router-link>
                         </MenuItem>
                     </MenuItems>
                 </transition>
             </Menu>
-
         </header>
-
     </div>
 </template>
-
 
 <style>
 #sidebarMenu a {
@@ -399,6 +397,20 @@ export default {
         max-height: 100vh;
         position: fixed;
     }
+}
+
+#sidebar,
+#sidebar-mobile {
+    border-right: 1px solid var(--pepper-bg-dark-4);
+}
+
+#sidebar ul li {
+    border-bottom: 1px solid var(--pepper-bg-dark-4);
+}
+
+#header-desktop {
+    border-bottom: 1px solid var(--pepper-bg-dark-4);
+    width: 100vw;
 }
 
 .dropdown-menu {

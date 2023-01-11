@@ -122,16 +122,16 @@ export default {
     </div>
 
     <!-- Empty state -->
-    <div class="bg-gray-800 rounded-md p-5 w-full border border-gray-700 mt-4">
+    <div class="bg-pepper-dark-2 rounded-md p-5 w-full border border-pepper-dark-3 mt-4">
         <div class="flex space-x-2 justify-center items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="flex-none fill-none text-indigo-500 h-5 w-5">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="flex-none fill-none text-red-500 h-5 w-5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
             </svg>
             <div class="leading-tight text-sm text-gray-200 font-medium">Nenhuma integração cadastrada.</div>
         </div>
     </div>
 
-    <div class="w-full overflow-hidden bg-gray-800 rounded-md p-5 border border-gray-700 mt-4">
+    <div class="w-full overflow-hidden bg-pepper-dark-2 rounded-md p-5 border border-pepper-dark-3 mt-4">
         <div class="w-full flex flex-col md:flex-row items-start md:items-center md:justify-between gap-y-4">
             <div class="inline-flex items-center justify-start gap-x-2">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-gray-400">
@@ -142,7 +142,7 @@ export default {
                 </span>
             </div>
             <div class="flex justify-center rounded-lg text-lg" role="group">
-                <button class="inline-flex items-center justify-center bg-transparent text-xs text-red-500 hover:bg-red-500 hover:text-white border border-r-0 border-red-600 rounded-r-none rounded-l-md px-3 py-1.5 mx-0 outline-none focus:shadow-outline">
+                <button class="inline-flex items-center justify-center bg-transparent text-xs text-red-500 hover:bg-red-600 hover:text-white border border-r-0 border-red-600 rounded-r-none rounded-l-md px-3 py-1.5 mx-0 outline-none focus:shadow-outline">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3.5 h-3.5 mr-1 -ml-1">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                     </svg>
@@ -150,7 +150,7 @@ export default {
                 </button>
                 <button
                     @click="openModalConfirmDelete"
-                    class="inline-flex items-center justify-center bg-transparent text-xs text-red-500 hover:bg-red-500 hover:text-white border border-red-600 rounded-l-none rounded-r-md px-3 py-1.5 mx-0 outline-none focus:shadow-outline">
+                    class="inline-flex items-center justify-center bg-transparent text-xs text-red-500 hover:bg-red-600 hover:text-white border border-red-600 rounded-l-none rounded-r-md px-3 py-1.5 mx-0 outline-none focus:shadow-outline">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3.5 h-3.5 mr-1 -ml-1">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                     </svg>
@@ -162,15 +162,19 @@ export default {
             <span class="text-gray-200 font-semibold">Data de criação:</span>
             <span class="text-gray-400 font-medium ml-2">28/11/2022</span>
         </div>
-        <div class="mt-4 mb-2 text-xs block w-full">
-            <span class="block mb-2 text-gray-200 font-semibold">Esta integração libera o acesso aos conteúdos:</span>
-            <span class="block md:truncate max-w-4xl text-left mb-2 text-gray-400 font-medium">
-                Aprendendo a vender online com escala,
-                Scripts para vender no automático pelo Whatsapp,
-                Periodização e Controle de Carga no Treinamento Físico,
-                Periodização e Controle de Carga no Treinamento Físico,
-                Periodização e Controle de Carga no Treinamento Físico,
-            </span>
+        <div class="mt-4 mb-6 text-xs block w-full">
+            <span class="block mb-4 text-gray-200 font-semibold">Esta integração libera o acesso aos conteúdos:</span>
+
+            <ul class="block w-full text-sm">
+                <li v-for="p in products" class="text-gray-400 font-medium text-left flex items-center justify-start gap-x-2 mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-4 h-4 text-green-400" viewBox="0 0 16 16">
+                        <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+                    </svg>
+                    <span class="text-xs">
+                        {{ p.title }}
+                    </span>
+                </li>
+            </ul>
         </div>
         <div class="mt-4 mb-2 text-xs block w-full">
             <span class="block mb-2 text-gray-200 font-semibold">URL de webhook:</span>
@@ -204,7 +208,7 @@ export default {
                 leave="duration-200 ease-in"
                 leave-from="opacity-100"
                 leave-to="opacity-0">
-                <div class="fixed inset-0 bg-black bg-opacity-30"></div>
+                <div class="fixed inset-0 bg-black bg-opacity-50"></div>
             </TransitionChild>
             <div class="fixed inset-0 overflow-y-auto">
                 <div class="flex min-h-full items-center justify-center p-4 text-center">
@@ -307,7 +311,7 @@ export default {
                 leave="duration-200 ease-in"
                 leave-from="opacity-100"
                 leave-to="opacity-0">
-                <div class="fixed inset-0 bg-black bg-opacity-30"></div>
+                <div class="fixed inset-0 bg-black bg-opacity-50"></div>
             </TransitionChild>
             <div class="fixed inset-0 overflow-y-auto">
                 <div class="flex min-h-full items-center justify-center p-4 text-center">

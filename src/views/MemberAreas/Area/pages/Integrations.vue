@@ -37,7 +37,7 @@ export default {
     <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 pt-4">
 
         <div
-            class="w-full overflow-hidden bg-gray-800 rounded-md p-5 border border-gray-700"
+            class="w-full overflow-hidden bg-pepper-dark-2 rounded-md p-5 border border-pepper-dark-3"
             v-for="integration in integrations">
             <router-link
                 v-if="integration.isActive"

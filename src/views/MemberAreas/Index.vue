@@ -82,7 +82,7 @@ export default {
     flex-direction: row;
     width: 100%;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: flex-start;
     gap: 1rem;
 }
