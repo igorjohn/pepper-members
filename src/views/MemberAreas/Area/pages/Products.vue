@@ -54,6 +54,7 @@ const product = [
         isPublished: true,
         title: 'Aprendendo a vender online com escala',
         route: '/area/produto',
+        userProgress: 32,
         thumbnail: 'https://www.userede.com.br/content/userede/pt-br/blog/quais-ferramentas-de-marketing-digital-posso-usar-para-divulgar-meu-negocio-na-internet/_jcr_content/root/responsivegrid/tabcontainer_4788725/tabs-container-1/productdetails_copy/bottom-container/card_copy_copy_copy_94108686/card-container-content-responsivegrid/image.coreimg.jpeg/1557325623466.jpeg'
     },
     {
@@ -62,6 +63,7 @@ const product = [
         isPublished: false,
         title: 'Scripts para vender no automático pelo Whatsapp',
         route: '/area/produto',
+        userProgress: 2,
         thumbnail: 'https://www.agenciaithink.com.br/Imagem/178/blog-20200610/df/tudo-sobre-como-vender-no-whatsapp.png'
     },
     {
@@ -70,6 +72,7 @@ const product = [
         isPublished: true,
         title: 'Curso de biomecânica avançada',
         route: '/area/produto',
+        userProgress: 91,
         thumbnail: CursoBiomecanica
     },
     {
@@ -78,6 +81,7 @@ const product = [
         isPublished: true,
         title: 'Curso de Powerlifting e Agachamento',
         route: '/area/produto',
+        userProgress: 43,
         thumbnail: CursoPowerlifting
     },
     {
@@ -86,6 +90,7 @@ const product = [
         isPublished: true,
         title: 'Periodização e Controle de Carga no Treinamento Físico',
         route: '/area/produto',
+        userProgress: 0,
         thumbnail: CursoPeriodizacao
     },
     {
@@ -94,6 +99,7 @@ const product = [
         isPublished: true,
         title: 'Método indiano – Fature 5 dígitos com jQuery',
         route: '/area/produto',
+        userProgress: 100,
         thumbnail: 'https://www.memesmonkey.com/images/memesmonkey/9f/9f098b405bac22358a2f73abc09f3c24.jpeg'
     }
 ]
@@ -223,6 +229,7 @@ export default {
                     :isPublished="p.isPublished"
                     :productRoute="p.route"
                     :img="p.thumbnail"
+                    :courseProgress="p.userProgress"
                     :title="p.title" />
             </template>
         </div>
