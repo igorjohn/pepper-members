@@ -37,7 +37,7 @@ export default {
     </div>
 
     <div class="mt-5 lg:col-span-3 lg:mt-0 max-w-5xl mx-auto">
-        <div class="overflow-hidden rounded-md bg-pepper-dark-2 border border-pepper-dark-3">
+        <div class="overflow-hidden rounded-md bg-pepper-dark-3 border border-pepper-dark-4">
             <div class="grid grid-cols-2 gap-4 px-4 py-5 sm:p-6">
                 <div class="col-span-2 flex items-center justify-start">
                     <span class="font-semibold text-base text-gray-100">
