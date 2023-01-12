@@ -9,13 +9,13 @@ const integrations = [
         description: 'Configure a entrega dos seus produtos da Pepper.',
         router: '/area/integracoes/pepper'
     },
-    {
+    /* {
         logoImg: logoPepperzap,
         title: 'Pepperzap',
         isActive: true,
         description: 'Recupere carrinhos abandonados, PIX e boletos.',
         router: '/area/'
-    }
+    } */
 ]
 
 </script>
@@ -56,7 +56,6 @@ export default {
                         :to="integration.router"
                         role="button"
                         :class="pepper.darkMode.button.headerPrimary">
-                        <!-- rounded-md border border-transparent bg-red-600 hover:bg-red-700 py-2 px-2.5 text-sm hover:text-white font-semibold text-white focus:outline-none focus:ring-2 focus:ring-red-700 focus:ring-offset-1 -->
                         Configurar integração
                     </router-link>
                 </div>
