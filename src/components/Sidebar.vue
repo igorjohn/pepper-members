@@ -242,10 +242,10 @@ export default {
                             <TransitionChild as="template" enter="transform transition ease-in-out duration-500 sm:duration-700" enter-from="-translate-x-full" enter-to="translate-x-0" leave="transform transition ease-in-out duration-500 sm:duration-700" leave-from="translate-x-0" leave-to="-translate-x-full">
                                 <DialogPanel class="pointer-events-auto relative w-screen max-w-md">
                                     <div id="sidebar-mobile" class="flex h-full flex-col overflow-y-scroll bg-pepper-dark-2 py-6 shadow-xl">
-                                        <div class="h-full" aria-hidden="true">
+                                        <div class="h-full flex flex-col" aria-hidden="true">
                                             <!-- Logo -->
                                             <div v-html="menuLogo" class="mb-4 mx-2"></div>
-                                            <div v-for="u in sidebarLinks">
+                                            <template v-for="u in sidebarLinks">
                                                 <router-link
                                                     @click="open = false"
                                                     v-if="(!u.submenu || u.submenu == false) && u.isAdmin == false"
@@ -254,13 +254,13 @@ export default {
                                                     <div v-html="u.icon"></div>
                                                     <span>{{ u.text }}</span>
                                                 </router-link>
-                                            </div>
+                                            </template>
                                             <!-- Admin -->
                                             <span class="text-xs font-bold tracking-wide mt-6 mb-4 block px-6 uppercase text-gray-300">
                                                 Administrador
                                             </span>
-                                            <div v-for="a in sidebarLinks">
-                                                <!-- Submenu -->
+                                            <!-- Submenu -->
+                                            <template v-for="a in sidebarLinks">
                                                 <div v-if="(a.submenu == true && a.isAdmin == true)">
                                                     <a
                                                         href="javascript:void(0);"
@@ -275,7 +275,6 @@ export default {
                                                             <path fill="currentColor" class="text-red-700" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" />
                                                         </svg>
                                                     </a>
-                                                    <!-- Submenu children -->
                                                     <ul class="overflow-hidden dropdown-menu font-normal transform transition duration-300" :class="{ 'h-0': !showMenu }">
                                                         <li v-for="s in a.children">
                                                             <router-link
@@ -295,7 +294,7 @@ export default {
                                                     <div v-html="a.icon"></div>
                                                     <span>{{ a.text }}</span>
                                                 </router-link>
-                                            </div>
+                                            </template>
                                             <nav class="p-6 pb-2 mt-auto">
                                                 <button type="button" class="w-full inline-flex justify-center items-center rounded-md border border-pepper-primary bg-pepper-primary px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-danger-700 focus:outline-none focus:ring-1 focus:ring-danger-500 focus:ring-offset-1">
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">

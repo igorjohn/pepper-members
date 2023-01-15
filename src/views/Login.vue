@@ -15,7 +15,7 @@ export default {
 
 <template>
     <div class="flex h-full items-center justify-center login-container">
-        <div id="bg-gradient-container" class="flex h-full w-full items-center justify-center pt-20 pb-12 px-6 lg:px-8 lg:pt-24">
+        <div id="bg-gradient-container" class="flex h-full w-full items-center justify-center pt-24 pb-12 px-6 lg:px-8 lg:pt-32">
             <div class="w-full max-w-md space-y-4 lg:space-y-6">
                 <div>
                     <img class="mx-auto h-6 w-auto" src="../assets/img/pepper-logo-dark.svg" alt="Pepper members" />
@@ -45,7 +45,9 @@ export default {
                     </div>
                 </div>
 
-                <router-link to="/memberareas" class="flex w-full justify-center rounded-md border border-transparent bg-red-600 py-3 px-4 text-sm font-bold text-white hover:text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-indigo-700 focus:ring-offset-2">
+                <router-link
+                    to="/memberareas"
+                    :class="pepper.darkMode.button.login">
                     Fazer login
                 </router-link>
 
