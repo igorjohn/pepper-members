@@ -266,7 +266,7 @@ export default {
                                         </MenuItem>
                                         <MenuItem v-slot="{ active }">
                                         <a @click="openModalConfirmDelete" href="javascript:void(0);" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-xs text-left text-red-500']">
-                                            Excluir aluno
+                                            Bloquear acesso
                                         </a>
                                         </MenuItem>
                                     </MenuItems>
@@ -359,8 +359,8 @@ export default {
                                     <Listbox v-model="selectedProduct" multiple>
                                         <div class="relative mt-1">
                                             <ListboxButton
-                                                class="border border-gray-300 text-gray-700 text-sm bg-white placeholder-gray-400 focus:border-indigo-500 focus:outline-none w-full rounded-md py-2.5 px-3 font-medium outline-none">
-                                                <span class="block truncate text-left text-sm font-medium text-gray-700" style="max-width:95%">
+                                                class="min-h-42 border border-gray-300 text-gray-700 text-xs lg:text-sm bg-white placeholder-gray-400 focus:border-indigo-500 focus:outline-none w-full rounded-md py-2.5 px-3 font-medium outline-none">
+                                                <span class="block truncate text-left text-xs lg:text-sm font-medium text-gray-700" style="max-width:95%">
                                                     {{ selectedProduct.map((p) => p.title).join(', ') }}
                                                 </span>
                                                 <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
@@ -372,7 +372,7 @@ export default {
                                                 leave-from-class="opacity-100"
                                                 leave-to-class="opacity-0">
                                                 <ListboxOptions
-                                                    class="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                                                    class="absolute mt-1 z-10 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                                                     <ListboxOption
                                                         v-slot="{ active, selected }"
                                                         v-for="p in products"
@@ -380,7 +380,7 @@ export default {
                                                         :value="p"
                                                         as="template">
                                                         <li :class="[active ? 'bg-indigo-100 text-indigo-900' : 'text-gray-900', 'relative cursor-pointer select-none py-2 pl-10 pr-4',]">
-                                                            <span :class="[selected ? 'font-medium' : 'font-normal', 'block truncate',]">
+                                                            <span :class="[selected ? 'font-medium' : 'font-normal', 'block text-xs lg:text-sm truncate',]">
                                                                 {{ p.title }}
                                                             </span>
                                                             <span v-if="selected" class="absolute inset-y-0 left-0 flex items-center pl-3 text-green-600">
@@ -392,6 +392,13 @@ export default {
                                             </transition>
                                         </div>
                                     </Listbox>
+
+                                    <div class="mt-4 flex items-center">
+                                        <input type="checkbox" id="adminAccess" class="hidden" />
+                                        <label for="adminAccess" class="slider"></label>
+                                        <label for="adminAccess" class="text-gray-700 text-sm font-medium">Acesso de administrador</label>
+                                    </div>
+
                                 </div>
                             </div>
                             <div class="mt-4 flex items-center justify-end">
@@ -672,9 +679,9 @@ export default {
                                     </svg>
                                 </div>
                                 <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                                    <h3 class="text-lg font-medium leading-6 text-gray-900" id="modal-title">Excluir aluno</h3>
+                                    <h3 class="text-lg font-medium leading-6 text-gray-900" id="modal-title">Bloquear acesso</h3>
                                     <div class="mt-2">
-                                        <p class="text-sm text-gray-500">Tem certeza de que deseja excluir este aluno? Esta ação não poderá ser desfeita.</p>
+                                        <p class="text-sm text-gray-500">Tem certeza de que deseja bloquear o acesso para este aluno?</p>
                                     </div>
                                 </div>
                             </div>
@@ -689,7 +696,7 @@ export default {
                                     type="button"
                                     class="ml-1 inline-flex justify-center rounded-md border border-transparent bg-pepper-primary px-4 py-2 text-sm font-medium text-white hover:bg-red-700"
                                     @click="notificationAddStudent">
-                                    Confirmar exclusão
+                                    Confirmar
                                 </button>
                             </div>
                         </DialogPanel>

@@ -36,7 +36,7 @@ export default {
 
 <template>
     <div class="w-full max-w-5xl mx-auto mb-10">
-        <Header title="Contatar suporte"></Header>
+        <Header title="Contato suporte"></Header>
     </div>
 
     <div class="mt-5 lg:col-span-3 lg:mt-0 max-w-5xl mx-auto">
@@ -122,6 +122,16 @@ export default {
                     </svg>
                     Enviar por e-mail
                 </button>
+
+                <!-- 
+
+var formattedBody = "FirstLine \n Second Line \n Third Line";
+var mailToLink = "mailto:x@y.com?body=" + encodeURIComponent(formattedBody);
+window.location.href = mailToLink;
+
+                 -->
+
+
             </div>
         </div>
     </div>

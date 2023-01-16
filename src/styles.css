@@ -75,6 +75,38 @@ body, #app{
   fill: #fff;
 }
 
+label.slider {
+  transition: .2s;
+position: relative;
+margin-right: .5rem;
+border-radius: 9999px;
+cursor: pointer;
+width: 2rem;
+height: 1rem;
+background-color: rgb(212, 212, 216);
+}
+
+label.slider::before {
+  position: absolute;
+  content: "";
+  height: 12px;
+  width: 12px;
+  left: 18px;
+  top: 2px;
+  transition: .2s;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 1px rgba(0,0,0,0.15);
+}
+
+input:checked + label.slider {
+  background: var(--pepper-primary);
+}
+
+input:not(:checked) + label.slider:before {
+  transform: translateX(-16px);
+}
+
 a {
   font-weight: 500;
   color: #f7f7f7;
@@ -177,6 +209,10 @@ main::before{
   z-index: -1;
   overflow:hidden;
   background-image: linear-gradient(to bottom, rgb(0, 0, 0, 0.05),rgb(0, 0, 0, 0.25), rgb(0, 0, 0, 0.7), rgb(0, 0, 0, 1) 36vh);
+}
+
+.min-h-42{
+  min-height: 42px;
 }
 
 .thumb-container{
