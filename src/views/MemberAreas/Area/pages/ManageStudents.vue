@@ -211,9 +211,9 @@ export default {
 
                     <tr v-for="student in students">
                         <td class="px-4 py-3 border-b border-pepper-dark-5 bg-pepper-dark-3 text-sm">
-                            <div class="flex items-center">
+                            <div class="flex items-center w-full">
                                 <img class="w-8 h-8 rounded-full" :src="student.image" />
-                                <div class="ml-3">
+                                <div class="pl-3">
                                     <p class="text-gray-200 font-semibold whitespace-no-wrap">
                                         {{ student.name }}
                                     </p>
@@ -274,33 +274,38 @@ export default {
                             </Menu>
                         </td>
                     </tr>
+
+                    <tr>
+                        <td colspan="5">
+                            <div class="flex flex-1 flex-row gap-y-6 md:gap-y-0 items-center justify-between p-4 lg:px-6 lg:py-5 rounded-b-md bg-pepper-dark-3">
+                                <p class="text-sm text-gray-300">
+                                    Total de:
+                                    <span class="font-semibold text-gray-200">11.834 alunos</span>
+                                </p>
+                                <div>
+                                    <nav class="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
+                                        <a href="#" class="relative inline-flex items-center rounded-l-md border border-zinc-700 bg-pepper-dark-3 px-2 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20">
+                                            <span class="sr-only">Anterior</span>
+                                            <ChevronLeftIcon class="h-5 w-5" aria-hidden="true" />
+                                        </a>
+                                        <a href="#" aria-current="page" class="relative z-10 inline-flex items-center border border-indigo-400 bg-indigo-600 px-4 py-2 text-sm font-medium text-white focus:z-20">1</a>
+                                        <a href="#" class="relative inline-flex items-center border border-zinc-700 bg-pepper-dark-3 px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20">2</a>
+                                        <a href="#" class="relative hidden items-center border border-zinc-700 bg-pepper-dark-3 px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20 md:inline-flex">3</a>
+                                        <span class="relative inline-flex items-center border border-zinc-700 bg-pepper-dark-3 px-4 py-2 text-sm font-medium text-gray-700">...</span>
+                                        <a href="#" class="relative hidden items-center border border-zinc-700 bg-pepper-dark-3 px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20 md:inline-flex">8</a>
+                                        <a href="#" class="relative inline-flex items-center border border-zinc-700 bg-pepper-dark-3 px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20">9</a>
+                                        <a href="#" class="relative inline-flex items-center border border-zinc-700 bg-pepper-dark-3 px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20">10</a>
+                                        <a href="#" class="relative inline-flex items-center rounded-r-md border border-zinc-700 bg-pepper-dark-3 px-2 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20">
+                                            <span class="sr-only">Next</span>
+                                            <ChevronRightIcon class="h-5 w-5" aria-hidden="true" />
+                                        </a>
+                                    </nav>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
-            <div class="flex flex-1 flex-col-reverse md:flex-row gap-y-6 md:gap-y-0 items-center justify-between p-4 lg:px-6 lg:py-5 rounded-b-md bg-pepper-dark-3">
-                <p class="text-sm text-gray-300">
-                    Total de:
-                    <span class="font-semibold text-gray-200">11.834 alunos</span>
-                </p>
-                <div>
-                    <nav class="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
-                        <a href="#" class="relative inline-flex items-center rounded-l-md border border-zinc-700 bg-pepper-dark-3 px-2 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20">
-                            <span class="sr-only">Anterior</span>
-                            <ChevronLeftIcon class="h-5 w-5" aria-hidden="true" />
-                        </a>
-                        <a href="#" aria-current="page" class="relative z-10 inline-flex items-center border border-indigo-400 bg-indigo-600 px-4 py-2 text-sm font-medium text-white focus:z-20">1</a>
-                        <a href="#" class="relative inline-flex items-center border border-zinc-700 bg-pepper-dark-3 px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20">2</a>
-                        <a href="#" class="relative hidden items-center border border-zinc-700 bg-pepper-dark-3 px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20 md:inline-flex">3</a>
-                        <span class="relative inline-flex items-center border border-zinc-700 bg-pepper-dark-3 px-4 py-2 text-sm font-medium text-gray-700">...</span>
-                        <a href="#" class="relative hidden items-center border border-zinc-700 bg-pepper-dark-3 px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20 md:inline-flex">8</a>
-                        <a href="#" class="relative inline-flex items-center border border-zinc-700 bg-pepper-dark-3 px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20">9</a>
-                        <a href="#" class="relative inline-flex items-center border border-zinc-700 bg-pepper-dark-3 px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20">10</a>
-                        <a href="#" class="relative inline-flex items-center rounded-r-md border border-zinc-700 bg-pepper-dark-3 px-2 py-2 text-sm font-medium text-gray-300 hover:bg-gray-50 focus:z-20">
-                            <span class="sr-only">Next</span>
-                            <ChevronRightIcon class="h-5 w-5" aria-hidden="true" />
-                        </a>
-                    </nav>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -333,27 +338,27 @@ export default {
                             </DialogTitle>
                             <div class="mt-6">
                                 <div class="mb-4">
-                                    <label class="block mb-2 text-sm font-medium text-gray-700">
+                                    <label :class="pepper.darkMode.form.labelWhiteBg">
                                         Nome e sobrenome:
                                     </label>
                                     <input
                                         type="text"
                                         required
                                         placeholder="Digite o nome completo"
-                                        class="border border-gray-300 text-gray-700 text-sm bg-white placeholder-gray-400 focus:border-indigo-500 w-full rounded-md py-2.5 px-3 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]" />
+                                        :class="pepper.darkMode.form.inputWhiteBg" />
                                 </div>
                                 <div class="mb-4">
-                                    <label class="block mb-2 text-sm font-medium text-gray-700">
+                                    <label :class="pepper.darkMode.form.labelWhiteBg">
                                         E-mail:
                                     </label>
                                     <input
                                         type="email"
                                         required
                                         placeholder="Informe o e-mail do aluno"
-                                        class="border border-gray-300 text-gray-700 text-sm bg-white placeholder-gray-400 focus:border-indigo-500 w-full rounded-md py-2.5 px-3 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]" />
+                                        :class="pepper.darkMode.form.inputWhiteBg" />
                                 </div>
                                 <div class="mb-6">
-                                    <label class="block mb-2 text-sm font-medium text-gray-700">
+                                    <label :class="pepper.darkMode.form.labelWhiteBg">
                                         Produtos que serão liberados:
                                     </label>
                                     <Listbox v-model="selectedProduct" multiple>
@@ -461,26 +466,26 @@ export default {
                                     </span>
                                 </router-link>
                                 <div class="mb-4">
-                                    <label class="block mb-2 text-sm font-medium text-gray-700">
-                                        Clique para fazer upload do arquivo .xlsx:
+                                    <label :class="pepper.darkMode.form.labelWhiteBg">
+                                        Fazer upload do arquivo .xlsx:
                                     </label>
                                     <div class="w-full flex flex-row">
                                         <input
                                             type="file"
                                             accept="image/png, image/gif, image/jpeg, image/webp, image/jpg"
                                             required
-                                            class="border border-gray-300 text-gray-700 text-sm bg-white focus:border-gray-300 focus:outline-none w-full rounded-md py-2 px-2.5 font-medium outline-none transition" />
+                                            class="border border-gray-300 text-gray-700 text-xs lg:text-sm bg-white focus:border-gray-300 focus:outline-none w-full rounded-md py-2 px-2.5 font-medium outline-none transition" />
                                     </div>
                                 </div>
                                 <div class="mb-6">
-                                    <label class="block mb-2 text-sm font-medium text-gray-700">
-                                        Produtos que serão liberados para estes alunos:
+                                    <label :class="pepper.darkMode.form.labelWhiteBg">
+                                        Conteúdos que serão liberados:
                                     </label>
                                     <Listbox v-model="selectedProduct" multiple>
                                         <div class="relative mt-1">
                                             <ListboxButton
-                                                class="border border-gray-300 text-gray-700 text-sm bg-white placeholder-gray-400 focus:border-indigo-500 focus:outline-none w-full rounded-md py-2.5 px-3 font-medium outline-none">
-                                                <span class="block truncate text-left text-sm font-medium text-gray-700" style="max-width:95%">
+                                                :class="pepper.darkMode.listbox.whiteBg.button">
+                                                <span :class="pepper.darkMode.listbox.whiteBg.buttonInnerSpan">
                                                     {{ selectedProduct.map((p) => p.title).join(', ') }}
                                                 </span>
                                                 <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
@@ -500,7 +505,7 @@ export default {
                                                         :value="p"
                                                         as="template">
                                                         <li :class="[active ? 'bg-indigo-100 text-indigo-900' : 'text-gray-900', 'relative cursor-pointer select-none py-2 pl-10 pr-4',]">
-                                                            <span :class="[selected ? 'font-medium' : 'font-normal', 'block truncate',]">
+                                                            <span :class="pepper.darkMode.listbox.whiteBg.optionLi">
                                                                 {{ p.title }}
                                                             </span>
                                                             <span v-if="selected" class="absolute inset-y-0 left-0 flex items-center pl-3 text-green-600">
@@ -513,17 +518,24 @@ export default {
                                         </div>
                                     </Listbox>
                                 </div>
+                                <div class="mb-6 text-xs text-gray-500 flex flex-row items-center justify-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-1 opacity-70">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                                    </svg>
+                                    <span>Você pode adicionar no máximo 1.000 alunos.</span>
+                                </div>
                             </div>
                             <div class="mt-4 flex items-center justify-end">
                                 <button
                                     type="button"
-                                    class="inline-flex justify-center rounded-md border border-transparent bg-gray-200 px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-300"
+                                    :class="pepper.darkMode.button.modal.secondary"
                                     @click="closeModal">
                                     Cancelar
                                 </button>
                                 <button
                                     type="button"
-                                    class="ml-1 inline-flex justify-center rounded-md border border-transparent bg-pepper-primary px-4 py-2 text-sm font-medium text-white hover:bg-red-700"
+                                    :class="pepper.darkMode.button.modal.primary"
+                                    class="ml-1"
                                     @click="notificationAddStudent">
                                     Adicionar
                                 </button>
@@ -564,7 +576,7 @@ export default {
                             </DialogTitle>
                             <div class="mt-6">
                                 <div class="mb-4">
-                                    <label class="block mb-2 text-sm font-medium text-gray-700">
+                                    <label :class="pepper.darkMode.form.labelWhiteBg">
                                         Nome e sobrenome:
                                     </label>
                                     <input
@@ -575,7 +587,7 @@ export default {
                                         class="border border-gray-300 text-gray-700 text-sm bg-white placeholder-gray-400 focus:border-indigo-500 w-full rounded-md py-2.5 px-3 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]" />
                                 </div>
                                 <div class="mb-4">
-                                    <label class="block mb-2 text-sm font-medium text-gray-700">
+                                    <label :class="pepper.darkMode.form.labelWhiteBg">
                                         E-mail:
                                     </label>
                                     <input
@@ -586,7 +598,7 @@ export default {
                                         class="border border-gray-300 text-gray-700 text-sm bg-white placeholder-gray-400 focus:border-indigo-500 w-full rounded-md py-2.5 px-3 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]" />
                                 </div>
                                 <div class="mb-4">
-                                    <label class="block mb-2 text-sm font-medium text-gray-700">
+                                    <label :class="pepper.darkMode.form.labelWhiteBg">
                                         Produtos liberados:
                                     </label>
                                     <Listbox v-model="selectedProduct" multiple>
