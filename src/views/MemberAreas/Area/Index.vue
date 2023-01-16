@@ -37,7 +37,7 @@ export default {
 </script>
 
 <template>
-    <div class="lg:h-screen lg:w-screen">
+    <div class="lg:h-screen">
         <div class="relative min-h-screen md:flex bg-pepper-dark" data-dev-hint="container">
             <Sidebar />
             <main id="content" class="flex-1 pb-6 pt-48 md:pr-8 md:pl-72 2xl:pl-80 md:pt-48 lg:pt-64 bg-pepper-dark-1 z-0">
