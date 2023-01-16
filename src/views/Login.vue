@@ -19,7 +19,7 @@ export default {
             <div class="w-full max-w-md space-y-4 lg:space-y-6">
                 <div>
                     <img class="mx-auto h-6 w-auto" src="../assets/img/pepper-logo-dark.svg" alt="Pepper members" />
-                    <h2 class="mt-6 text-center text-xl lg:text-2xl font-bold tracking-tight text-gray-100">Acessar área de membros</h2>
+                    <h2 class="mt-6 text-center text-xl lg:text-2xl font-bold tracking-tight text-gray-100">Acessaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaar área de membros</h2>
                 </div>
 
                 <input type="hidden" name="remember" value="true" />
