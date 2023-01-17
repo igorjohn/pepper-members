@@ -145,15 +145,20 @@ import {
     DialogPanel,
     DialogTitle,
 } from '@headlessui/vue'
+import Notify from '@/components/Notify.vue'
 
 
 export default {
+  components: { Notify },
 
     data: function () {
         return {
             pepper: this.pepper,
             preview: null,
-            image: null
+            image: null,
+            notifySuccess: false,
+            notifyError: false,
+            notifyInfo: false,
         };
     },
 
@@ -173,6 +178,12 @@ export default {
         reset: function () {
             this.image = null;
             this.preview = null;
+        },
+        closeMessage() {
+            this.notifySuccess = false;
+        },
+        callApiNewCategory() {
+            this.notifySuccess = true;
         }
     }
 };
@@ -197,7 +208,7 @@ export default {
             <span class="ml-1">
                 <button
                     type="button"
-                    @click="openModalAddProduct"
+                    @click="this.notifySuccess = true"
                     class="inline-flex justify-center items-center rounded-md border border-transparent bg-red-600 hover:bg-red-700 py-2 px-3 lg:px-4 text-sm font-semibold text-white focus:outline-none focus:ring-2 focus:ring-red-700 focus:ring-offset-1">
                     <PlusIcon class="-ml-1 mr-1 h-4 w-4 font-bold" aria-hidden="true" />
                     Adicionar curso
@@ -266,18 +277,18 @@ export default {
                             <div class="mt-6">
                                 <!-- Título -->
                                 <div class="mb-4">
-                                    <label for="" class="block mb-2 text-sm font-medium text-gray-700">
+                                    <label :class="pepper.darkMode.form.labelWhiteBg">
                                         Título do curso/produto:
                                     </label>
                                     <input
                                         type="text"
                                         required
                                         placeholder="Digite o nome"
-                                        class="border border-gray-300 text-gray-700 text-sm bg-white placeholder-gray-400 focus:border-indigo-500 w-full rounded-md py-3 px-3 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]" />
+                                        :class="pepper.darkMode.form.inputWhiteBg" />
                                 </div>
                                 <!-- Categoria -->
                                 <div class="mb-4">
-                                    <label for="" class="block mb-2 text-sm font-medium text-gray-700">
+                                    <label :class="pepper.darkMode.form.labelWhiteBg">
                                         Selecione a categoria:
                                     </label>
                                     <Combobox v-model="selected">
@@ -333,7 +344,7 @@ export default {
                                 </div>
                                 <!-- Descrição -->
                                 <div class="mb-4">
-                                    <label for="about" class="block mb-2 text-sm font-medium text-gray-700">Descrição:</label>
+                                    <label for="about" :class="pepper.darkMode.form.labelWhiteBg">Descrição:</label>
                                     <div class="mt-1">
                                         <textarea
                                             id="about"
@@ -435,14 +446,14 @@ export default {
                                 Adicionar Nova Categoria
                             </DialogTitle>
                             <div class="mt-6">
-                                <label for="" class="block mb-2 text-sm font-medium text-gray-700">
+                                <label :class="pepper.darkMode.form.labelWhiteBg">
                                     Nome da nova categoria:
                                 </label>
                                 <input
                                     type="text"
                                     required
                                     placeholder="Digite aqui"
-                                    class="border border-gray-300 text-gray-700 text-sm bg-white placeholder-gray-400 focus:border-indigo-500 w-full rounded-md py-3 px-3 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]" />
+                                    :class="pepper.darkMode.form.inputWhiteBg" />
                                 <div class="mt-4 pb-4 text-xs text-gray-500 flex flex-row items-center justify-start">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-1 opacity-70">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
@@ -460,7 +471,7 @@ export default {
                                 <button
                                     type="button"
                                     class="ml-1 inline-flex justify-center rounded-md border border-transparent bg-pepper-primary px-4 py-2 text-sm font-medium text-white hover:bg-red-700"
-                                    @click="closeModal">
+                                    @click="closeModal(); callApiNewCategory()">
                                     Adicionar
                                 </button>
                             </div>
@@ -471,34 +482,14 @@ export default {
         </Dialog>
     </TransitionRoot>
 
-    <!-- Notification -->
-    <transition appear name="slide-fade">
-        <div v-if="showNotification" class="float-right min-w-full fixed bottom-3 right-0 md:right-3">
-            <div class="flex flex-col space-y-3 w-100 md:w-1/2 xl:w-1/3 mx-auto md:mx-0 md:ml-auto shadow-lg" style="max-width:93vw;">
-                <div class="bg-green-100 border border-lime-800 p-5 w-full rounded-md">
-                    <div class="flex justify-between">
-                        <div class="flex space-x-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-none fill-current text-green-500 h-4 w-4">
-                                <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.25 16.518l-4.5-4.319 1.396-1.435 3.078 2.937 6.105-6.218 1.421 1.409-7.5 7.626z" />
-                            </svg>
-                            <div class="flex-1 leading-tight text-sm text-green-700 font-medium">
-                                Curso adicionado com sucesso!
-                            </div>
-                        </div>
-                        <svg @click="showNotification = !showNotification" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-none fill-current text-green-600 h-3 w-3 cursor-pointer">
-                            <path d="M23.954 21.03l-9.184-9.095 9.092-9.174-2.832-2.807-9.09 9.179-9.176-9.088-2.81 2.81 9.186 9.105-9.095 9.184 2.81 2.81 9.112-9.192 9.18 9.1z" />
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </transition>
-
-    <!-- 
-
-    background-color: rgb(189 247 218);
-    svg fill: #0eb268;
-    color: #1a6b38;
- -->
+    <section v-if="notifySuccess">
+        <Notify :timeout="2000" notifyMessage="Curso criado com sucesso!" type="success" @hideNotify="closeMessage" />
+    </section>
+    <section v-if="notifyInfo">
+        <Notify :timeout="2000" notifyMessage="Curso criado com sucesso!" type="info" @hideNotify="closeMessage" />
+    </section>
+    <section v-if="notifyError">
+        <Notify :timeout="2000" notifyMessage="Curso criado com sucesso!" type="error" @hideNotify="closeMessage" />
+    </section>
 
 </template>
