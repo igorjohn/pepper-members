@@ -10,6 +10,7 @@ import ProductsView from '../views/MemberAreas/Area/pages/Products.vue';
 import CreateProductView from '../views/MemberAreas/Area/pages/CreateProduct.vue';
 import ContentsView from '../views/MemberAreas/Area/pages/Contents.vue';
 import SettingsView from '../views/MemberAreas/Area/pages/Settings.vue';
+import CommentsView from '../views/MemberAreas/Area/pages/Comments';
 import ContactView from '../views/MemberAreas/Area/pages/Contact.vue';
 import ClassroomView from '../views/MemberAreas/Area/pages/Classroom.vue';
 import CertificatesView from '../views/MemberAreas/Area/pages/Certificates.vue';
@@ -76,6 +77,10 @@ const routes = [
       {
         path: '/area/alunos',
         component: ManageStudentsView
+      },
+      {
+        path: '/area/comentarios',
+        component: CommentsView
       },
       {
         path: '/area/integracoes',

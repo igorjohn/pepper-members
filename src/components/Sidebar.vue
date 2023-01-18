@@ -31,15 +31,6 @@ const sidebarLinks = [
             <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
         </svg>`
     },
-    /* {
-        route: '/area/ranking',
-        isAdmin: false,
-        text: 'Ranking',
-        icon: `
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-400">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 01-.982-3.172M9.497 14.25a7.454 7.454 0 00.981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 007.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.291 0 4.545.16 6.75.47v1.516M7.73 9.728a6.726 6.726 0 002.748 1.35m8.272-6.842V4.5c0 2.108-.966 3.99-2.48 5.228m2.48-5.492a46.32 46.32 0 012.916.52 6.003 6.003 0 01-5.395 4.972m0 0a6.726 6.726 0 01-2.749 1.35m0 0a6.772 6.772 0 01-3.044 0" />
-        </svg>`
-    }, */
     {
         route: '/area/contato',
         isAdmin: false,
@@ -95,6 +86,16 @@ const sidebarLinks = [
         icon: `
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-400">
             <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+        </svg>`
+    },
+    {
+        route: '/area/comentarios',
+        isAdmin: true,
+        text: 'Comentários',
+        badgeNumber: 27,
+        icon: `
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-400">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
         </svg>`
     },
     {
@@ -169,7 +170,7 @@ export default {
                 <div v-html="menuLogo"></div>
                 <!-- Sidebar menu -->
                 <nav id="sidebarMenu">
-                    <div v-for="u in sidebarLinks">
+                    <template v-for="u in sidebarLinks">
                         <router-link
                             v-if="(!u.submenu || u.submenu == false) && u.isAdmin == false"
                             :to="u.route"
@@ -177,12 +178,12 @@ export default {
                             <div v-html="u.icon"></div>
                             <span>{{ u.text }}</span>
                         </router-link>
-                    </div>
+                    </template>
                     <!-- Admin -->
                     <span class="text-xs font-bold tracking-wide mt-8 mb-4 block px-6 uppercase text-gray-300">
                         Administrador
                     </span>
-                    <div v-for="a in sidebarLinks">
+                    <template v-for="a in sidebarLinks">
                         <!-- Submenu -->
                         <div v-if="(a.submenu == true && a.isAdmin == true)">
                             <a
@@ -212,11 +213,16 @@ export default {
                         <router-link
                             v-if="(!a.submenu || a.submenu == false) && a.isAdmin == true"
                             :to="a.route"
-                            class="sidebar-li-router space-x-3 transition duration-200 hover:bg-gray-800 hover:text-white">
-                            <div v-html="a.icon"></div>
-                            <span>{{ a.text }}</span>
+                            class="sidebar-li-router transition duration-200 hover:bg-gray-800 hover:text-white justify-between">
+                            <div class="inline-flex space-x-3 items-center">
+                                <div v-html="a.icon"></div>
+                                <span>{{ a.text }}</span>
+                            </div>
+                            <div v-if="a.badgeNumber" class="inline-block px-2 py-1 font-semibold text-gray-100 bg-red-700 text-xs rounded-full leading-tight">
+                                {{ a.badgeNumber }}
+                            </div>
                         </router-link>
-                    </div>
+                    </template>
                 </nav>
             </div>
             <nav class="p-6 pt-4">
@@ -288,11 +294,15 @@ export default {
                                                 </div>
                                                 <router-link
                                                     v-if="(!a.submenu || a.submenu == false) && a.isAdmin == true"
-                                                    @click="open = false"
                                                     :to="a.route"
-                                                    class="sidebar-li-router space-x-3 transition duration-200 hover:bg-gray-800 hover:text-white">
-                                                    <div v-html="a.icon"></div>
-                                                    <span>{{ a.text }}</span>
+                                                    class="sidebar-li-router transition duration-200 hover:bg-gray-800 hover:text-white justify-between">
+                                                    <div class="inline-flex space-x-3 items-center">
+                                                        <div v-html="a.icon"></div>
+                                                        <span>{{ a.text }}</span>
+                                                    </div>
+                                                    <div v-if="a.badgeNumber" class="inline-block px-2 py-1 font-semibold text-gray-100 bg-red-700 text-xs rounded-full leading-tight">
+                                                        {{ a.badgeNumber }}
+                                                    </div>
                                                 </router-link>
                                             </template>
                                             <nav class="p-6 pb-2 mt-auto">
