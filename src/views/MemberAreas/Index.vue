@@ -1,5 +1,15 @@
 <script setup>
 import { PlusIcon } from '@heroicons/vue/20/solid'
+import { ref } from 'vue'
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
+
+let showHeaderDropdown = ref(false);
+
+const menuLogo = `
+    <div class="inline-flex h-full items-center justify-center px-4 lg:px-6">
+        <img src="https://peppermembers.com/img/logotipo-white-pepper.52ff1608.png" style="height: 20px;" />
+    </div>`;
+
 </script>
 
 <script type="text/javascript">
@@ -28,6 +38,7 @@ const memberAreas = [
 
 export default {
 
+
 };
 </script>
 
@@ -35,12 +46,53 @@ export default {
 
     <div class="md:min-h-screen w-screen flex flex-col md:justify-between">
 
-        <!-- Logo -->
-        <div class="flex items-center justify-center mb-14 mt-10">
-            <img src="../../assets/img/pepper-logo-dark.svg" class="h-6" />
-        </div>
+        <header id="header-mobile" class="bg-pepper-dark-3 flex justify-between w-full py-1.5">
+            <!-- Logo -->
+            <div v-html="menuLogo"></div>
 
-        <div class="px-6 pt-6 lg:pt-10 max-w-7xl mx-auto flex flex-col justify-center items-center pb-20">
+            <div class="flex items-center justify-start px-2">
+                <div class="block py-4 px-2">
+                    <h6 class="font-bold text-sm">Olá, Gilney</h6>
+                </div>
+                <Menu as="div" :show="showHeaderDropdown" @close="showHeaderDropdown = false" class="relative ml-2 mr-2">
+                    <div class="inline-flex flex-row justify-center items-center h-full">
+                        <MenuButton class="flex p-0 rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-gray-800">
+                            <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
+                        </MenuButton>
+                        <svg class="w-5 h-5 mt-2 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill="currentColor" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
+                        <MenuItems class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                            <MenuItem v-slot="{ active }">
+                            <router-link
+                                to="/area/perfil"
+                                :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">
+                                Meu perfil
+                            </router-link>
+                            </MenuItem>
+                            <MenuItem v-slot="{ active }">
+                            <router-link
+                                to="/memberareas"
+                                :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">
+                                Áreas de membros
+                            </router-link>
+                            </MenuItem>
+                            <MenuItem v-slot="{ active }">
+                            <router-link
+                                to="#"
+                                :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-red-600']">
+                                Desconectar
+                            </router-link>
+                            </MenuItem>
+                        </MenuItems>
+                    </transition>
+                </Menu>
+            </div>
+        </header>
+
+        <div class="px-6 py-20 max-w-7xl mx-auto flex flex-col justify-center items-center">
             <div class="w-full mb-14">
                 <h3 class="font-semibold text-lg mb-14 text-center">
                     Escolha a área de membros que deseja acessar:
