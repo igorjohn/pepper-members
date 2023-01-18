@@ -238,7 +238,7 @@ export default {
             <!-- End In Reply to -->
 
             <!-- Submit comment -->
-            <textarea type="text" placeholder="Escrever comentário sobre o conteúdo..." :class="pepper.darkMode.form.input" rows="3" maxlength="20" minlength="5" required ref="comment"></textarea>
+            <textarea type="text" placeholder="Escrever comentário sobre o conteúdo..." :class="pepper.darkMode.form.input" rows="3" maxlength="1000" minlength="5" required ref="comment"></textarea>
             <button type="button" :class="pepper.darkMode.button.login">
                 Enviar comentário
             </button>
