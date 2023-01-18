@@ -12,7 +12,7 @@ const count = ref(0)
 
 <template>
     <div class="min-w-0 flex-1">
-        <h2 class="text-2xl font-bold leading-7 text-white sm:truncate sm:tracking-tight">{{ title }}</h2>
+        <h2 class="text-2xl font-bold leading-7 text-white sm:tracking-tight">{{ title }}</h2>
     </div>
 
 </template>
