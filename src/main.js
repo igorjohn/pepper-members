@@ -30,7 +30,7 @@ app.config.globalProperties.pepper = {
             tdNoWrap: 'px-4 py-3 border-b border-pepper-dark-5 bg-pepper-dark-3 text-sm text-gray-400 whitespace-no-wrap',
         },
         button: {
-            login: 'flex w-full justify-center rounded-md border border-transparent bg-red-600 py-3 px-4 text-sm font-bold text-white hover:text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-indigo-700 focus:ring-offset-0',
+            login: 'flex w-full justify-center rounded-md border border-transparent bg-red-600 py-2.5 px-4 text-sm font-bold text-white hover:text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-indigo-700 focus:ring-offset-0',
             headerPrimary: 'inline-flex justify-center items-center rounded-md border border-red-600 bg-red-600 hover:bg-red-700 hover:text-white py-2 px-4 text-sm font-semibold text-white focus:outline-none focus:ring-2 focus:ring-red-700 focus:ring-offset-1',
             headerSecondary: 'inline-flex items-center rounded-md bg-gray-900 border border-gray-700 px-4 py-2 text-sm font-semibold text-white hover:bg-gray-700 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:ring-offset-1',
             secondaryOutline: 'flex items-center justify-center rounded-md border border-zinc-700 bg-pepper-dark-4 py-2 px-3 text-sm font-semibold leading-4 text-indigo-500 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500',
