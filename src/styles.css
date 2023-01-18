@@ -208,7 +208,7 @@ main::before{
   height: 100%;
   z-index: -1;
   overflow:hidden;
-  background-image: linear-gradient(to bottom, rgb(0, 0, 0, 0.05),rgb(0, 0, 0, 0.25), rgb(0, 0, 0, 0.7), rgb(0, 0, 0, 1) 36vh);
+  background-image: linear-gradient(to bottom, rgb(0, 0, 0, 0.05),rgb(0, 0, 0, 0.25), rgb(0, 0, 0, 0.7), rgb(0, 0, 0, 1) 30vh);
 }
 
 .min-h-42{
