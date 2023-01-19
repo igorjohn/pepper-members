@@ -5,7 +5,6 @@
 
 
 :root {
-
   --pepper-primary: #e02932;
   --pepper-dark-primary: #120f1e;
   --font-size-medium: 15px;
@@ -161,6 +160,12 @@ button:focus-visible {
   background-clip: padding-box;
   border-radius: 9999px;
 }
+
+html{
+  overflow-y: auto !important;
+  padding-right: 0 !important;
+}
+
 }
 
 ::-webkit-scrollbar-corner {
@@ -175,19 +180,24 @@ button:focus-visible {
 main{
   overflow: hidden;
   /* background-image: url('https://marianakalil.com.br/wp-content/uploads/2018/09/tony-robbins-1.jpg'); */
-  background-image: url('https://alpaclass-prod.s3.amazonaws.com/app/teams/header-image-cover/456562/conversions/BANNER-TOPO-header-image-cover-fit.jpg');
-  background-size: 100%;
+  /* background-image: url('https://alpaclass-prod.s3.amazonaws.com/app/teams/header-image-cover/456562/conversions/BANNER-TOPO-header-image-cover-fit.jpg'); */
   background-position-y: 50px;
-  background-position-x: center;
   background-repeat: no-repeat;
   position: relative;
   background-attachment: fixed;
 }
 
+@media (min-width:769px){
+  main{
+    background-size: calc(100% - 12rem);
+    background-position-x: 12rem;
+  }
+}
+
 @media (max-width:768px){
 main{
   background-size: auto 25vh;
-  background-position-y: 50px;
+  background-position-x: center;
 }
 
 #navbar-container header{
@@ -332,6 +342,10 @@ main::before{
 
 .blured-3 {
   filter: blur(3px) !important;
+}
+
+ul[role="listbox"]{
+  z-index: 2;
 }
 
 .pepper-loading {
