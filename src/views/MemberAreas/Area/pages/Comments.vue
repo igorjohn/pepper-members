@@ -1,12 +1,7 @@
 <script setup>
 
 import { ref } from 'vue'
-import {
-    Listbox,
-    ListboxButton,
-    ListboxOptions,
-    ListboxOption
-} from '@headlessui/vue'
+import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/vue'
 
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
 
