@@ -18,7 +18,7 @@ app.config.globalProperties.pepper = {
             inputWhiteBg: 'border border-gray-300 text-gray-700 text-sm bg-white placeholder-gray-400 focus:border-indigo-500 w-full rounded-md py-2.5 px-3 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]',
             label: 'block mb-2 text-sm font-medium text-gray-400',
             labelWhiteBg: 'block mb-2 text-sm font-medium text-gray-700',
-            select: 'border-zinc-700 text-gray-300 text-sm bg-zinc-900 placeholder-zinc-500 focus:border-indigo-600 focus:ring-0 w-full rounded-md py-2 px-3 font-medium outline-none transition duration-500 disabled:cursor-default disabled:bg-zinc-900',
+            select: 'border-zinc-700 text-gray-300 text-sm bg-zinc-900 placeholder-zinc-500 focus:border-indigo-600 focus:ring-0 w-full rounded-md py-2.5 px-3 font-medium outline-none transition duration-500 disabled:cursor-default disabled:bg-zinc-900',
         },
         card: {
             container: 'overflow-hidden rounded-md bg-pepper-dark-3 border border-pepper-dark-4',
@@ -35,6 +35,7 @@ app.config.globalProperties.pepper = {
             headerSecondary: 'inline-flex items-center rounded-md bg-gray-900 border border-gray-700 px-4 py-2 text-sm font-semibold text-white hover:bg-gray-700 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:ring-offset-1',
             secondaryOutline: 'flex items-center justify-center rounded-md border border-zinc-700 bg-pepper-dark-4 py-2 px-3 text-sm font-semibold leading-4 text-indigo-500 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500',
             primary: 'inline-flex justify-center items-center rounded-md border border-transparent bg-red-600 hover:bg-red-700 py-2.5 px-4 text-sm font-semibold text-white focus:outline-none focus:ring-2 focus:ring-red-700 focus:ring-offset-1',
+            secondary: 'inline-flex justify-center items-center rounded-md border border-transparent bg-gray-700 hover:bg-gray-800 py-2.5 px-4 text-sm font-semibold text-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-1',
             successButton: 'inline-flex justify-center items-center rounded-md border border-transparent bg-green-600 hover:bg-green-700 py-2.5 px-4 text-sm font-semibold text-white focus:outline-none focus:ring-2 focus:ring-green-700 focus:ring-offset-1',
             group: {
                 outline: {
