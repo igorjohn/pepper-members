@@ -60,7 +60,6 @@ const sidebarLinks = [
     },
     // Admin routes:
     {
-        route: '/area',
         isAdmin: true,
         text: 'Adicionar',
         icon: `
@@ -75,7 +74,7 @@ const sidebarLinks = [
             },
             {
                 text: 'Novo certificado',
-                route: '/area/novo-certificado'
+                route: '/area/criar-certificado'
             }
         ]
     },
