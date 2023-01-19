@@ -369,7 +369,7 @@ export default {
             <div v-for="mod in modules" class="mx-auto w-full">
                 <Disclosure v-slot="{ open }">
                     <DisclosureButton
-                        class="flex w-full justify-between items-center rounded-lg bg-pepper-dark-2 px-4 py-3 text-left border border-pepper-dark-3 hover:border-gray-600 hover:cursor-pointer focus:outline-none focus-visible:ring focus-visible:ring-indigo-500 focus-visible:ring-opacity-75">
+                        class="flex w-full justify-between items-center rounded-lg bg-pepper-dark-3 px-4 py-3 text-left border border-pepper-dark-4 hover:border-gray-600 hover:cursor-pointer focus:outline-none focus-visible:ring focus-visible:ring-indigo-500 focus-visible:ring-opacity-75">
                         <span class="inline-flex items-center justify-center gap-x-2">
                             <ChevronUpIcon
                                 :class="open ? '' : 'rotate-180 transform'"
@@ -489,8 +489,6 @@ export default {
         </div>
 
     </div>
-
-
 
 
 
