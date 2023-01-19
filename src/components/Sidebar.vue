@@ -71,7 +71,7 @@ const sidebarLinks = [
         children: [
             {
                 text: 'Novo curso',
-                route: '/area/novo-curso'
+                route: '/area/criar-curso'
             },
             {
                 text: 'Novo certificado',
@@ -218,7 +218,7 @@ export default {
                                 <div v-html="a.icon"></div>
                                 <span>{{ a.text }}</span>
                             </div>
-                            <div v-if="a.badgeNumber" class="inline-block px-2 py-1 font-semibold text-gray-100 bg-red-700 text-xs rounded-full leading-tight">
+                            <div v-if="a.badgeNumber" class="inline-block px-2 py-1 font-semibold text-gray-100 bg-red-600 text-xs rounded-full leading-tight">
                                 {{ a.badgeNumber }}
                             </div>
                         </router-link>
@@ -226,7 +226,7 @@ export default {
                 </nav>
             </div>
             <nav class="p-6 pt-4">
-                <button type="button" class="w-full inline-flex justify-center items-center rounded-md border border-pepper-primary bg-pepper-primary px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-danger-700 focus:outline-none focus:ring-1 focus:ring-danger-500 focus:ring-offset-1">
+                <button type="button" class="w-full inline-flex justify-center items-center rounded-md border border-red-600 bg-red-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-1 focus:ring-danger-500 focus:ring-offset-1">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
                     </svg>
@@ -307,7 +307,7 @@ export default {
                                                 </router-link>
                                             </template>
                                             <nav class="p-6 pb-2 mt-auto">
-                                                <button type="button" class="w-full inline-flex justify-center items-center rounded-md border border-pepper-primary bg-pepper-primary px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-danger-700 focus:outline-none focus:ring-1 focus:ring-danger-500 focus:ring-offset-1">
+                                                <button type="button" class="w-full inline-flex justify-center items-center rounded-md border border-red-600 bg-red-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-1 focus:ring-danger-500 focus:ring-offset-1">
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
                                                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
                                                     </svg>
