@@ -104,6 +104,18 @@ const product = [
     }
 ]
 
+
+const vitrine = {
+    title: 'Você pode também ter interesse em:',
+    shownProducts: [
+        {
+            img: 'https://vueschool.io/images/sections/the-vuejs-master-class/thumbnail-masterclass.png',
+            title: 'Curso de Vue3',
+            linkHref: 'https://google.com/'
+        }
+    ]
+}
+
 let selected = ref(category[0]);
 let query = ref('')
 
@@ -137,6 +149,7 @@ import { ref } from 'vue'
 
 import Header from "@/components/Header.vue";
 import CardCourse from "@/components/CardCourse.vue";
+import CardCourseBlocked from "@/components/CardCourseBlocked.vue";
 
 import {
     TransitionRoot,
@@ -236,6 +249,24 @@ export default {
                     :img="p.thumbnail"
                     :courseProgress="p.userProgress"
                     :title="p.title" />
+            </template>
+        </div>
+    </div>
+
+
+    <div v-if="vitrine && vitrine.shownProducts.length !== 0" class="pt-8">
+        <div class="md:flex md:items-center mb-6">
+            <h3 class="font-bold text-white text-xl md:w-auto mb-3 md:mb-0">
+                {{ vitrine.title }}
+            </h3>
+        </div>
+
+        <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            <template v-for="v in vitrine.shownProducts">
+                <CardCourseBlocked
+                    :img="v.img"
+                    :linkHref="v.linkHref"
+                    :title="v.title" />
             </template>
         </div>
     </div>
