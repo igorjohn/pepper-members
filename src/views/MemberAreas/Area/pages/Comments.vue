@@ -1,155 +1,337 @@
 <script setup>
 
 import { ref } from 'vue'
+import {
+    Listbox,
+    ListboxButton,
+    ListboxOptions,
+    ListboxOption
+} from '@headlessui/vue'
 
-// notification
-let showNotification = ref(false);
-function notification() {
-    showNotification.value = true;
+import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
 
-    setTimeout(() => {
-        showNotification.value = false;
-    }, 3500);
 
-}
+const products = [
+    {
+        id: 1,
+        title: 'Aprendendo a vender online com escala'
+    },
+    {
+        id: 2,
+        title: 'Scripts para vender no automático pelo Whatsapp'
+    },
+    {
+        id: 3,
+        title: 'Curso de biomecânica avançada'
+    },
+    {
+        id: 4,
+        title: 'Curso de Powerlifting e Agachamento'
+    },
+    {
+        id: 5,
+        title: 'Periodização e Controle de Carga no Treinamento Físico'
+    },
+    {
+        id: 6,
+        title: 'Método indiano – Fature 5 dígitos com jQuery'
+    }
+]
+
+const selectedProduct = ref([]);
 </script>
 
 <script type="text/javascript">
 
 import Header from "@/components/Header.vue";
 
+
 export default {
     data() {
         return {
-            pepper: this.pepper
+            tab: 1,
+            pepper: this.pepper,
+            inReplyTo: false,
+        };
+    },
+    methods: {
+        showNewComments() {
+            this.tab = 1;
+        },
+        showApprovedComments() {
+            this.tab = 2;
+        },
+
+        replyComment: function () {
+            this.inReplyTo = true;
+            const textarea = this.$refs.comment;
+            textarea.focus()
         }
-    }
-}
+
+
+    },
+};
+
 </script>
 
 <template>
-    <div class="w-full max-w-5xl mx-auto mb-10">
+    <div class="w-full max-w-7xl mx-auto">
         <Header title="Comentários"></Header>
-    </div>
 
-    <div class="mt-5 lg:col-span-3 lg:mt-0 max-w-5xl mx-auto">
-        <div :class="pepper.darkMode.card.container">
-            <div class="grid grid-cols-2 gap-4 px-4 py-5 sm:p-6">
-                <div class="col-span-2 flex items-center justify-start">
-                    <span class="font-semibold text-base text-gray-100 mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 md:w-6 md:h-6 mr-1 mb-1 text-indigo-500 inline-flex">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
-                        </svg>
-                        Envie a sua mensagem para o suporte do produtor:
-                    </span>
-                </div>
-                <div class="col-span-2">
-                    <label :class="pepper.darkMode.form.label">
-                        Área de membros:
-                    </label>
-                    <select
-                        :class="pepper.darkMode.form.select">
-                        <option value="Cinética: Escola do movimento" selected disabled>
-                            Cinética: Escola do movimento
-                        </option>
-                    </select>
-                </div>
-                <div class="col-span-2 md:col-span-1">
-                    <label :class="pepper.darkMode.form.label">
-                        Seu nome:
-                    </label>
-                    <input
-                        type="text"
-                        readonly
-                        value="José Afonso Oliveira Antunes"
-                        :class="pepper.darkMode.form.input" />
-                </div>
-                <div class="col-span-2 md:col-span-1">
-                    <label :class="pepper.darkMode.form.label">
-                        Seu e-mail onde receberá a resposta:
-                    </label>
-                    <input
-                        type="email"
-                        readonly
-                        placeholder="Digite o e-mail"
-                        value="igor@gmail.com"
-                        :class="pepper.darkMode.form.input" />
-                </div>
-                <div class="col-span-2">
-                    <label :class="pepper.darkMode.form.label">
-                        Assunto:
-                    </label>
-                    <input
-                        type="text"
-                        max="500"
-                        placeholder="Digite o título da mensagem"
-                        value="Quero meu rebolço"
-                        :class="pepper.darkMode.form.input" />
-                </div>
-                <div class="col-span-2">
-                    <label :class="pepper.darkMode.form.label">
-                        Mensagem:
-                    </label>
-                    <textarea
-                        type="text"
-                        max="5000"
-                        placeholder="Digite aqui a sua mensagem"
-                        rows="4"
-                        :class="pepper.darkMode.form.input" />
-                </div>
-            </div>
-            <div :class="pepper.darkMode.card.footer">
-                <button
-                    :class="pepper.darkMode.button.successButton">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" stroke="none" :class="pepper.darkMode.svgIcon.button.small">
-                        <path
-                            d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z" />
-                    </svg>
-                    WhatsApp
-                </button>
-                <button
-                    @click="notification"
-                    :class="pepper.darkMode.button.primary">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" stroke="none" :class="pepper.darkMode.svgIcon.button.small">
-                        <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z" />
-                    </svg>
-                    Enviar por e-mail
-                </button>
+        <div class="mt-8 mb-10 max-w-3xl">
+            <label :class="pepper.darkMode.form.label">
+                Filtrar por curso:
+            </label>
+            <Listbox v-model="selectedProduct" multiple>
+                <div class="relative mt-1">
+                    <ListboxButton
+                        :class="pepper.darkMode.listbox.darkBg.button">
 
-                <!-- 
+                        <!-- 'placeholder' -->
+                        <span v-if="selectedProduct.length === 0" :class="pepper.darkMode.listbox.darkBg.buttonInnerSpan" class="opacity-70">
+                            Filtrar por curso
+                        </span>
 
-var formattedBody = "FirstLine \n Second Line \n Third Line";
-var mailToLink = "mailto:x@y.com?body=" + encodeURIComponent(formattedBody);
-window.location.href = mailToLink;
-
-                 -->
-
-
-            </div>
+                        <span v-if="selectedProduct.length !== 0" :class="pepper.darkMode.listbox.darkBg.buttonInnerSpan">
+                            {{ selectedProduct.map((p) => p.title).join(', ') }}
+                        </span>
+                        <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                            <ChevronUpDownIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
+                        </span>
+                    </ListboxButton>
+                    <transition
+                        leave-active-class="transition duration-100 ease-in"
+                        leave-from-class="opacity-100"
+                        leave-to-class="opacity-0">
+                        <ListboxOptions
+                            class="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-zinc-900 border border-zinc-800 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-sm">
+                            <ListboxOption
+                                v-slot="{ active, selected }"
+                                v-for="p in products"
+                                :key="p.title"
+                                :value="p"
+                                as="template">
+                                <li :class="[active ? 'bg-indigo-500 text-white' : 'text-gray-200', 'relative cursor-pointer select-none py-2 pl-10 pr-4',]">
+                                    <span :class="pepper.darkMode.listbox.darkBg.optionLi">
+                                        {{ p.title }}
+                                    </span>
+                                    <span v-if="selected" class="absolute inset-y-0 left-0 flex items-center pl-3 text-emerald-400">
+                                        <CheckIcon class="h-5 w-5" aria-hidden="true" />
+                                    </span>
+                                </li>
+                            </ListboxOption>
+                        </ListboxOptions>
+                    </transition>
+                </div>
+            </Listbox>
         </div>
-    </div>
 
-    <!-- Notification -->
-    <transition appear name="slide-fade">
-        <div v-if="showNotification" class="float-right min-w-full fixed bottom-3 right-0 md:right-3">
-            <div class="flex flex-col space-y-3 w-100 md:w-1/2 xl:w-1/3 mx-auto md:mx-0 md:ml-auto shadow-lg" style="max-width:93vw;">
-                <div class="bg-green-100 border border-lime-800 p-5 w-full rounded-md">
-                    <div class="flex justify-between">
-                        <div class="flex space-x-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-none fill-current text-green-500 h-4 w-4">
-                                <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.25 16.518l-4.5-4.319 1.396-1.435 3.078 2.937 6.105-6.218 1.421 1.409-7.5 7.626z" />
-                            </svg>
-                            <div class="flex-1 leading-tight text-sm text-green-700 font-medium">
-                                Sua mensagem foi enviada com sucesso!
+
+        <!-- Tabs -->
+        <ul class="flex justify-start">
+            <li>
+                <button
+                    @click="showNewComments"
+                    :class="tab == 1 ? 'border-indigo-500 text-indigo-400' : 'border-gray-800 text-gray-300'"
+                    class="text-sm sm:text-base inline-block px-4 sm:px-6 py-2.5 font-semibold rounded-none border-0 border-b-2 hover:border-indigo-600 hover:text-indigo-400 transition duration-300 bg-transparent">
+                    Novos comentários (27)
+                </button>
+            </li>
+            <li>
+                <button
+                    @click="showApprovedComments"
+                    :class="tab == 2 ? 'border-indigo-500 text-indigo-400' : 'border-gray-800 text-gray-300'"
+                    class="text-sm sm:text-base inline-block px-4 sm:px-6 py-2.5 font-semibold rounded-none border-0 border-b-2 hover:border-indigo-600 hover:text-indigo-400 transition duration-300 bg-transparent">
+                    Aprovados (2.100)
+                </button>
+            </li>
+
+        </ul>
+        <div class="p-3 mt-6">
+
+            <div v-show="tab === 1">
+
+                <!-- Comment -->
+                <div class="mb-6 border-b border-zinc-900 pb-6">
+                    <div class="flex items-start gap-x-3">
+                        <img
+                            src="https://pbs.twimg.com/profile_images/1537593562619060225/AmmxIwWi_400x400.jpg"
+                            class="w-10 h-10 flex-none rounded-full overflow-hidden aspect-square border border-zinc-700 object-cover" />
+                        <div>
+                            <div class="w-100 flex flex-col md:flex-row md:items-start md:justify-between md:gap-x-5 mb-4 md:mb-1">
+                                <div>
+                                    <div class="flex items-center justify-start gap-x-3 mb-2">
+                                        <span class="block text-sm font-semibold text-gray-100">
+                                            Ronaldo Assis
+                                        </span>
+                                        <span class="block text-xs font-normal text-gray-500">
+                                            Há 3 horas
+                                        </span>
+                                    </div>
+                                    <div class="w-100 flex items-center justify-start gap-x-2 mt-1 mb-3 truncate" style="max-width:75vw;">
+                                        <span class="text-xs font-medium text-gray-500 truncate">
+                                            Curso Powerlifting
+                                        </span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3.5 h-3.5 text-gray-600">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                        </svg>
+                                        <span class="text-xs font-medium text-indigo-500 truncate pr-2">
+                                            Como agachar com acessórios
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="inline-flex items-center mt-1 md:mt-0">
+                                    <button
+                                        @click="replyComment()"
+                                        class="bg-transparent hover:bg-indigo-700 hover:border-indigo-700 hover:text-white border border-indigo-500 rounded-none rounded-l-md px-4 py-1.5 inline-flex items-center gap-x-1 text-xs font-medium text-indigo-400 cursor-pointer">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-3.5 h-3.5 -ml-1 -mt-1" viewBox="0 0 16 16">
+                                            <path d="M5.921 11.9 1.353 8.62a.719.719 0 0 1 0-1.238L5.921 4.1A.716.716 0 0 1 7 4.719V6c1.5 0 6 0 7 8-2.5-4.5-7-4-7-4v1.281c0 .56-.606.898-1.079.62z" />
+                                        </svg>
+                                        Responder
+                                    </button>
+                                    <button
+                                        @click="approveComment()"
+                                        class="bg-transparent hover:bg-indigo-700 hover:border-indigo-700 hover:text-white border-x-0 border-y border-indigo-500 rounded-none px-4 py-1.5 inline-flex items-center gap-x-1 text-xs font-medium text-indigo-400 cursor-pointer">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.5" stroke="currentColor" class="w-3.5 h-3.5 -ml-1" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6.633 10.5c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 012.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 00.322-1.672V3a.75.75 0 01.75-.75A2.25 2.25 0 0116.5 4.5c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 01-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 00-1.423-.23H5.904M14.25 9h2.25M5.904 18.75c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 01-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 10.203 4.167 9.75 5 9.75h1.053c.472 0 .745.556.5.96a8.958 8.958 0 00-1.302 4.665c0 1.194.232 2.333.654 3.375z" />
+                                        </svg>
+                                        Aprovar
+                                    </button>
+                                    <button
+                                        @click="confirmDelete()"
+                                        class="bg-transparent hover:bg-indigo-700 hover:border-indigo-700 hover:text-white border border-indigo-500 rounded-none rounded-r-md px-4 py-1.5 inline-flex items-center gap-x-1 text-xs font-medium text-indigo-400 cursor-pointer">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.5" stroke="currentColor" class="w-3.5 h-3.5 -ml-1" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                        </svg>
+                                        Excluir
+                                    </button>
+                                </div>
                             </div>
+                            <span class="block text-sm font-normal text-gray-300">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                            </span>
                         </div>
-                        <svg @click="showNotification = !showNotification" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-none fill-current text-green-600 h-3 w-3 cursor-pointer">
-                            <path d="M23.954 21.03l-9.184-9.095 9.092-9.174-2.832-2.807-9.09 9.179-9.176-9.088-2.81 2.81 9.186 9.105-9.095 9.184 2.81 2.81 9.112-9.192 9.18 9.1z" />
-                        </svg>
                     </div>
+
+                    <!-- In Reply to -->
+                    <transition appear name="slide-fade">
+                        <div v-if="inReplyTo" class="w-full mt-4">
+                            <span @click="inReplyTo = false" class="w-full py-1 inline-flex items-center gap-x-2 text-xs font-medium text-indigo-400 mb-4 cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-4 h-4 text-indigo-500 -mt-1" viewBox="0 0 16 16">
+                                    <path d="M5.921 11.9 1.353 8.62a.719.719 0 0 1 0-1.238L5.921 4.1A.716.716 0 0 1 7 4.719V6c1.5 0 6 0 7 8-2.5-4.5-7-4-7-4v1.281c0 .56-.606.898-1.079.62z" />
+                                </svg>
+                                <span>
+                                    Respondendo a Ronaldo A.
+                                </span>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3 h-3 -mt-1 text-gray-500 ml-3">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </span>
+
+                            <textarea type="text" placeholder="Responder comentário" :class="pepper.darkMode.form.input" rows="3" maxlength="1000" minlength="5" required ref="comment"></textarea>
+                            <button type="button" :class="pepper.darkMode.button.login">
+                                Enviar comentário
+                            </button>
+                        </div>
+                    </Transition>
+                    <!-- End In Reply to -->
                 </div>
+                <!-- End comment -->
+
+            </div>
+
+
+            <div v-show="tab === 2">
+                <!-- Comment -->
+                <div class="mb-6 border-b border-zinc-900 pb-6">
+                    <div class="flex items-start gap-x-3">
+                        <img
+                            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                            class="w-10 h-10 flex-none rounded-full overflow-hidden aspect-square border border-zinc-700 object-cover" />
+                        <div>
+                            <div class="w-100 flex flex-col md:flex-row md:items-start md:justify-between md:gap-x-5 mb-4 md:mb-1">
+                                <div>
+                                    <div class="flex items-center justify-start gap-x-3 mb-2">
+                                        <span class="block text-sm font-semibold text-gray-100">
+                                            Gilson Tavares
+                                        </span>
+                                        <span class="block text-xs font-normal text-gray-500">
+                                            Em 26/12/2022
+                                        </span>
+                                    </div>
+
+                                    <span class="w-full inline-flex items-center gap-x-2 text-xs font-medium text-indigo-400 mb-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-4 h-4 text-indigo-500 -mt-1" viewBox="0 0 16 16">
+                                            <path d="M5.921 11.9 1.353 8.62a.719.719 0 0 1 0-1.238L5.921 4.1A.716.716 0 0 1 7 4.719V6c1.5 0 6 0 7 8-2.5-4.5-7-4-7-4v1.281c0 .56-.606.898-1.079.62z" />
+                                        </svg>
+                                        Em resposta a Ronaldo A.
+                                    </span>
+
+                                    <div class="w-100 flex items-center justify-start gap-x-2 mt-1 mb-3 truncate" style="max-width:75vw;">
+                                        <span class="text-xs font-medium text-gray-500 truncate">
+                                            Curso Powerlifting
+                                        </span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3.5 h-3.5 text-gray-600">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                        </svg>
+                                        <span class="text-xs font-medium text-indigo-500 truncate pr-2">
+                                            Como agachar com acessórios
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="inline-flex items-center mt-1 md:mt-0">
+                                    <button
+                                        @click="replyComment()"
+                                        class="bg-transparent hover:bg-indigo-700 hover:border-indigo-700 hover:text-white border border-indigo-500 rounded-none rounded-l-md px-4 py-1.5 inline-flex items-center gap-x-1 text-xs font-medium text-indigo-400 cursor-pointer">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-3.5 h-3.5 -ml-1 -mt-1" viewBox="0 0 16 16">
+                                            <path d="M5.921 11.9 1.353 8.62a.719.719 0 0 1 0-1.238L5.921 4.1A.716.716 0 0 1 7 4.719V6c1.5 0 6 0 7 8-2.5-4.5-7-4-7-4v1.281c0 .56-.606.898-1.079.62z" />
+                                        </svg>
+                                        Responder
+                                    </button>
+                                    <button
+                                        @click="confirmDelete()"
+                                        class="bg-transparent hover:bg-indigo-700 hover:border-indigo-700 hover:text-white border-l-0 border border-indigo-500 rounded-none rounded-r-md px-4 py-1.5 inline-flex items-center gap-x-1 text-xs font-medium text-indigo-400 cursor-pointer">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="1.5" stroke="currentColor" class="w-3.5 h-3.5 -ml-1" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                        </svg>
+                                        Excluir
+                                    </button>
+                                </div>
+                            </div>
+                            <span class="block text-sm font-normal text-gray-300">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- In Reply to -->
+                    <transition appear name="slide-fade">
+                        <div v-if="inReplyTo" class="w-full mt-4">
+                            <span @click="inReplyTo = false" class="w-full py-1 inline-flex items-center gap-x-2 text-xs font-medium text-indigo-400 mb-4 cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-4 h-4 text-indigo-500 -mt-1" viewBox="0 0 16 16">
+                                    <path d="M5.921 11.9 1.353 8.62a.719.719 0 0 1 0-1.238L5.921 4.1A.716.716 0 0 1 7 4.719V6c1.5 0 6 0 7 8-2.5-4.5-7-4-7-4v1.281c0 .56-.606.898-1.079.62z" />
+                                </svg>
+                                <span>
+                                    Respondendo a Ronaldo A.
+                                </span>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3 h-3 -mt-1 text-gray-500 ml-3">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </span>
+
+                            <textarea type="text" placeholder="Responder comentário" :class="pepper.darkMode.form.input" rows="3" maxlength="1000" minlength="5" required ref="comment"></textarea>
+                            <button type="button" :class="pepper.darkMode.button.login">
+                                Enviar comentário
+                            </button>
+                        </div>
+                    </Transition>
+                    <!-- End In Reply to -->
+                </div>
+                <!-- End comment -->
+
             </div>
         </div>
-    </transition>
-
+    </div>
 </template>
