@@ -150,20 +150,16 @@ button:focus-visible {
 
 @media (min-width: 992px){
 ::-webkit-scrollbar {
-  width: 7px;
-  height: 7px;
+  width: 5px;
+  height: 5px;
+  background: #0d0d0f;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--pepper-bg-dark-4);
-  border: 1px solid var(--pepper-bg-dark-2);
+  background-color: rgb(255, 255, 255, 0.05);
+  border: 1px solid rgb(255, 255, 255, 0.025);
   background-clip: padding-box;
   border-radius: 9999px;
-}
-
-html{
-  overflow-y: auto !important;
-  padding-right: 0 !important;
 }
 
 }
@@ -346,6 +342,23 @@ main::before{
 
 ul[role="listbox"]{
   z-index: 2;
+}
+
+.bg-pepper-dark-1 ul[role="listbox"],
+.bg-pepper-dark-2 ul[role="listbox"],
+.bg-pepper-dark-3 ul[role="listbox"],
+.bg-pepper-dark-4 ul[role="listbox"],
+.bg-pepper-dark-5 ul[role="listbox"]{
+  box-shadow: 1px 5px 8px 1px #00000035;
+}
+
+input[type="checkbox"]{
+  cursor: pointer;
+  width: 0.95rem;
+  height: 0.95rem;
+  color: #6366f1;
+  --tw-bg-opacity: 1;
+  background-color: rgb(24 24 27 / var(--tw-bg-opacity));
 }
 
 .pepper-loading {
