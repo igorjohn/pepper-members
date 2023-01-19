@@ -180,6 +180,10 @@ export default {
 
 <template>
 
+    <!-- Banner image -->
+    <img v-if="!memberareaBanner" class="rounded-md w-full h-auto border border-zinc-800 mb-12"
+        src="https://www.brvidaaph.com.br/images/banner-interno-curso.jpg" />
+
     <div class="lg:flex lg:justify-between pb-4">
         <!-- Header -->
         <Header title="Meus conteúdos"></Header>
