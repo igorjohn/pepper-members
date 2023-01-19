@@ -294,6 +294,7 @@ export default {
                                                 </div>
                                                 <router-link
                                                     v-if="(!a.submenu || a.submenu == false) && a.isAdmin == true"
+                                                    @click="open = false"
                                                     :to="a.route"
                                                     class="sidebar-li-router transition duration-200 hover:bg-gray-800 hover:text-white justify-between">
                                                     <div class="inline-flex space-x-3 items-center">
@@ -392,7 +393,7 @@ export default {
     display: flex;
     align-items: center;
     font-size: 14px;
-    padding: 0.6rem 1.5rem;
+    padding: 0.5rem 1.5rem;
 }
 
 @media (min-width: 768px) {
