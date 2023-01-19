@@ -26,11 +26,11 @@ export default {
                 <div class="-space-y-px rounded-md shadow-sm">
                     <div class="mb-4">
                         <label for="email-address" :class="pepper.darkMode.form.label">E-mail:</label>
-                        <input id="email-address" name="email" type="email" autocomplete="email" required="" :class="pepper.darkMode.form.input" placeholder="email@email.com" />
+                        <input value="admin@admin.com" id="email-address" name="email" type="email" autocomplete="email" required="" :class="pepper.darkMode.form.input" placeholder="email@email.com" />
                     </div>
                     <div>
                         <label for="password" :class="pepper.darkMode.form.label">Digite sua senha</label>
-                        <input id="password" name="password" type="password" autocomplete="current-password" required="" :class="pepper.darkMode.form.input" />
+                        <input value="123456" id="password" name="password" type="password" autocomplete="current-password" required="" :class="pepper.darkMode.form.input" />
                     </div>
                 </div>
 
