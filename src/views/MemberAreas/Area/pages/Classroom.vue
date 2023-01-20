@@ -79,7 +79,7 @@ export default {
 </script>
 
 <template>
-    <div class="w-full max-w-5xl mx-auto mb-10 -mt-8 lg:-mt-10">
+    <div class="w-full max-w-5xl mx-auto mb-10">
 
         <div class="classroom-thumb-container">
             <img :src="CursoPowerlifting" />
@@ -102,7 +102,6 @@ export default {
 
             <LessonCompleted :isCompleted="lessonStatus" @onClick="lessonStatus = !lessonStatus; openModalCourseCompleted()" />
         </div>
-
 
         <div class="w-full mt-6">
             <span class="block mb-2 text-sm font-medium text-gray-400">
