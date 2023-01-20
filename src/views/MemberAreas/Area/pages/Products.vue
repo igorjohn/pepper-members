@@ -1,20 +1,14 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import {
     TransitionRoot,
     TransitionChild,
     Dialog,
     DialogPanel,
-    DialogTitle,
-    Combobox,
-    ComboboxInput,
-    ComboboxButton,
-    ComboboxOptions,
-    ComboboxOption,
+    DialogTitle
 } from '@headlessui/vue'
 
-import { CheckIcon, ChevronUpDownIcon, PlusIcon } from '@heroicons/vue/20/solid'
-import { TrashIcon } from '@heroicons/vue/24/outline'
+import { PlusIcon } from '@heroicons/vue/20/solid'
 
 
 // Mock images
@@ -116,19 +110,10 @@ const vitrine = {
     ]
 }
 
-let selected = ref(category[0]);
-let query = ref('')
-
-let filteredCategories = computed(() =>
-    query.value === ''
-        ? category
-        : category.filter((cat) =>
-            cat.name
-                .toLowerCase()
-                .replace(/\s+/g, '')
-                .includes(query.value.toLowerCase().replace(/\s+/g, ''))
-        )
-);
+const memberAreaBanner = {
+    showBanner: true,
+    imgUrl: 'https://www.brvidaaph.com.br/images/banner-interno-curso.jpg'
+}
 
 
 let showNotification = ref(false);
@@ -194,11 +179,12 @@ export default {
 <template>
 
     <!-- Banner image -->
-    <img v-if="!memberareaBanner" class="rounded-md w-full h-auto border border-zinc-800 mb-12"
-        src="https://www.brvidaaph.com.br/images/banner-interno-curso.jpg" />
+    <img v-if="memberAreaBanner.showBanner && memberAreaBanner.imgUrl !== ''"
+        class="rounded-md w-full h-auto border border-zinc-800 bg-zinc-900 mb-12"
+        :src="memberAreaBanner.imgUrl" />
 
+    <!-- Header -->
     <div class="lg:flex lg:justify-between pb-4">
-        <!-- Header -->
         <Header title="Meus conteúdos"></Header>
         <!-- Action buttons -->
         <div class="mt-5 flex lg:mt-0 lg:ml-4">
@@ -206,19 +192,18 @@ export default {
                 <button
                     type="button"
                     @click="openModalAddCategory"
-                    class="inline-flex items-center rounded-md bg-gray-800 border border-gray-700 py-2 px-3 lg:px-4 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:ring-offset-1">
+                    :class="pepper.darkMode.button.headerSecondary">
                     <PlusIcon class="-ml-1 mr-1 h-4 w-4 font-bold" aria-hidden="true" />
                     Adicionar categoria
                 </button>
             </span>
             <span class="ml-1">
-                <button
-                    type="button"
-                    @click="openModalAddProduct"
-                    class="inline-flex justify-center items-center rounded-md border border-transparent bg-red-600 hover:bg-red-700 py-2 px-3 lg:px-4 text-sm font-semibold text-white focus:outline-none focus:ring-2 focus:ring-red-700 focus:ring-offset-1">
+                <router-link
+                    to="/area/criar-curso"
+                    :class="pepper.darkMode.button.headerPrimary">
                     <PlusIcon class="-ml-1 mr-1 h-4 w-4 font-bold" aria-hidden="true" />
                     Adicionar curso
-                </button>
+                </router-link>
             </span>
         </div>
     </div>
@@ -270,177 +255,6 @@ export default {
             </template>
         </div>
     </div>
-
-    <!-- Modal - Adicionar novo curso -->
-    <TransitionRoot appear :show="isOpenModalAddProduct" as="template">
-        <Dialog as="div" @close="closeModal" class="relative z-50">
-            <TransitionChild
-                as="template"
-                enter="duration-300 ease-out"
-                enter-from="opacity-0"
-                enter-to="opacity-100"
-                leave="duration-200 ease-in"
-                leave-from="opacity-100"
-                leave-to="opacity-0">
-                <div class="fixed inset-0 bg-black bg-opacity-50"></div>
-            </TransitionChild>
-            <div class="fixed inset-0 overflow-y-auto">
-                <div class="flex min-h-full items-center justify-center p-4 text-center">
-                    <TransitionChild
-                        as="template"
-                        enter="duration-300 ease-out"
-                        enter-from="opacity-0 scale-95"
-                        enter-to="opacity-100 scale-100"
-                        leave="duration-200 ease-in"
-                        leave-from="opacity-100 scale-100"
-                        leave-to="opacity-0 scale-95">
-                        <DialogPanel class="w-full max-w-2xl transform overflow-hidden rounded-lg bg-white p-6 text-left align-middle shadow-xl transition-all overflow-visible">
-                            <DialogTitle as="h3" class="text-lg font-bold leading-6 text-gray-800">
-                                Adicionar curso
-                            </DialogTitle>
-                            <div class="mt-6">
-                                <!-- Título -->
-                                <div class="mb-4">
-                                    <label for="" class="block mb-2 text-sm font-medium text-gray-700">
-                                        Título do curso/produto:
-                                    </label>
-                                    <input
-                                        type="text"
-                                        required
-                                        placeholder="Digite o nome"
-                                        class="border border-gray-300 text-gray-700 text-sm bg-white placeholder-gray-400 focus:border-indigo-500 w-full rounded-md py-3 px-3 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]" />
-                                </div>
-                                <!-- Categoria -->
-                                <div class="mb-4">
-                                    <label for="" class="block mb-2 text-sm font-medium text-gray-700">
-                                        Selecione a categoria:
-                                    </label>
-                                    <Combobox v-model="selected">
-                                        <div class="relative">
-                                            <div class="relative w-full cursor-default border overflow-hidden rounded-lg bg-white text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
-                                                <ComboboxInput
-                                                    class="w-full border-none rounded-lg bg-white py-3 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
-                                                    :displayValue="(cat) => cat.name"
-                                                    @change="query = $event.target.value" />
-                                                <ComboboxButton class="absolute inset-y-0 right-0 flex items-center pr-2">
-                                                    <ChevronUpDownIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
-                                                </ComboboxButton>
-                                            </div>
-                                            <TransitionRoot
-                                                leave="transition ease-in duration-100"
-                                                leaveFrom="opacity-100"
-                                                leaveTo="opacity-0"
-                                                @after-leave="query = ''">
-                                                <ComboboxOptions
-                                                    class="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                                                    <div
-                                                        v-if="filteredCategories.length === 0 && query !== ''"
-                                                        class="relative cursor-default select-none py-2 px-4 text-gray-700">
-                                                        Nenhum resultado encontrado
-                                                    </div>
-                                                    <ComboboxOption
-                                                        v-for="cat in filteredCategories"
-                                                        as="template"
-                                                        :key="cat.id"
-                                                        :value="cat"
-                                                        v-slot="{ selected, active }">
-                                                        <li class="relative cursor-default select-none py-2 pl-10 pr-4" :class="{ 'bg-teal-600 text-white': active, 'text-gray-900': !active, }">
-                                                            <span class="block truncate" :class="{ 'font-medium': selected, 'font-normal': !selected }">
-                                                                {{ cat.name }}
-                                                            </span>
-                                                            <span
-                                                                v-if="selected"
-                                                                class="absolute inset-y-0 left-0 flex items-center pl-3"
-                                                                :class="{ 'text-white': active, 'text-teal-600': !active }">
-                                                                <CheckIcon class="h-5 w-5" aria-hidden="true" />
-                                                            </span>
-                                                        </li>
-                                                    </ComboboxOption>
-                                                </ComboboxOptions>
-                                            </TransitionRoot>
-                                        </div>
-                                    </Combobox>
-                                    <div class="mt-2 mb-4 text-right">
-                                        <a href="#" class="text-xs text-indigo-500 underline underline-offset-4">
-                                            Clique aqui para adicionar uma nova categoria
-                                        </a>
-                                    </div>
-                                </div>
-                                <!-- Descrição -->
-                                <div class="mb-4">
-                                    <label for="about" class="block mb-2 text-sm font-medium text-gray-700">Descrição:</label>
-                                    <div class="mt-1">
-                                        <textarea
-                                            id="about"
-                                            name="about"
-                                            rows="3"
-                                            value=""
-                                            class="border border-gray-300 bg-white text-gray-700 placeholder:text-gray-400 text-sm placeholder-gray-400 focus:border-indigo-500 active:border-primary w-full rounded-md py-3 px-3 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]"
-                                            placeholder="Como você descreve este curso para os seus alunos?">
-                                    </textarea>
-                                    </div>
-                                    <p class="mt-1 mb-2 text-xs text-gray-500">Máximo 500 caracteres.</p>
-                                </div>
-                                <!-- Imagem de capa -->
-                                <div>
-                                    <label for="file-upload">
-                                        <div class="block text-sm font-medium text-gray-700 mb-2">Imagem de capa: <span class="text-gray-500 text-xs ml-1">(Opcional)</span></div>
-                                        <div class="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
-                                            <div class="space-y-1 text-center">
-                                                <!-- input hidden -->
-                                                <input id="file-upload" name="file-upload" type="file" accept="image/*" @change="previewImage" class="sr-only" />
-                                                <!-- upload -->
-                                                <div v-if="!preview" class="w-full">
-                                                    <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
-                                                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                                    </svg>
-                                                    <div class="flex text-xs md:text-sm text-gray-600 justify-center">
-                                                        <label for="file-upload" class="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500">
-                                                            <span>Clique para fazer upload</span>
-                                                        </label>
-                                                    </div>
-                                                    <p class="text-xs text-gray-500">PNG, JPG, GIF, WEBP (até 5mb)</p>
-                                                </div>
-                                                <!-- Image preview -->
-                                                <div v-if="preview" class="flex flex-col items-center justify-center">
-                                                    <div class="thumb-container shadow-lg w-full border border-slate-300 rounded-lg overflow-hidden mx-auto mb-6" style="max-width: 280px;">
-                                                        <img class="w-full aspect-video object-cover bg-slate-500 bg-opacity-10" :src="preview">
-                                                        <div class="absolute bottom-0 m-2">
-                                                            <p class="text-xs text-gray-500 mb-0">{{ image.name }}</p>
-                                                        </div>
-                                                    </div>
-                                                    <button
-                                                        @click="reset"
-                                                        class="inline-flex justify-center items-center rounded-md border border-transparent bg-red-600 hover:bg-red-700 py-2 px-4 text-sm font-semibold text-white focus:outline-none focus:ring-2 focus:ring-red-700 focus:ring-offset-1">
-                                                        <TrashIcon class="h-4 w-4 mr-1" aria-hidden="true" />
-                                                        <span>Remover imagem</span>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="mt-4 flex items-center justify-end">
-                                <button
-                                    type="button"
-                                    class="inline-flex justify-center rounded-md border border-transparent bg-gray-200 px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-300"
-                                    @click="closeModal">
-                                    Cancelar
-                                </button>
-                                <button
-                                    type="button"
-                                    class="ml-1 inline-flex justify-center rounded-md border border-transparent bg-pepper-primary px-4 py-2 text-sm font-medium text-white hover:bg-red-700"
-                                    @click="notification">
-                                    Adicionar
-                                </button>
-                            </div>
-                        </DialogPanel>
-                    </TransitionChild>
-                </div>
-            </div>
-        </Dialog>
-    </TransitionRoot>
 
     <!-- Modal Adicionar categoria -->
     <TransitionRoot appear :show="isOpenModalAddCategory" as="template">
@@ -505,35 +319,5 @@ export default {
             </div>
         </Dialog>
     </TransitionRoot>
-
-    <!-- Notification -->
-    <transition appear name="slide-fade">
-        <div v-if="showNotification" class="float-right min-w-full fixed bottom-3 right-0 md:right-3">
-            <div class="flex flex-col space-y-3 w-100 md:w-1/2 xl:w-1/3 mx-auto md:mx-0 md:ml-auto shadow-lg" style="max-width:93vw;">
-                <div class="bg-green-100 border border-lime-800 p-5 w-full rounded-md">
-                    <div class="flex justify-between">
-                        <div class="flex space-x-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-none fill-current text-green-500 h-4 w-4">
-                                <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.25 16.518l-4.5-4.319 1.396-1.435 3.078 2.937 6.105-6.218 1.421 1.409-7.5 7.626z" />
-                            </svg>
-                            <div class="flex-1 leading-tight text-sm text-green-700 font-medium">
-                                Curso adicionado com sucesso!
-                            </div>
-                        </div>
-                        <svg @click="showNotification = !showNotification" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-none fill-current text-green-600 h-3 w-3 cursor-pointer">
-                            <path d="M23.954 21.03l-9.184-9.095 9.092-9.174-2.832-2.807-9.09 9.179-9.176-9.088-2.81 2.81 9.186 9.105-9.095 9.184 2.81 2.81 9.112-9.192 9.18 9.1z" />
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </transition>
-
-    <!-- 
-
-    background-color: rgb(189 247 218);
-    svg fill: #0eb268;
-    color: #1a6b38;
- -->
 
 </template>
