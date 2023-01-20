@@ -221,6 +221,11 @@ main::before{
   min-height: 42px;
 }
 
+.aspect-movie{
+  aspect-ratio:9/16;
+  -webkit-aspect-ratio: 9/16;
+}
+
 .thumb-container{
   position: relative;
   transition: all .3s ease-in-out;
