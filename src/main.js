@@ -51,13 +51,13 @@ app.config.globalProperties.pepper = {
         listbox: {
             whiteBg: {
                 button: 'min-h-42 border border-gray-300 text-gray-700 text-sm bg-white placeholder-gray-400 focus:border-indigo-500 focus:outline-none w-full rounded-md py-2.5 px-3 font-medium outline-none',
-                buttonInnerSpan: 'block truncate text-left text-xs lg:text-sm font-medium text-gray-700 pr-6',
-                optionLi: 'block font-medium truncate text-xs lg:text-sm',
+                buttonInnerSpan: 'block truncate text-left text-sm font-medium text-gray-700 pr-6',
+                optionLi: 'block font-medium truncate text-sm',
             },
             darkBg: {
                 button: 'min-h-42 border border-zinc-700 text-gray-300 text-sm bg-zinc-900 placeholder-gray-400 focus:border-indigo-500 focus:outline-none w-full rounded-md py-2.5 px-3 font-medium outline-none',
-                buttonInnerSpan: 'block truncate text-left text-xs lg:text-sm font-medium text-gray-200 pr-6',
-                optionLi: 'block font-medium truncate text-xs lg:text-sm',
+                buttonInnerSpan: 'block truncate text-left text-sm font-medium text-gray-200 pr-6',
+                optionLi: 'block font-medium truncate text-sm',
             }
         },
         pill: {
