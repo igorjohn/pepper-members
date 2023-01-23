@@ -10,19 +10,20 @@ import Header from "@/components/Header.vue";
 export default {
     data: function () {
         return {
-            pepper: this.pepper
+            pepper: this.pepper,
+            coverFormat: 0
         }
     }
 };
 </script>
 
 <template>
-    <div class="w-full mb-10">
+    <div class="w-full mb-10 max-w-6xl mx-auto">
         <Header title="Editar configurações"></Header>
     </div>
 
-    <div class="shadow overflow-hidden rounded-md">
-        <div class="grid grid-cols-2 gap-4 bg-pepper-dark-2 border border-pepper-dark-3 px-4 py-5 sm:p-6 pb-8 sm:pb-10">
+    <div class="shadow overflow-hidden rounded-md max-w-6xl mx-auto">
+        <div class="grid grid-cols-2 gap-4 bg-pepper-dark-2 border border-pepper-dark-3 px-4 pt-5 pb-8 md:px-6 md:pt-6 md:pb-10">
             <div class="col-span-2">
                 <h3 class="flex items-center justify-start gap-x-2 font-semibold text-white text-lg mb-4">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 opacity-50">
@@ -75,7 +76,7 @@ export default {
                     placeholder="Somente números"
                     :class="pepper.darkMode.form.input" />
             </div>
-            <div class="col-span-2 flex items-start gap-x-3 mt-2">
+            <div class="col-span-2 flex items-start gap-x-3 mt-3">
                 <input id="showForPurchase" type="checkbox" class="border-zinc-700 rounded" checked />
                 <div>
                     <label for="showForPurchase" class="block text-sm text-gray-100 font-medium mb-1 -mt-1 cursor-pointer">
@@ -87,15 +88,35 @@ export default {
                 </div>
             </div>
 
+            <!-- Formato da capa dos produtos -->
+            <div class="col-span-2">
+                <label class="block text-sm text-gray-100 font-semibold mt-2 mb-2">
+                    Formato da imagem dos cursos:
+                </label>
+                <div class="flex flex-col md:flex-row md:items-center gap-2 md:gap-6">
+                    <div class="flex items-center gap-2">
+                        <input type="radio" v-model="coverFormat" value="0" id="coverFormatLandscape" :class="pepper.darkMode.form.inputRadioWhiteBg" class="bg-pepper-dark-5">
+                        <label for="coverFormatLandscape" :class="pepper.darkMode.form.label" class="mb-0 cursor-pointer">
+                            Formato thumbnail (deitada - estilo "YouTube")
+                        </label>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input type="radio" v-model="coverFormat" value="1" id="coverFormatPortrait" :class="pepper.darkMode.form.inputRadioWhiteBg" class="bg-pepper-dark-5">
+                        <label for="coverFormatPortrait" :class="pepper.darkMode.form.label" class="mb-0 cursor-pointer">
+                            Formato filme (em pé - estilo "Netflix")
+                        </label>
+                    </div>
+                </div>
+            </div>
+
             <div class="col-span-2">
                 <h3 class="flex items-center justify-start gap-x-2 font-semibold text-white text-lg mt-4 mb-4">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 opacity-50">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                     </svg>
-                    Imagem de capa
+                    Capa da área de membros
                 </h3>
             </div>
-
             <div class="col-span-2 mt-1 flex flex-col items-center justify-center">
                 <span class="inline-block w-72 shadow-lg overflow-hidden rounded-lg border border-zinc-700 bg-pepper-dark-3 aspect-video">
                     <img v-if="!memberAreaImage" src="https://upload.wikimedia.org/wikipedia/commons/9/95/Silvio_Santos_em_maio_de_2019.jpg" class="h-full w-full object-cover" />
@@ -107,7 +128,6 @@ export default {
                     <span>Alterar foto de capa</span>
                 </button>
             </div>
-
         </div>
         <div class="bg-pepper-dark-3 px-4 py-3 text-right sm:px-6">
             <button
