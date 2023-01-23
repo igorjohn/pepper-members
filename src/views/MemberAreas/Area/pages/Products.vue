@@ -227,11 +227,11 @@ export default {
             </h3>
         </div>
         <div class="w-full grid gap-4 mb-12"
-            :class="coverFormat ? 'grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'">
+            :class="coverFormat ? 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'">
             <template v-for="p in product">
                 <router-link :to="p.route" v-if="p.belongsToCategory == c.id" class="text-gray-200 hover:text-indigo-500 transition duration-500">
                     <div
-                        class="relative w-full overflow-hidden cursor-pointer border border-pepper-dark-4 hover:border-indigo-600 transition duration-500 rounded-lg"
+                        class="scale-hover relative w-full overflow-hidden cursor-pointer border border-pepper-dark-4 hover:border-indigo-800 transition duration-500 rounded-lg"
                         :class="coverFormat ? 'aspect-movie' : 'aspect-video'">
 
                         <!-- Course image -->
@@ -258,7 +258,7 @@ export default {
                         </div>
                     </div>
 
-                    <span class="mt-2 text-truncate-2l max-w-full text-sm font-semibold p-1">
+                    <span class="mt-1 text-truncate-2l max-w-full text-sm font-semibold p-1">
                         {{ p.title }}
                     </span>
                 </router-link>
@@ -283,11 +283,11 @@ export default {
         </div>
 
         <div class="w-full grid gap-4 mb-8"
-            :class="coverFormat ? 'grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'">
+            :class="coverFormat ? 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'">
             <template v-for="v in vitrine.shownProducts">
                 <a :href="v.linkHref" target="_blank" class="text-gray-200 hover:text-indigo-500 transition duration-500">
                     <div
-                        class="relative w-full overflow-hidden cursor-pointer border border-pepper-dark-4 hover:border-indigo-600 transition duration-500 rounded-lg p-0"
+                        class="scale-hover relative w-full overflow-hidden cursor-pointer border border-pepper-dark-4 hover:border-indigo-800 transition duration-500 rounded-lg"
                         :class="coverFormat ? 'aspect-movie' : 'aspect-video'">
 
                         <img
