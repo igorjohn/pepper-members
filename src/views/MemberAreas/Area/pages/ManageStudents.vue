@@ -101,7 +101,7 @@ const products = [
     }
 ]
 
-const selectedProduct = ref([products[0], products[1]]);
+const selectedProduct = ref([]);
 
 
 </script>
@@ -365,6 +365,10 @@ export default {
                                         <div class="relative mt-1">
                                             <ListboxButton
                                                 class="min-h-42 border border-gray-300 text-gray-700 text-xs lg:text-sm bg-white placeholder-gray-400 focus:border-indigo-500 focus:outline-none w-full rounded-md py-2.5 px-3 font-medium outline-none">
+                                                <!-- 'placeholder' -->
+                                                <span v-if="selectedProduct.length === 0" class="block truncate text-left text-xs lg:text-sm font-medium text-gray-700 opacity-70">
+                                                    Selecionar produto(s)
+                                                </span>
                                                 <span class="block truncate text-left text-xs lg:text-sm font-medium text-gray-700" style="max-width:95%">
                                                     {{ selectedProduct.map((p) => p.title).join(', ') }}
                                                 </span>
@@ -403,7 +407,6 @@ export default {
                                         <label for="adminAccess" class="slider"></label>
                                         <label for="adminAccess" class="text-gray-700 text-sm font-medium">Acesso de administrador</label>
                                     </div>
-
                                 </div>
                             </div>
                             <div class="mt-4 flex items-center justify-end">
@@ -485,6 +488,10 @@ export default {
                                         <div class="relative mt-1">
                                             <ListboxButton
                                                 :class="pepper.darkMode.listbox.whiteBg.button">
+                                                <!-- 'placeholder' -->
+                                                <span v-if="selectedProduct.length === 0" class="block truncate text-left text-xs lg:text-sm font-medium text-gray-700 opacity-70">
+                                                    Selecionar produto(s)
+                                                </span>
                                                 <span :class="pepper.darkMode.listbox.whiteBg.buttonInnerSpan">
                                                     {{ selectedProduct.map((p) => p.title).join(', ') }}
                                                 </span>
@@ -574,7 +581,7 @@ export default {
                             <DialogTitle as="h3" class="text-lg font-bold leading-6 text-gray-800">
                                 Editar aluno
                             </DialogTitle>
-                            <div class="mt-6">
+                            <div class="mt-4 mb-6">
                                 <div class="mb-4">
                                     <label :class="pepper.darkMode.form.labelWhiteBg">
                                         Nome e sobrenome:
@@ -604,8 +611,12 @@ export default {
                                     <Listbox v-model="selectedProduct" multiple>
                                         <div class="relative mt-1">
                                             <ListboxButton
-                                                class="border border-gray-300 text-gray-700 text-sm bg-white placeholder-gray-400 focus:border-indigo-500 focus:outline-none w-full rounded-md py-2.5 px-3 font-medium outline-none">
-                                                <span class="block truncate text-left text-sm font-medium text-gray-700" style="max-width:95%">
+                                                class="min-h-42 border border-gray-300 text-gray-700 text-xs lg:text-sm bg-white placeholder-gray-400 focus:border-indigo-500 focus:outline-none w-full rounded-md py-2.5 px-3 font-medium outline-none">
+                                                <!-- 'placeholder' -->
+                                                <span v-if="selectedProduct.length === 0" class="block truncate text-left text-xs lg:text-sm font-medium text-gray-700 opacity-70">
+                                                    Selecionar produto(s)
+                                                </span>
+                                                <span class="block truncate text-left text-xs lg:text-sm font-medium text-gray-700" style="max-width:95%">
                                                     {{ selectedProduct.map((p) => p.title).join(', ') }}
                                                 </span>
                                                 <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
