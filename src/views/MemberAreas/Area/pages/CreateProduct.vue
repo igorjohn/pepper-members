@@ -198,7 +198,7 @@ export default {
                 <div class="flex items-start gap-x-3">
                     <input id="showForPurchase" type="checkbox" class="border-zinc-700 rounded" />
                     <div>
-                        <label for="showForPurchase" class="block text-base text-gray-100 font-medium mb-1 -mt-1 cursor-pointer">
+                        <label for="showForPurchase" class="block text-sm text-gray-100 font-medium mb-1 -mt-1 cursor-pointer">
                             Mostrar produto na vitrine.
                         </label>
                         <span class="block text-xs text-gray-400">
