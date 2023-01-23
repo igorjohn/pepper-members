@@ -151,7 +151,8 @@ export default {
         return {
             pepper: this.pepper,
             preview: null,
-            image: null
+            image: null,
+            coverFormat: 1
         };
     },
 
@@ -184,7 +185,7 @@ export default {
         :src="memberAreaBanner.imgUrl" />
 
     <!-- Header -->
-    <div class="lg:flex lg:justify-between pb-4">
+    <div class="lg:flex lg:justify-between pb-8">
         <Header title="Meus conteúdos"></Header>
         <!-- Action buttons -->
         <div class="mt-5 flex lg:mt-0 lg:ml-4">
@@ -219,39 +220,92 @@ export default {
     </div>
 
     <!-- For: Category -->
-    <div v-for="c in category" class="pt-8">
+    <div v-for="c in category">
         <div class="md:flex md:items-center mb-6">
             <h3 class="font-bold text-white text-xl md:w-auto mb-3 md:mb-0">
                 {{ c.name }}
             </h3>
         </div>
-        <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div class="w-full grid gap-4 mb-12"
+            :class="coverFormat ? 'grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'">
             <template v-for="p in product">
-                <CardCourse
+                <router-link :to="p.route" v-if="p.belongsToCategory == c.id" class="text-gray-200 hover:text-indigo-500 transition duration-500">
+                    <div
+                        class="relative w-full overflow-hidden cursor-pointer border border-pepper-dark-4 hover:border-indigo-600 transition duration-500 rounded-lg"
+                        :class="coverFormat ? 'aspect-movie' : 'aspect-video'">
+
+                        <!-- Course image -->
+                        <img
+                            class="w-full mx-auto h-full object-cover bg-gray-500 bg-opacity-10"
+                            :src="p.thumbnail">
+
+                        <!-- Não publicado -->
+                        <span v-if="!p.isPublished" class="absolute top-0 right-0 m-2 px-2 py-1 font-semibold text-white bg-red-800 border border-red-500 text-xs rounded-md leading-tight shadow-lg">
+                            Não publicado
+                        </span>
+
+                        <!-- Concluído -->
+                        <span v-if="p.userProgress == 100" class="absolute top-0 right-0 m-2 px-2 py-1 font-semibold text-white bg-emerald-500 border border-emerald-700 text-xs rounded-md leading-tight shadow-lg">
+                            Concluído
+                        </span>
+
+                        <!-- User progress -->
+                        <div class="absolute bottom-0 left-0 overflow-hidden flex justify-end items-end w-full h-full rounded-b-md"
+                            :class="coverFormat ? 'aspect-movie' : 'aspect-video'">
+                            <div class="pepper-progress w-full h-1 bg-pepper-dark-4">
+                                <div class="pepper-progress-current h-1 bg-red-600" :style="'width:' + p.userProgress + '%'"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <span class="mt-2 text-truncate-2l max-w-full text-sm font-semibold p-1">
+                        {{ p.title }}
+                    </span>
+                </router-link>
+
+                <!-- <CardCourse
                     v-if="p.belongsToCategory == c.id"
                     :isPublished="p.isPublished"
                     :productRoute="p.route"
                     :img="p.thumbnail"
                     :courseProgress="p.userProgress"
-                    :title="p.title" />
+                    :title="p.title" /> -->
             </template>
         </div>
     </div>
 
 
-    <div v-if="vitrine && vitrine.shownProducts.length !== 0" class="pt-8">
+    <div v-if="vitrine && vitrine.shownProducts.length !== 0" class="pt-10">
         <div class="md:flex md:items-center mb-6">
             <h3 class="font-bold text-white text-xl md:w-auto mb-3 md:mb-0">
                 {{ vitrine.title }}
             </h3>
         </div>
 
-        <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div class="w-full grid gap-4 mb-8"
+            :class="coverFormat ? 'grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'">
             <template v-for="v in vitrine.shownProducts">
-                <CardCourseBlocked
-                    :img="v.img"
-                    :linkHref="v.linkHref"
-                    :title="v.title" />
+                <a :href="v.linkHref" target="_blank" class="text-gray-200 hover:text-indigo-500 transition duration-500">
+                    <div
+                        class="relative w-full overflow-hidden cursor-pointer border border-pepper-dark-4 hover:border-indigo-600 transition duration-500 rounded-lg p-0"
+                        :class="coverFormat ? 'aspect-movie' : 'aspect-video'">
+
+                        <img
+                            class="w-full mx-auto h-full object-cover bg-gray-500 bg-opacity-10 grayscale rounded-md border-none my-0"
+                            :src="v.img" />
+
+                        <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+                            <div class="w-8 h-8 flex items-center justify-center bg-indigo-600 bg-opacity-95 shadow-lg mx-auto border border-indigo-500 rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-white">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="mt-2 text-truncate-2l max-w-full text-sm font-semibold p-1">
+                        {{ v.title }}
+                    </span>
+                </a>
             </template>
         </div>
     </div>
