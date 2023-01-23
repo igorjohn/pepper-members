@@ -19,6 +19,7 @@ app.config.globalProperties.pepper = {
             label: 'block mb-2 text-sm font-medium text-gray-400',
             labelWhiteBg: 'block mb-2 text-sm font-medium text-gray-700',
             select: 'border-zinc-700 text-gray-300 text-sm bg-zinc-900 placeholder-zinc-500 focus:border-indigo-600 focus:ring-0 w-full rounded-md py-2.5 px-3 font-medium outline-none transition duration-500 disabled:cursor-default disabled:bg-zinc-900',
+            inputRadioWhiteBg: 'w-3.5 h-3.5 border-gray-500 focus:border-indigo-600 focus:ring-indigo-300 focus:ring-1 transition duration-300',
         },
         card: {
             container: 'overflow-hidden rounded-md bg-pepper-dark-3 border border-pepper-dark-4',
