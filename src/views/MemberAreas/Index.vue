@@ -214,12 +214,18 @@ export default {
                                         <label :class="pepper.darkMode.form.labelWhiteBg">
                                             Slug (URL) da área de membros:
                                         </label>
-                                        <input
-                                            type="text"
-                                            required
-                                            placeholder="https://peppermembers.com/slug-da-sua-area"
-                                            maxlength="200"
-                                            :class="pepper.darkMode.form.inputWhiteBg" />
+                                        <div class="w-full inline-flex items-center">
+                                            <div class="min-h-42 text-sm rounded-none rounded-l-md border border-gray-300 border-r-0 flex items-center justify-center w-auto px-2 lg:px-2.5 text-gray-500 bg-gray-50">
+                                                https://peppermembers.com/
+                                            </div>
+                                            <input
+                                                type="text"
+                                                required
+                                                placeholder="slug-da-sua-area"
+                                                maxlength="200"
+                                                class="rounded-none rounded-r-md px-2 border-l-gray-100"
+                                                :class="pepper.darkMode.form.inputWhiteBg" />
+                                        </div>
                                     </div>
 
                                     <!-- Imagem de capa -->
