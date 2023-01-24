@@ -38,7 +38,7 @@ export default {
         <Header title="Integrações"></Header>
     </div>
 
-    <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 pt-4">
+    <div class="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 pt-4">
 
         <div
             :class="pepper.darkMode.card.container" class="p-5 pb-4"
@@ -47,7 +47,7 @@ export default {
                 v-if="integration.isActive"
                 :to="integration.router"
                 class="w-full flex flex-col items-start justify-start">
-                <img :src="integration.logoImg" class="h-6 mt-1 mb-4" />
+                <img :src="integration.logoImg" class="h-5 mt-1 mb-4" />
                 <span class="text-sm text-gray-300 font-medium block mb-2">
                     {{ integration.description }}
                 </span>
