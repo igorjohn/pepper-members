@@ -39,7 +39,111 @@ function closeVideo() {
 }
 
 
-
+const lessonText = [
+    {
+        type: 'text',
+        textStyle: 'h1',
+        content: 'Todos os segredos desvendados!',
+        URL: null,
+        align: 'center',
+        textColor: '#6366f1',
+        textDecoration: {
+            bold: true,
+            italic: false,
+            underline: true
+        }
+    },
+    {
+        type: 'text',
+        textStyle: 'p',
+        content: 'Nesta aula, você irá aprender todos os segredos de como fazer um agachamento altamente eficiente. E como progredir as cargas para alcançar a sua máxima performance nos treinos.',
+        URL: null,
+        align: 'left',
+        textColor: null,
+        textDecoration: {
+            bold: false,
+            italic: true,
+            underline: false
+        }
+    },
+    {
+        type: 'text',
+        textStyle: 'p',
+        content: 'Nesta aula, você irá aprender todos os segredos de como fazer um agachamento altamente eficiente. E como progredir as cargas para alcançar a sua máxima performance nos treinos.',
+        URL: null,
+        align: 'left',
+        textColor: null,
+        textDecoration: {
+            bold: false,
+            italic: false,
+            underline: false
+        }
+    },
+    {
+        type: 'image',
+        content: 'https://www.smartfit.com.br/news/wp-content/uploads/2020/01/como-fazer-agachamento.jpg',
+        URL: null,
+        align: 'center'
+    },
+    {
+        type: 'text',
+        textStyle: 'h2',
+        content: 'Afinal, como agachar corretamente?',
+        URL: null,
+        align: 'left',
+        textColor: null,
+        textDecoration: {
+            bold: true,
+            italic: false,
+            underline: false
+        }
+    },
+    {
+        type: 'text',
+        textStyle: 'p',
+        content: 'Não há nada como fazer agachamento para definir bumbum e pernas. Isso acontece porque é um exercício completo: trabalha vários grupos musculares da região, proporciona gasto calórico e turbina o ganho de massa magra.',
+        URL: null,
+        align: 'left',
+        textColor: null,
+        textDecoration: {
+            bold: false,
+            italic: false,
+            underline: false
+        }
+    },
+    {
+        type: 'text',
+        textStyle: 'p',
+        content: 'Mas, para garantir todos esses benefícios, em primeiro lugar, é necessário agachar do jeito certo. “Como ele ativa músculos biarticulares, isto é, que exigem mais controle, é mais difícil de executar e a pessoa pode se machucar”, comenta o ortopedista André Pedrinelli, membro da Sociedade Brasileira de Artroscopia e Traumatologia do Esporte.',
+        URL: null,
+        align: 'left',
+        textColor: null,
+        textDecoration: {
+            bold: false,
+            italic: false,
+            underline: false
+        }
+    },
+    {
+        type: 'list',
+        listType: 'disc',
+        textStyle: 'p',
+        content:
+            [
+                'Não tenha pressa. Mais do que a carga de peso e o número de repetições, a velocidade é quem dita a qualidade na execução do agachamento. “Quando a pessoa faz o agachamento devagar, consegue corrigir desajustes e evita lesões”, explica o ortopedista André Pedrinelli.',
+                'Use o tênis certo. Já ouviu falar em “valgo dinâmico”? É uma falha postural em que os joelhos parecem “cair” para dentro, na tentativa de ganhar força para a subida do agachamento. Muitas vezes, o valgo dinâmico acontece por uma fraqueza muscular do glúteo médio e rotadores externos. “Se você estiver agachando com um tênis com amortecimento demais, pode potencializar essa má postura”, adverte Lucas Florêncio.',
+                'Joelhos e tornozelos. Ainda a fim de diminuir o valgo dinâmico, é de extrema importância manter os joelhos na mesma direção da ponta dos pés, para dar estabilidade ao movimento.'
+            ],
+        URL: null,
+        align: 'left',
+        textColor: null,
+        textDecoration: {
+            bold: false,
+            italic: false,
+            underline: false
+        }
+    },
+]
 </script>
 
 <script type="text/javascript">
@@ -50,13 +154,7 @@ import Breadcrumb from "@/components/Breadcrumb.vue";
 import Rate from "@/components/Rate.vue";
 import LessonCompleted from '@/components/LessonCompleted.vue';
 
-import {
-    TransitionRoot,
-    TransitionChild,
-    Dialog,
-    DialogPanel
-} from '@headlessui/vue'
-
+import { TransitionRoot, TransitionChild, Dialog, DialogPanel } from '@headlessui/vue'
 
 export default {
     components: { LessonCompleted },
@@ -99,9 +197,75 @@ export default {
                     <Rate />
                 </div>
             </div>
-
             <LessonCompleted :isCompleted="lessonStatus" @onClick="lessonStatus = !lessonStatus; openModalCourseCompleted()" />
         </div>
+
+        <hr v-if="lessonText.length > 0" class="mt-8 border-transparent" />
+
+        <template v-for="block in lessonText">
+
+            <span v-if="block.type == 'text'"
+                :class="{
+                    // textStyle
+                    'text-sm block mb-4': block.textStyle == 'p',
+                    'text-2xl block mb-5': block.textStyle == 'h1',
+                    'text-xl block mb-5': block.textStyle == 'h2',
+                    'text-lg block mb-5': block.textStyle == 'h3',
+                    // textAlign
+                    'text-left': block.align == 'left',
+                    'text-right': block.align == 'right',
+                    'text-center': block.align == 'center',
+                    // textDecoration
+                    'font-bold': block.textDecoration.bold,
+                    'font-normal': !block.textDecoration.bold,
+                    'underline': block.textDecoration.underline,
+                    'italic': block.textDecoration.italic,
+                }"
+                :style="block.textColor ? ('color: ' + block.textColor) : ''">
+                {{ block.content }}
+            </span>
+
+            <img v-if="block.type == 'image'" :src="block.content" class="rounded-md max-w-3xl w-full block mt-8 mb-8"
+                :class="{
+                    'ml-0': block.align == 'left',
+                    'ml-auto': block.align == 'right',
+                    'mx-auto': block.align == 'center',
+                }">
+
+            <ul
+                v-if="block.type == 'list'"
+                :class="{ 'list-decimal': block.listType == 'decimal', 'list-disc': block.listType == 'disc' }"
+                class="block pl-6">
+
+                <template v-if="block.type == 'list'" v-for="listItem in block.content">
+                    <li
+                        class="text-gray-300 pb-1"
+                        :class="
+                            {
+                                // textStyle
+                                'text-sm mb-1': block.textStyle == 'p',
+                                'text-2xl': block.textStyle == 'h1',
+                                'text-xl': block.textStyle == 'h2',
+                                'text-lg': block.textStyle == 'h3',
+                                // textAlign
+                                'text-left': block.align == 'left',
+                                'text-right': block.align == 'right',
+                                'text-center': block.align == 'center',
+                                // textDecoration
+                                'font-bold': block.textDecoration.bold,
+                                'font-normal': !block.textDecoration.bold,
+                                'underline': block.textDecoration.underline,
+                                'italic': block.textDecoration.italic,
+                            }
+                        ">
+                        {{ listItem }}
+                    </li>
+                </template>
+            </ul>
+
+        </template>
+
+        <hr v-if="lessonText.length > 0" class="mt-8 mb-8 border-zinc-800 opacity-70" />
 
         <div class="w-full mt-6">
             <span class="block mb-2 text-sm font-medium text-gray-400">
@@ -395,8 +559,8 @@ export default {
 }
 
 .classroom-icon-container img {
-    filter: hue-rotate(182deg) saturate(1.5) contrast(1.15);
-    -webkit-filter: hue-rotate(182deg) saturate(1.5) contrast(1.15);
+    filter: hue-rotate(182deg) saturate(1.5) contrast(1.35);
+    -webkit-filter: hue-rotate(182deg) saturate(1.5) contrast(1.35);
     width: calc(100%+2px);
     height: calc(100%+2px);
 
