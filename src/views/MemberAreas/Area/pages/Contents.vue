@@ -253,7 +253,7 @@ export default {
                 </div>
             </div>
 
-            <div v-if="isAdmin" class="mt-6 gap-y-2">
+            <div v-if="isAdmin" class="mt-6 mb-4 gap-y-2">
                 <span class="block text-sm text-gray-300 font-semibold mb-2">
                     Status do curso (visibilidade):
                 </span>
@@ -317,7 +317,7 @@ export default {
                                 {{ mod.name }}
                             </span>
                         </span>
-                        <div class="inline-flex">
+                        <div v-if="isAdmin" class="inline-flex">
                             <Menu as="div" class="relative z-5">
                                 <div class="inline-flex flex-row justify-center items-center h-full">
                                     <MenuButton @click="stopPropagation" class="flex p-0 rounded-md bg-pepper-dark-5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-gray-800">
@@ -394,7 +394,7 @@ export default {
                                             </span>
                                         </router-link>
 
-                                        <Menu as="div" class="relative ml-2 mr-2 z-5">
+                                        <Menu v-if="isAdmin" as="div" class="relative ml-2 mr-2 z-5">
                                             <div class="inline-flex flex-row justify-center items-center h-full">
                                                 <MenuButton @click="stopPropagation" class="flex p-0 rounded-md bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-gray-200">
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
