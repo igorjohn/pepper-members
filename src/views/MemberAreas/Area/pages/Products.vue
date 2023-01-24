@@ -17,19 +17,12 @@ import CursoBiomecanica from "@/assets/img/mock/curso-biomecanica.png";
 import CursoPeriodizacao from "@/assets/img/mock/curso-periodizacao.png";
 
 
-// Modal 'Add Course'
-let isOpenModalAddProduct = ref(false);
-function openModalAddProduct() {
-    isOpenModalAddProduct.value = true;
-}
-
 let isOpenModalAddCategory = ref(false);
 function openModalAddCategory() {
     isOpenModalAddCategory.value = true;
 }
 
 function closeModal() {
-    isOpenModalAddProduct.value = false;
     isOpenModalAddCategory.value = false;
 }
 
@@ -248,8 +241,7 @@ export default {
                         </span>
 
                         <!-- User progress -->
-                        <div class="absolute bottom-0 left-0 overflow-hidden flex justify-end items-end w-full h-full rounded-b-md"
-                            :class="coverFormat ? 'aspect-movie' : 'aspect-video'">
+                        <div class="absolute bottom-0 left-0 overflow-hidden flex justify-end items-end w-full h-full rounded-b-md">
                             <div class="pepper-progress w-full h-1 bg-pepper-dark-4">
                                 <div class="pepper-progress-current h-1 bg-red-600" :style="'width:' + p.userProgress + '%'"></div>
                             </div>
