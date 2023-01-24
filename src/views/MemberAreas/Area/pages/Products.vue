@@ -133,8 +133,6 @@ function notification() {
 import { ref } from 'vue'
 
 import Header from "@/components/Header.vue";
-import CardCourse from "@/components/CardCourse.vue";
-import CardCourseBlocked from "@/components/CardCourseBlocked.vue";
 
 import {
     TransitionRoot,
@@ -262,14 +260,6 @@ export default {
                         {{ p.title }}
                     </span>
                 </router-link>
-
-                <!-- <CardCourse
-                    v-if="p.belongsToCategory == c.id"
-                    :isPublished="p.isPublished"
-                    :productRoute="p.route"
-                    :img="p.thumbnail"
-                    :courseProgress="p.userProgress"
-                    :title="p.title" /> -->
             </template>
         </div>
     </div>
