@@ -43,6 +43,7 @@ const product = [
         isPublished: true,
         userProgress: 90,
         title: 'Aprendendo a vender online com escala',
+        description: 'Escalar uma empresa, setor ou processos é, genericamente, o famoso “fazer mais com menos”. Trata-se da capacidade de crescer em 2x, 5x, 10x ou mais seus resultados sem aumentar proporcionalmente os seus esforços (custo financeiro, tempo, pessoas e atividades). Neste curso, você irá aprender exatamente isso.',
         route: '/area/produto',
         thumbnail: 'https://www.userede.com.br/content/userede/pt-br/blog/quais-ferramentas-de-marketing-digital-posso-usar-para-divulgar-meu-negocio-na-internet/_jcr_content/root/responsivegrid/tabcontainer_4788725/tabs-container-1/productdetails_copy/bottom-container/card_copy_copy_copy_94108686/card-container-content-responsivegrid/image.coreimg.jpeg/1557325623466.jpeg'
     }
@@ -164,7 +165,7 @@ export default {
     </div>
 
     <div class="w-full pt-6 flex flex-col lg:flex-row gap-4">
-        <div class="mx-auto w-full lg:w-auto">
+        <div class="mx-auto w-full lg:w-auto lg:max-w-[400px]">
 
             <div class="w-full mb-8 mx-auto overflow-hidden max-w-full"
                 :style="coverFormat ? 'width: 320px' : 'width: 400px'">
@@ -200,9 +201,18 @@ export default {
                 </div>
             </div>
 
+            <!-- Nome do curso -->
             <span class="block mt-2 mb-2 font-semibold text-lg text-white">
                 {{ product[0].title }}
             </span>
+
+            <!-- Descrição do curso -->
+            <span
+                v-if="product[0].description && product[0].description !== ''"
+                class="block mt-2 mb-4 font-normal text-sm text-gray-300">
+                {{ product[0].description }}
+            </span>
+
             <div v-if="modules.length > 0" class="w-full inline-flex items-center gap-x-3">
                 <span class="text-sm text-gray-400">
                     {{ modules.length }} módulos
