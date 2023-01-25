@@ -14,7 +14,7 @@ let showHeaderDropdown = ref(false);
 
 const menuLogo = `
     <div class="inline-flex h-full items-center justify-center px-4 lg:px-6">
-        <img src="https://peppermembers.com/img/logotipo-white-pepper.52ff1608.png" style="height: 20px;" />
+        <img src="https://peppermembers.com/img/logotipo-white-pepper.52ff1608.png" style="height: 22px;" />
     </div>`;
 
 </script>
