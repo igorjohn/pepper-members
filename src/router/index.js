@@ -8,6 +8,7 @@ import MemberAreaView from '../views/MemberAreas/Area/Index.vue';
 import ProfileView from '../views/MemberAreas/Area/pages/Profile.vue';
 import ProductsView from '../views/MemberAreas/Area/pages/Products.vue';
 import CreateProductView from '../views/MemberAreas/Area/pages/CreateProduct.vue';
+import CreateLessonView from '../views/MemberAreas/Area/pages/CreateLesson.vue';
 import ContentsView from '../views/MemberAreas/Area/pages/Contents.vue';
 import SettingsView from '../views/MemberAreas/Area/pages/Settings.vue';
 import CommentsView from '../views/MemberAreas/Area/pages/Comments.vue';
@@ -70,6 +71,10 @@ const routes = [
       {
         path: '/area/criar-curso',
         component: CreateProductView
+      },
+      {
+        path: '/area/adicionar-aula',
+        component: CreateLessonView
       },
       {
         path: '/area/perfil',
