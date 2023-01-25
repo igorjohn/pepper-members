@@ -16,7 +16,7 @@ const selectedModule = ref('');
 
 const formats = [
     { value: 0, name: 'Aula em vídeo' },
-    { value: 1, name: 'Conteúdo em texto' }
+    { value: 1, name: 'Aula em texto' }
 ]
 const selectedFormat = ref('');
 
@@ -26,6 +26,10 @@ const selectedFormat = ref('');
 import Breadcrumb from "@/components/Breadcrumb.vue";
 import Header from "@/components/Header.vue";
 
+/* Quill Rich text editor */
+import { QuillEditor } from '@vueup/vue-quill'
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
+
 export default {
     data: function () {
         return {
@@ -34,7 +38,9 @@ export default {
             attachments: null
         };
     },
-
+    components: {
+        QuillEditor
+    },
     methods: {
         previewImage: function (event) {
             var input = event.target;
@@ -155,7 +161,7 @@ export default {
                     <div class="lg:col-span-3 flex flex-col gap-4 mb-1">
                         <div>
                             <label :class="pepper.darkMode.form.label">
-                                Formato deste conteúdo:
+                                Formato da aula:
                             </label>
                             <Listbox v-model="selectedFormat">
                                 <div class="relative mt-1">
@@ -183,12 +189,9 @@ export default {
                                                 :key="format.name"
                                                 :value="format"
                                                 as="template">
-                                                <li :class="[active ? 'bg-indigo-500 text-white' : 'text-gray-200', 'relative cursor-pointer select-none py-2 pl-10 pr-4',]">
+                                                <li :class="[active ? 'bg-indigo-500 text-white' : 'text-gray-200', 'relative cursor-pointer select-none py-2 px-4',]">
                                                     <span :class="pepper.darkMode.listbox.darkBg.optionLi">
                                                         {{ format.name }}
-                                                    </span>
-                                                    <span v-if="selected" class="absolute inset-y-0 left-0 flex items-center pl-3 text-emerald-400">
-                                                        <CheckIcon class="h-5 w-5" aria-hidden="true" />
                                                     </span>
                                                 </li>
                                             </ListboxOption>
@@ -208,6 +211,10 @@ export default {
                                 required
                                 maxlength="500"
                                 :class="pepper.darkMode.form.input" />
+                        </div>
+
+                        <div id="quill-container" class="mt-1 lg:pb-10">
+                            <QuillEditor theme="snow" />
                         </div>
                     </div>
 
@@ -274,3 +281,104 @@ export default {
     </div>
 
 </template>
+
+
+<style>
+#quill-container * {
+    font-family: inherit;
+}
+
+#quill-container .ql-editor {
+    min-height: 100px;
+}
+
+#quill-container .ql-toolbar {
+    border-top-right-radius: .35rem;
+    border-top-left-radius: .35rem;
+    background: rgb(24, 24, 26);
+}
+
+#quill-container .ql-container.ql-snow {
+    border-bottom-right-radius: .35rem;
+    border-bottom-left-radius: .35rem;
+    font-family: inherit;
+}
+
+#quill-container .ql-snow .ql-fill,
+#quill-container .ql-snow .ql-stroke.ql-fill {
+    fill: #e9e9e9;
+}
+
+#quill-container .ql-snow.ql-toolbar button.ql-active .ql-fill,
+#quill-container .ql-snow .ql-toolbar button.ql-active .ql-fill,
+#quill-container .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-fill,
+#quill-container .ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-fill,
+#quill-container .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-fill,
+#quill-container .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-fill,
+#quill-container .ql-snow.ql-toolbar button.ql-active .ql-stroke.ql-fill,
+#quill-container .ql-snow .ql-toolbar button.ql-active .ql-stroke.ql-fill,
+#quill-container .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke.ql-fill,
+#quill-container .ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke.ql-fill,
+#quill-container .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke.ql-fill,
+#quill-container .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke.ql-fill {
+    fill: #7d88f1;
+}
+
+#quill-container .ql-snow .ql-picker-options {
+    background-color: #18181a;
+}
+
+#quill-container .ql-snow.ql-toolbar button.ql-active,
+#quill-container .ql-snow .ql-toolbar button.ql-active,
+#quill-container .ql-snow.ql-toolbar .ql-picker-label.ql-active,
+#quill-container .ql-snow .ql-toolbar .ql-picker-label.ql-active,
+#quill-container .ql-snow.ql-toolbar .ql-picker-item.ql-selected,
+#quill-container .ql-snow .ql-toolbar .ql-picker-item.ql-selected,
+#quill-container .ql-snow.ql-toolbar button:hover,
+#quill-container .ql-snow .ql-toolbar button:hover,
+#quill-container .ql-snow.ql-toolbar button:focus,
+#quill-container .ql-snow .ql-toolbar button:focus,
+#quill-container .ql-snow.ql-toolbar .ql-picker-label:hover,
+#quill-container .ql-snow .ql-toolbar .ql-picker-label:hover,
+#quill-container .ql-snow.ql-toolbar .ql-picker-item:hover,
+#quill-container .ql-snow .ql-toolbar .ql-picker-item:hover {
+    background-color: #dbeafe20;
+    transition: .3s ease-in-out;
+}
+
+#quill-container .ql-snow.ql-toolbar button.ql-active .ql-stroke,
+#quill-container .ql-snow .ql-toolbar button.ql-active .ql-stroke,
+#quill-container .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke,
+#quill-container .ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke,
+#quill-container .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke,
+#quill-container .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke,
+#quill-container .ql-snow.ql-toolbar button.ql-active .ql-stroke-miter,
+#quill-container .ql-snow .ql-toolbar button.ql-active .ql-stroke-miter,
+#quill-container .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke-miter,
+#quill-container .ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke-miter,
+#quill-container .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter,
+#quill-container .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter {
+    stroke: #7d88f1;
+}
+
+#quill-container .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
+    border-color: #3f3f46;
+    border-radius: .25rem;
+}
+
+#quill-container .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-label {
+    border-color: #3f3f46;
+}
+
+#quill-container .ql-snow .ql-stroke,
+#quill-container .ql-snow .ql-picker.ql-header .ql-picker-label::before,
+#quill-container .ql-snow .ql-picker.ql-header .ql-picker-item::before {
+    color: #e9e9e9;
+    stroke: #e9e9e9;
+}
+
+#quill-container .ql-toolbar,
+#quill-container .ql-container {
+    border-color: #3f3f46 !important
+}
+</style>
