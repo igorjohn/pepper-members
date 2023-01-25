@@ -8,8 +8,8 @@ const open = ref(false);
 let showHeaderDropdown = ref(false);
 
 const menuLogo = `
-    <div class="inline-flex h-full items-center justify-center px-4 lg:px-6">
-        <img src="https://peppermembers.com/img/logotipo-white-pepper.52ff1608.png" style="height: 20px;" />
+    <div to="/area" class="inline-flex h-full items-center justify-center px-4 lg:px-6">
+        <img src="https://peppermembers.com/img/logotipo-white-pepper.52ff1608.png" style="height: 22px;" />
     </div>`;
 
 const sidebarLinks = [
@@ -152,7 +152,9 @@ export default {
         <!-- Header MOBILE -->
         <header id="header-mobile" class="bg-pepper-dark-3 flex justify-between w-full md:hidden">
             <!-- Logo -->
-            <div v-html="menuLogo"></div>
+            <router-link to="/area">
+                <div v-html="menuLogo"></div>
+            </router-link>
             <!-- Menu toggle icon -->
             <div @click="open = true" id="mobile-menu-button" class="m-2 p-2 focus:outline-none hover:text-white hover:bg-gray-900 text-gray-500 rounded-md">
                 <svg id="menu-open-icon" class="h-6 w-6 transition duration-200 ease-in-out" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -166,7 +168,9 @@ export default {
         <aside id="sidebar" class="hidden md:flex bg-pepper-dark-2 md:h-full h-full md:w-64 2xl:w-72 w-3/4 space-y-6 pt-5 px-0 absolute inset-y-0 left-0 transform md:relative md:translate-x-0 transition duration-200 ease-in-out flex-col justify-between overflow-y-auto z-50">
             <div class="flex flex-col space-y-6">
                 <!-- Logo -->
-                <div v-html="menuLogo"></div>
+                <router-link to="/area">
+                    <div v-html="menuLogo"></div>
+                </router-link>
                 <!-- Sidebar menu -->
                 <nav id="sidebarMenu">
                     <template v-for="u in sidebarLinks">
@@ -249,7 +253,9 @@ export default {
                                     <div id="sidebar-mobile" class="flex h-full flex-col overflow-y-scroll bg-pepper-dark-2 py-6 shadow-xl">
                                         <div class="h-full flex flex-col" aria-hidden="true">
                                             <!-- Logo -->
-                                            <div v-html="menuLogo" class="mb-4 mx-2"></div>
+                                            <router-link to="/area">
+                                                <div v-html="menuLogo" class="mb-4 mx-2"></div>
+                                            </router-link>
                                             <template v-for="u in sidebarLinks">
                                                 <router-link
                                                     @click="open = false"
