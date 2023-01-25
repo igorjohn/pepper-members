@@ -231,6 +231,10 @@ main::before{
   min-height: 42px;
 }
 
+.h-40{
+  height:40px;
+}
+
 .aspect-movie{
   aspect-ratio:10/16;
   -webkit-aspect-ratio: 10/16;
