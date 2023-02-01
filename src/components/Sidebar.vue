@@ -212,7 +212,7 @@ export default {
                                 </svg>
                             </a>
                             <!-- Submenu children -->
-                            <ul class="overflow-hidden dropdown-menu font-normal transform transition duration-300" :class="{ 'h-0': !showMenu }">
+                            <ul class="overflow-hidden dropdown-menu font-normal transform transition duration-300" :class="{ 'h-0 hidden': !showMenu }">
                                 <li v-for="s in a.children">
                                     <router-link
                                         :to="s.route"
@@ -281,11 +281,12 @@ export default {
                                             </span>
                                             <!-- Submenu -->
                                             <template v-for="a in sidebarLinks">
+                                                <!-- Submenu -->
                                                 <div v-if="(a.submenu == true && a.isAdmin == true)">
                                                     <a
                                                         href="javascript:void(0);"
                                                         @click="toggleShow"
-                                                        class="sidebar-li-router justify-between space-x-3 py-2 px-6 transition duration-200 hover:bg-gray-800 hover:text-white">
+                                                        class="sidebar-li-router justify-between space-x-3 transition duration-200 hover:bg-gray-800 hover:text-white">
                                                         <div class="inline-flex items-center space-x-3">
                                                             <div v-html="a.icon"></div>
                                                             <span>{{ a.text }}</span>
@@ -295,10 +296,10 @@ export default {
                                                             <path fill="currentColor" class="text-red-700" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" />
                                                         </svg>
                                                     </a>
-                                                    <ul class="overflow-hidden dropdown-menu font-normal transform transition duration-300" :class="{ 'h-0': !showMenu }">
+                                                    <!-- Submenu children -->
+                                                    <ul class="overflow-hidden dropdown-menu font-normal transform transition duration-300" :class="{ 'h-0 hidden': !showMenu }">
                                                         <li v-for="s in a.children">
                                                             <router-link
-                                                                @click="open = false"
                                                                 :to="s.route"
                                                                 class="font-medium flex cursor-pointer items-center space-x-3 py-3 pr-6 pl-14 text-sm transition duration-200 bg-pepper-dark-3 hover:bg-gray-800 hover:text-white">
                                                                 {{ s.text }}
@@ -308,14 +309,13 @@ export default {
                                                 </div>
                                                 <router-link
                                                     v-if="(!a.submenu || a.submenu == false) && a.isAdmin == true"
-                                                    @click="open = false"
                                                     :to="a.route"
                                                     class="sidebar-li-router transition duration-200 hover:bg-gray-800 hover:text-white justify-between">
                                                     <div class="inline-flex space-x-3 items-center">
                                                         <div v-html="a.icon"></div>
                                                         <span>{{ a.text }}</span>
                                                     </div>
-                                                    <div v-if="a.badgeNumber" class="inline-block px-2 py-1 font-semibold text-gray-100 bg-red-700 text-xs rounded-full leading-tight">
+                                                    <div v-if="a.badgeNumber" class="inline-block px-2 py-1 font-semibold text-gray-100 bg-red-600 text-xs rounded-full leading-tight">
                                                         {{ a.badgeNumber }}
                                                     </div>
                                                 </router-link>
