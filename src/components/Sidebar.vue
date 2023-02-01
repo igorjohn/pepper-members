@@ -8,7 +8,7 @@ const open = ref(false);
 let showHeaderDropdown = ref(false);
 
 const menuLogo = `
-    <div to="/area" class="inline-flex h-full items-center justify-center px-4 lg:px-6">
+    <div class="inline-flex h-full items-center justify-center px-4 lg:px-6">
         <img src="https://peppermembers.com/img/logotipo-white-pepper.52ff1608.png" style="height: 22px;" />
     </div>`;
 
@@ -136,23 +136,32 @@ export default {
     data() {
         return {
             show: false,
-            showMenu: false
+            showMenu: false,
+            showSidebarDesktop: true
         };
     },
     methods: {
         toggleShow() {
             this.showMenu = !this.showMenu;
+        },
+
+        toggleMenu() {
+            this.showSidebarDesktop = !this.showSidebarDesktop;
+            this.$emit('toggleMenu');
         }
-    }
+    },
+    emits: [
+        'toggleMenu'
+    ]
 };
 </script>
 
 <template>
     <div id="navbar-container" class="flex flex-col w-screen md:w-auto md:flex-row md:h-screen md:fixed z-10">
         <!-- Header MOBILE -->
-        <header id="header-mobile" class="bg-pepper-dark-3 flex justify-between w-full md:hidden">
+        <header id="header-mobile" class="bg-pepper-dark-3 flex justify-between items-center w-full md:hidden">
             <!-- Logo -->
-            <router-link to="/area">
+            <router-link to="/area" class="mt-2">
                 <div v-html="menuLogo"></div>
             </router-link>
             <!-- Menu toggle icon -->
@@ -165,7 +174,7 @@ export default {
         <!-- Header MOBILE end -->
 
         <!-- Sidebar DESKTOP -->
-        <aside id="sidebar" class="hidden md:flex bg-pepper-dark-2 md:h-full h-full md:w-64 2xl:w-72 w-3/4 space-y-6 pt-5 px-0 absolute inset-y-0 left-0 transform md:relative md:translate-x-0 transition duration-200 ease-in-out flex-col justify-between overflow-y-auto z-50">
+        <aside id="sidebar" :class="[showSidebarDesktop ? 'translate-x-0' : '-translate-x-80', 'hidden md:flex bg-pepper-dark-2 md:h-full h-full md:w-64 2xl:w-72 w-3/4 space-y-6 pt-5 px-0 absolute inset-y-0 left-0 transform md:relative transition duration-200 ease-in-out flex-col justify-between overflow-y-auto z-50']">
             <div class="flex flex-col space-y-6">
                 <!-- Logo -->
                 <router-link to="/area">
@@ -253,7 +262,7 @@ export default {
                                     <div id="sidebar-mobile" class="flex h-full flex-col overflow-y-scroll bg-pepper-dark-2 py-6 shadow-xl">
                                         <div class="h-full flex flex-col" aria-hidden="true">
                                             <!-- Logo -->
-                                            <router-link to="/area">
+                                            <router-link to="/area" @click="open = false" class="focus:ring-0 outline-none focus:ring-offset-0">
                                                 <div v-html="menuLogo" class="mb-4 mx-2"></div>
                                             </router-link>
                                             <template v-for="u in sidebarLinks">
@@ -332,45 +341,55 @@ export default {
 
 
         <!-- Header on DESKTOP -->
-        <header id="header-desktop" class="bg-pepper-dark-3 justify-end h-auto hidden md:flex md:w-screen md:pl-72 w-3/4 absolute left-0 z-10">
-            <div class="block py-4 px-3">
-                <h6 class="font-bold text-sm">Olá, Gilney</h6>
+        <header id="header-desktop" :class="[showSidebarDesktop ? 'md:pl-64 2xl:pl-72' : 'md:pl-2', 'bg-pepper-dark-3 justify-between h-auto hidden md:flex md:w-screen w-3/4 absolute left-0 z-10 transition-transform duration-500']">
+
+            <div @click="toggleMenu" class="m-2 p-2 cursor-pointer focus:outline-none hover:text-gray-300 hover:bg-gray-900 text-gray-500 rounded-md">
+                <svg id="menu-open-icon" class="h-6 w-6 transition duration-200 ease-in-out" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
             </div>
-            <Menu as="div" :show="showHeaderDropdown" @close="showHeaderDropdown = false" class="relative ml-2 mr-2">
-                <div class="inline-flex flex-row justify-center items-center h-full">
-                    <MenuButton class="flex p-0 rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-gray-800">
-                        <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
-                    </MenuButton>
-                    <svg class="w-5 h-5 mt-2 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill="currentColor" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
+
+            <div class="flex items-center">
+                <div class="block py-4 px-3">
+                    <h6 class="font-bold text-sm">Olá, Gilney</h6>
                 </div>
-                <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
-                    <MenuItems class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        <MenuItem v-slot="{ active }">
-                        <router-link
-                            to="/area/perfil"
-                            :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">
-                            Meu perfil
-                        </router-link>
-                        </MenuItem>
-                        <MenuItem v-slot="{ active }">
-                        <router-link
-                            to="/memberareas"
-                            :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">
-                            Áreas de membros
-                        </router-link>
-                        </MenuItem>
-                        <MenuItem v-slot="{ active }">
-                        <router-link
-                            to="#"
-                            :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-red-600']">
-                            Desconectar
-                        </router-link>
-                        </MenuItem>
-                    </MenuItems>
-                </transition>
-            </Menu>
+                <Menu as="div" :show="showHeaderDropdown" @close="showHeaderDropdown = false" class="relative ml-2 mr-2">
+                    <div class="inline-flex flex-row justify-center items-center h-full">
+                        <MenuButton class="flex p-0 rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-gray-800">
+                            <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
+                        </MenuButton>
+                        <svg class="w-5 h-5 mt-2 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill="currentColor" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
+                        <MenuItems class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                            <MenuItem v-slot="{ active }">
+                            <router-link
+                                to="/area/perfil"
+                                :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">
+                                Meu perfil
+                            </router-link>
+                            </MenuItem>
+                            <MenuItem v-slot="{ active }">
+                            <router-link
+                                to="/memberareas"
+                                :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">
+                                Áreas de membros
+                            </router-link>
+                            </MenuItem>
+                            <MenuItem v-slot="{ active }">
+                            <router-link
+                                to="#"
+                                :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-red-600']">
+                                Desconectar
+                            </router-link>
+                            </MenuItem>
+                        </MenuItems>
+                    </transition>
+                </Menu>
+            </div>
+
         </header>
     </div>
 </template>
@@ -401,11 +420,11 @@ export default {
     padding: 0.6rem 1.5rem;
 }
 
-@media (min-width: 768px) {
+/* @media (min-width: 768px) {
     #sidebar {
         --tw-translate-x: 0;
     }
-}
+} */
 
 @media (max-width:992px) {
     #sidebar {
