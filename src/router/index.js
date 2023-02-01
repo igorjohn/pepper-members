@@ -1,5 +1,3 @@
-// Depois substituir "/area" por "/:area"
-
 import { createRouter, createWebHistory } from 'vue-router';
 import LoginView from '../views/Login.vue';
 import ForgotPasswordView from '../views/ForgotPassword.vue';
