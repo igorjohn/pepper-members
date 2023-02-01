@@ -300,6 +300,7 @@ export default {
                                                     <ul class="overflow-hidden dropdown-menu font-normal transform transition duration-300" :class="{ 'h-0 hidden': !showMenu }">
                                                         <li v-for="s in a.children">
                                                             <router-link
+                                                                @click="open = false"
                                                                 :to="s.route"
                                                                 class="font-medium flex cursor-pointer items-center space-x-3 py-3 pr-6 pl-14 text-sm transition duration-200 bg-pepper-dark-3 hover:bg-gray-800 hover:text-white">
                                                                 {{ s.text }}
@@ -310,6 +311,7 @@ export default {
                                                 <router-link
                                                     v-if="(!a.submenu || a.submenu == false) && a.isAdmin == true"
                                                     :to="a.route"
+                                                    @click="open = false"
                                                     class="sidebar-li-router transition duration-200 hover:bg-gray-800 hover:text-white justify-between">
                                                     <div class="inline-flex space-x-3 items-center">
                                                         <div v-html="a.icon"></div>
