@@ -6,7 +6,7 @@ module.exports = {
     fontFamily: {
       sans: [
         "Inter var, sans-serif",
-        { fontFeatureSettings: '"cv11", "ss01"' },
+        { fontFeatureSettings: '"cv10", "cv09", "cv08", "cv06", "cv05", "cv11", "ss01", "ss03"' }
       ]
     },
     plugins: [
