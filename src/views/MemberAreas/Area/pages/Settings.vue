@@ -88,15 +88,39 @@ export default {
                 </div>
             </div>
 
+            <div class="col-span-2">
+                <hr class="border-zinc-800 mt-4" />
+            </div>
+
             <!-- Formato da capa dos produtos -->
             <div class="col-span-2">
-                <h3 class="flex items-center justify-start gap-x-2 font-semibold text-white text-lg mt-6 mb-4">
+                <h3 class="flex items-center justify-start gap-x-2 font-semibold text-white text-lg mt-4 mb-4">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 opacity-50">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3" />
                     </svg>
                     Orientação das imagens dos cursos
                 </h3>
-                <div class="flex flex-col md:flex-row md:items-center gap-2 md:gap-6">
+
+                <!-- Alert -->
+                <div class="mt-4 mb-6 bg-slate-700 rounded text-indigo-900 px-4 py-3 lg:py-3.5" role="alert">
+                    <div class="flex">
+                        <div class="py-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-3.5 w-3.5 fill-current text-slate-400 mr-3" viewBox="0 0 16 16">
+                                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="block text-sm text-gray-100 font-medium mb-1.5">
+                                Selecione a aparência da capa dos seus cursos.
+                            </span>
+                            <span class="block text-xs text-gray-300 font-normal mb-1">
+                                Escolha se prefere os seus cursos com o formato estilo "Netflix" (imagem em pé) ou com formato "YouTube" (imagem deitada).
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row md:items-center gap-2 md:gap-6 mb-1">
                     <div class="flex items-center gap-2">
                         <input type="radio" v-model="coverFormat" value="0" id="coverFormatLandscape" :class="pepper.darkMode.form.inputRadioWhiteBg" class="bg-pepper-dark-5">
                         <label for="coverFormatLandscape" :class="pepper.darkMode.form.label" class="mb-0 cursor-pointer">
@@ -113,7 +137,11 @@ export default {
             </div>
 
             <div class="col-span-2">
-                <h3 class="flex items-center justify-start gap-x-2 font-semibold text-white text-lg mt-6 mb-4">
+                <hr class="border-zinc-800 mt-4" />
+            </div>
+
+            <div class="col-span-2">
+                <h3 class="flex items-center justify-start gap-x-2 font-semibold text-white text-lg mt-4 mb-4">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 opacity-50">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                     </svg>

@@ -51,7 +51,7 @@ const product = [
         title: 'Scripts para vender no automático pelo Whatsapp',
         route: '/area/produto',
         userProgress: 2,
-        thumbnail: 'https://www.agenciaithink.com.br/Imagem/178/blog-20200610/df/tudo-sobre-como-vender-no-whatsapp.png'
+        thumbnail: 'https://www.talksup.com.br/wp-content/uploads/2018/08/talksup-home2.png'
     },
     {
         id: 3,
@@ -257,7 +257,7 @@ export default {
     </div>
 
 
-    <div v-if="vitrine && vitrine.shownProducts.length !== 0" class="pt-10">
+    <div v-if="vitrine && vitrine.shownProducts.length !== 0" class="pt-2">
         <div class="md:flex md:items-center mb-6">
             <h3 class="font-bold text-white text-xl md:w-auto mb-3 md:mb-0">
                 {{ vitrine.title }}

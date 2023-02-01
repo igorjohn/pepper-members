@@ -79,9 +79,6 @@ export default {
     </div>
 
     <span class="flex flex-row items-center gap-x-2 mt-6 mb-3 text-sm text-gray-400 uppercase font-semibold tracking-wider">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-green-400">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
-        </svg>
         Disponíveis:
     </span>
 
@@ -123,8 +120,14 @@ export default {
                 <router-link
                     :to="integration.router"
                     class="w-full flex flex-col items-start justify-start">
-                    <div class="mt-1 mb-1 h-10">
+                    <div class="mb-3 h-9 w-full flex flex-row items-center justify-between">
                         <img :src="integration.logoImg" :class="integration.logoClass" />
+                        <!-- Lock icon -->
+                        <div class="w-6 h-6 rounded-full bg-slate-700 bg-opacity-40 flex items-center justify-center border border-gray-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-3 h-3 text-red-500">
+                                <path fill-rule="evenodd" d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
                     </div>
                     <span class="text-sm text-gray-300 block mb-1 lg:h-[40px]">
                         {{ integration.description }}
