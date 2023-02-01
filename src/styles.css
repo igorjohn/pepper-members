@@ -82,7 +82,7 @@ border-radius: 9999px;
 cursor: pointer;
 width: 2rem;
 height: 1rem;
-background-color: rgb(212, 212, 216);
+background-color: rgb(156, 163, 175);
 }
 
 label.slider::before {
@@ -99,7 +99,7 @@ label.slider::before {
 }
 
 input:checked + label.slider {
-  background: var(--pepper-primary);
+  background: #6366f1;
 }
 
 input:not(:checked) + label.slider:before {
