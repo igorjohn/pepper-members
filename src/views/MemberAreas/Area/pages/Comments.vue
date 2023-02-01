@@ -102,6 +102,18 @@ export default {
                             class="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-zinc-900 border border-zinc-800 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-sm">
                             <ListboxOption
                                 v-slot="{ active, selected }"
+                                as="template">
+                                <li :class="[active ? 'bg-indigo-500 text-white' : 'text-gray-200', 'relative cursor-pointer select-none py-2 pl-10 pr-4',]">
+                                    <span :class="pepper.darkMode.listbox.darkBg.optionLi">
+                                        Todos os cursos
+                                    </span>
+                                    <span v-if="selected" class="absolute inset-y-0 left-0 flex items-center pl-3 text-emerald-400">
+                                        <CheckIcon class="h-5 w-5" aria-hidden="true" />
+                                    </span>
+                                </li>
+                            </ListboxOption>
+                            <ListboxOption
+                                v-slot="{ active, selected }"
                                 v-for="p in products"
                                 :key="p.title"
                                 :value="p"
