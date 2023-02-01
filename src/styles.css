@@ -240,6 +240,25 @@ main::before{
   -webkit-aspect-ratio: 10/16;
 }
 
+.sidebar-li-router{
+  position: relative;
+}
+
+.sidebar-li-router::before{
+  position: absolute;
+  content: '';
+  top:0;
+  left:0;
+  height:100%;
+  width: 2px;
+  border-left: 2px solid rgb(220, 38, 38, 0.75);
+  opacity: 0;
+}
+
+.router-link-exact-active.sidebar-li-router::before{
+  opacity: 1 ;
+}
+
 .text-truncate-2l{
   display: -webkit-box;
   text-overflow: ellipsis;
