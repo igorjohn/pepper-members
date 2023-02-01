@@ -1,29 +1,38 @@
 <script setup>
 
-import { ref } from 'vue'
+function sendEmail() {
 
-// notification
-let showNotification = ref(false);
-function notification() {
-    showNotification.value = true;
+    // Email de suporte da área de membros:
+    const supportEmail = 'produtor@gmail.com';
 
-    setTimeout(() => {
-        showNotification.value = false;
-    }, 3500);
+    // Dados do remetente:
+    const studentName = 'João Otávio da Rocha Neto';
+    const studentEmail = 'joao.otavio.rn@gmail.com';
+    const memberAreaName = 'Nome da área de membros';
 
+    // Dados da mensagem:
+    var subject = document.querySelector('#subject').value;
+    var message = document.querySelector('#message').value;
+    var formattedBody = `Nome do aluno: ` + studentName + `\nE-mail do aluno: ` + studentEmail + `\nÁrea de membros: ` + memberAreaName + `\n\n\nMensagem do aluno: \n\n ` + message;
+
+    var mailToLink = "mailto:" + supportEmail + "?body=" + encodeURIComponent(formattedBody) + "&subject=" + subject;
+    window.location.href = mailToLink;
+}
+
+function sendWhatsappMessage() {
+
+    const supportPhone = '5551987991234';
+    const memberAreaName = 'Nome da área de membros';
+    const message = 'Olá, sou aluno(a) da ' + memberAreaName + ' e tenho uma dúvida.'
+
+    let hrefWhatsapp = 'https://api.whatsapp.com/send?phone=' + supportPhone + '&text=' + message;
+
+    window.open(hrefWhatsapp, '_blank');
 }
 </script>
 
 <script type="text/javascript">
-
 import Header from "@/components/Header.vue";
-
-// Run 2 functions
-function bindFunctions(func1, func2) {
-    func1();
-    setTimeout(() => { func2() }, 1600)
-}
-
 
 export default {
     data() {
@@ -87,10 +96,11 @@ export default {
                         Assunto:
                     </label>
                     <input
+                        id="subject"
                         type="text"
                         max="500"
+                        required
                         placeholder="Digite o título da mensagem"
-                        value="Quero meu rebolço"
                         :class="pepper.darkMode.form.input" />
                 </div>
                 <div class="col-span-2">
@@ -98,8 +108,10 @@ export default {
                         Mensagem:
                     </label>
                     <textarea
+                        id="message"
                         type="text"
                         max="5000"
+                        required
                         placeholder="Digite aqui a sua mensagem"
                         rows="4"
                         :class="pepper.darkMode.form.input" />
@@ -107,6 +119,7 @@ export default {
             </div>
             <div :class="pepper.darkMode.card.footer">
                 <button
+                    @click="sendWhatsappMessage"
                     :class="pepper.darkMode.button.successButton">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" stroke="none" :class="pepper.darkMode.svgIcon.button.small">
                         <path
@@ -115,48 +128,15 @@ export default {
                     WhatsApp
                 </button>
                 <button
-                    @click="notification"
+                    @click="sendEmail"
                     :class="pepper.darkMode.button.primary">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" stroke="none" :class="pepper.darkMode.svgIcon.button.small">
                         <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z" />
                     </svg>
                     Enviar por e-mail
                 </button>
-
-                <!-- 
-
-var formattedBody = "FirstLine \n Second Line \n Third Line";
-var mailToLink = "mailto:x@y.com?body=" + encodeURIComponent(formattedBody);
-window.location.href = mailToLink;
-
-                 -->
-
-
             </div>
         </div>
     </div>
-
-    <!-- Notification -->
-    <transition appear name="slide-fade">
-        <div v-if="showNotification" class="float-right min-w-full fixed bottom-3 right-0 md:right-3">
-            <div class="flex flex-col space-y-3 w-100 md:w-1/2 xl:w-1/3 mx-auto md:mx-0 md:ml-auto shadow-lg" style="max-width:93vw;">
-                <div class="bg-green-100 border border-lime-800 p-5 w-full rounded-md">
-                    <div class="flex justify-between">
-                        <div class="flex space-x-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-none fill-current text-green-500 h-4 w-4">
-                                <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.25 16.518l-4.5-4.319 1.396-1.435 3.078 2.937 6.105-6.218 1.421 1.409-7.5 7.626z" />
-                            </svg>
-                            <div class="flex-1 leading-tight text-sm text-green-700 font-medium">
-                                Sua mensagem foi enviada com sucesso!
-                            </div>
-                        </div>
-                        <svg @click="showNotification = !showNotification" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-none fill-current text-green-600 h-3 w-3 cursor-pointer">
-                            <path d="M23.954 21.03l-9.184-9.095 9.092-9.174-2.832-2.807-9.09 9.179-9.176-9.088-2.81 2.81 9.186 9.105-9.095 9.184 2.81 2.81 9.112-9.192 9.18 9.1z" />
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </transition>
 
 </template>
