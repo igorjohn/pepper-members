@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
+import { ChevronDownIcon, Bars3Icon, ArrowLeftOnRectangleIcon } from '@heroicons/vue/24/outline'
 
 const open = ref(false);
 
@@ -160,15 +161,11 @@ export default {
     <div id="navbar-container" class="flex flex-col w-screen md:w-auto md:flex-row md:h-screen md:fixed z-10">
         <!-- Header MOBILE -->
         <header id="header-mobile" class="bg-pepper-dark-3 flex justify-between items-center w-full md:hidden">
-            <!-- Logo -->
             <router-link to="/area" class="mt-2">
                 <div v-html="menuLogo"></div>
             </router-link>
-            <!-- Menu toggle icon -->
-            <div @click="open = true" id="mobile-menu-button" class="m-2 p-2 focus:outline-none hover:text-white hover:bg-gray-900 text-gray-500 rounded-md">
-                <svg id="menu-open-icon" class="h-6 w-6 transition duration-200 ease-in-out" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
+            <div @click="open = true" id="mobile-menu-button" class="m-2 p-2 focus:outline-none hover:text-gray-400 hover:bg-gray-900 text-gray-500 rounded-md cursor-pointer">
+                <Bars3Icon class="h-6 w-6 transition duration-200 ease-in-out" fill="none" stroke="currentColor" />
             </div>
         </header>
         <!-- Header MOBILE end -->
@@ -206,10 +203,7 @@ export default {
                                     <div v-html="a.icon"></div>
                                     <span>{{ a.text }}</span>
                                 </div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" :class="{ 'rotate-90': showMenu }" class="dropdown-menu" viewBox="0 0 24 24">
-                                    <path fill="none" d="M0 0h24v24H0V0z" />
-                                    <path fill="currentColor" class="text-red-700" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" />
-                                </svg>
+                                <ChevronDownIcon :class="{ '-rotate-90': showMenu }" class="dropdown-menu text-red-600 w-4 h-4" />
                             </a>
                             <!-- Submenu children -->
                             <ul class="overflow-hidden dropdown-menu font-normal transform transition duration-300" :class="{ 'h-0 hidden': !showMenu }">
@@ -239,9 +233,7 @@ export default {
             </div>
             <nav class="p-6 pt-4">
                 <button type="button" class="w-full inline-flex justify-center items-center rounded-md border border-red-600 bg-red-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-1 focus:ring-danger-500 focus:ring-offset-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
-                    </svg>
+                    <ArrowLeftOnRectangleIcon class="w-5 h-5 mr-2" />
                     <span>Desconectar</span>
                 </button>
             </nav>
@@ -281,7 +273,6 @@ export default {
                                             </span>
                                             <!-- Submenu -->
                                             <template v-for="a in sidebarLinks">
-                                                <!-- Submenu -->
                                                 <div v-if="(a.submenu == true && a.isAdmin == true)">
                                                     <a
                                                         href="javascript:void(0);"
@@ -291,10 +282,7 @@ export default {
                                                             <div v-html="a.icon"></div>
                                                             <span>{{ a.text }}</span>
                                                         </div>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" :class="{ 'rotate-90': showMenu }" class="dropdown-menu" viewBox="0 0 24 24">
-                                                            <path fill="none" d="M0 0h24v24H0V0z" />
-                                                            <path fill="currentColor" class="text-red-700" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" />
-                                                        </svg>
+                                                        <ChevronDownIcon :class="{ '-rotate-90': showMenu }" class="dropdown-menu text-red-600 w-4 h-4" />
                                                     </a>
                                                     <!-- Submenu children -->
                                                     <ul class="overflow-hidden dropdown-menu font-normal transform transition duration-300" :class="{ 'h-0 hidden': !showMenu }">
@@ -324,9 +312,7 @@ export default {
                                             </template>
                                             <nav class="p-6 pb-2 mt-auto">
                                                 <button type="button" class="w-full inline-flex justify-center items-center rounded-md border border-red-600 bg-red-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-1 focus:ring-danger-500 focus:ring-offset-1">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
-                                                    </svg>
+                                                    <ArrowLeftOnRectangleIcon class="w-5 h-5 mr-2" />
                                                     <span>Desconectar</span>
                                                 </button>
                                             </nav>
@@ -341,28 +327,21 @@ export default {
         </TransitionRoot>
         <!-- Sidebar MOBILE end -->
 
-
         <!-- Header on DESKTOP -->
         <header id="header-desktop" :class="[showSidebarDesktop ? 'md:pl-64 2xl:pl-72' : 'md:pl-2', 'bg-pepper-dark-3 justify-between h-auto hidden md:flex md:w-screen w-3/4 absolute left-0 z-10 transition-transform duration-500']">
-
             <div @click="toggleMenu" class="m-2 p-2 cursor-pointer focus:outline-none hover:text-gray-300 hover:bg-gray-900 text-gray-500 rounded-md">
-                <svg id="menu-open-icon" class="h-6 w-6 transition duration-200 ease-in-out" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
+                <Bars3Icon class="h-6 w-6 transition duration-200 ease-in-out" fill="none" stroke="currentColor" />
             </div>
-
             <div class="flex items-center">
                 <div class="block py-4 px-3">
                     <h6 class="font-bold text-sm">Olá, Gilney</h6>
                 </div>
-                <Menu as="div" :show="showHeaderDropdown" @close="showHeaderDropdown = false" class="relative ml-2 mr-2">
+                <Menu as="div" :show="showHeaderDropdown" @close="showHeaderDropdown = false" class="relative ml-2 mr-2 mt-1">
                     <div class="inline-flex flex-row justify-center items-center h-full">
                         <MenuButton class="flex p-0 rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-gray-800">
-                            <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
+                            <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" />
                         </MenuButton>
-                        <svg class="w-5 h-5 mt-2 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill="currentColor" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                        </svg>
+                        <ChevronDownIcon class="text-red-500 w-4 h-4 mt-2 mx-[2px]" />
                     </div>
                     <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
                         <MenuItems class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
@@ -391,7 +370,6 @@ export default {
                     </transition>
                 </Menu>
             </div>
-
         </header>
     </div>
 </template>
@@ -403,30 +381,12 @@ export default {
     color: #dfdfdf;
 }
 
-#menu-close-icon {
-    display: none;
-}
-
-#menu-open:checked~* #mobile-menu-button {
-    background-color: rgba(31, 41, 55, var(--tw-bg-opacity));
-}
-
-#menu-open:checked~* #menu-close-icon {
-    display: block;
-}
-
 .sidebar-li-router {
     display: flex;
     align-items: center;
     font-size: 14px;
     padding: 0.6rem 1.5rem;
 }
-
-/* @media (min-width: 768px) {
-    #sidebar {
-        --tw-translate-x: 0;
-    }
-} */
 
 @media (max-width:992px) {
     #sidebar {
@@ -456,9 +416,5 @@ export default {
 .svg-sidebar {
     width: 18px;
     height: 18px;
-}
-
-svg.rotate-90 {
-    transform: rotate(90deg);
 }
 </style>
