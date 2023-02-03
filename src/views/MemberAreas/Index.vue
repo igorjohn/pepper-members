@@ -163,7 +163,7 @@ export default {
         <!-- Footer -->
         <div class="flex items-center justify-center my-10">
             <span class="text-xs text-gray-500 text-center font-medium">
-                Pepper members © 2023 - Todos os direitos reservados
+                Pepper Members © 2023 - Todos os direitos reservados
             </span>
         </div>
     </div>

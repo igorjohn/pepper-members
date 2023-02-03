@@ -30,7 +30,7 @@ export default {
         }
     },
     mounted() {
-        document.title = 'Recuperar minha senha – Pepper members'
+        document.title = 'Recuperar minha senha – Pepper Members'
     }
 };
 
@@ -41,7 +41,7 @@ export default {
         <div id="bg-gradient-container" class="flex h-full w-full items-center justify-center pt-24 pb-12 px-6 lg:px-8 lg:pt-32">
             <div class="w-full max-w-md space-y-4 lg:space-y-6">
                 <div>
-                    <img class="mx-auto h-6 w-auto" src="../assets/img/pepper-logo-dark.svg" alt="Pepper members" />
+                    <img class="mx-auto h-6 w-auto" src="../assets/img/pepper-logo-dark.svg" alt="Pepper Members" />
                     <h2 class="mt-6 text-center text-xl lg:text-2xl font-bold tracking-tight text-gray-100">Recuperar minha senha</h2>
                 </div>
                 <div class="mb-4">

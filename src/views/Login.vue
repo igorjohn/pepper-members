@@ -7,7 +7,7 @@ export default {
         }
     },
     mounted() {
-        document.title = 'Login – Pepper members'
+        document.title = 'Login – Pepper Members'
     }
 };
 
