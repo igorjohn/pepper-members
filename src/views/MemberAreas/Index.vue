@@ -54,11 +54,12 @@ function closeModal() {
 
 
 export default {
-    data: function () {
+    data () {
         return {
             pepper: this.pepper,
             preview: null,
-            image: null
+            image: null,
+            hasAdmin: false
         };
     },
 
@@ -79,6 +80,29 @@ export default {
             this.image = null;
             this.preview = null;
         }
+    },
+
+    created() {
+        this.$axios.get('/user/access')
+        .then((result) => {
+            console.log(result.data);
+            this.numberOfCards = result.data.length;
+            this.memberAreas = result.data;
+
+            result.data.forEach(area => {
+                if (area.role == 'admin') {
+                    this.hasAdmin = true;
+                }
+            });
+
+            console.log(this.hasAdmin);
+
+            this.loader = false;
+            this.viewUI = true;
+        })
+        .catch((error) => {
+            return console.log(error);
+        });
     }
 }
 </script>
