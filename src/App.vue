@@ -14,7 +14,7 @@ export default {
     /* Interceptando as requests */
     axios.interceptors.request.use(async (config) => { 
       const bukectUrl = 'pepper-images-dev.s3';
-      
+
       this.loader = true;
 
       if (!config.url.includes(bukectUrl)) {
@@ -26,7 +26,9 @@ export default {
 
     /* Intecerptando o callback das requests */
     axios.interceptors.response.use((response) => {
-      this.loader = false;
+      setTimeout(() => {
+        this.loader = false;
+      }, 1000);
       return Promise.resolve(response);
     }, function (error) {
       console.log(localStorage.getItem('token'));
@@ -43,7 +45,9 @@ export default {
             query: { redirect: router.currentRoute.fullPath }
         });
       }
-      this.loader = false;
+      setTimeout(() => {
+        this.loader = false;
+      }, 1000);
       return console.log(error.response);
     });
   },

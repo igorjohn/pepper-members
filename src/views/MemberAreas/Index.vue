@@ -10,6 +10,10 @@ import {
 
 import { PlusIcon, TrashIcon } from '@heroicons/vue/20/solid'
 
+import AlertError from '@/components/AlertError.vue';
+import AlertInfo from '@/components/AlertInfo.vue';
+import AlertSuccess from '@/components/AlertSuccess.vue';
+
 let showHeaderDropdown = ref(false);
 
 const menuLogo = `
@@ -24,29 +28,60 @@ const menuLogo = `
 // Mock images
 import Cinetica from "@/assets/img/mock/cinetica.png";
 
-let isOpenModal = ref(false);
-function openModal() {
-    isOpenModal.value = true;
-}
-
-function closeModal() {
-    isOpenModal.value = false;
-}
-
-
 export default {
+    components: { AlertSuccess, AlertError, AlertInfo },
+
     data () {
         return {
+            notifications: {
+                error: {
+                    showErrorNotification: false,
+                    textErrorNotification: '',
+                },
+                success: {
+                    showSuccessNotification: false,
+                    textSuccessNotification: '',
+                },
+                info: {
+                    showInfoNotification: false,
+                    textInfoNotification: '',
+                },
+            },
             pepper: this.pepper,
             preview: null,
             image: null,
             viewUI: false,
             hasAdmin: false,
-            memberAreas: {}
+            isOpenModal: false,
+            memberAreas: {},
+            formCreateMemberArea: {
+                title: '',
+                slug: '',
+                media: null,
+            }
         };
     },
 
     methods: {
+        /* Alterando o status dos modals */
+        openModal() {
+            this.isOpenModal = true;
+        },
+
+        closeModal() {
+            this.isOpenModal = false;
+        },
+
+        /* Formatando o slug */
+        formatSlugWithStopping: function formatSlugWithStopping($event) {
+            clearTimeout(formatSlugWithStopping.timeout);
+            
+            formatSlugWithStopping.timeout = setTimeout(() => {
+                this.formCreateMemberArea.slug = this.formCreateMemberArea.slug.replace(/\s/g, '-').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+            }, 1);
+        },
+
+        /* Mostrando/Setando a imagem da área */
         previewImage(event) {
             var input = event.target;
             if (input.files) {
@@ -57,12 +92,92 @@ export default {
                 this.image = input.files[0];
                 console.log(this.image);
                 reader.readAsDataURL(input.files[0]);
+                this.formCreateMemberArea.media = input.files[0];
             }
         },
+
+        /* Resetando a imagem upada */
         reset() {
             this.image = null;
             this.preview = null;
-        }
+            this.formCreateMemberArea.media = null
+        },
+
+        /* Request para criação da Área de Membros */
+        postCreateMemberArea() {
+            if (!this.formCreateMemberArea.title || !this.formCreateMemberArea.slug) {
+                return this.notification('error', 'Você não preencheu os campos corretamente!');
+            }
+
+            let data = {
+                title: this.formCreateMemberArea.title,
+                slug: this.formCreateMemberArea.slug.replace(/\s/g, '-').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+            };
+
+            if (this.formCreateMemberArea.media) {
+                data['image'] = this.formCreateMemberArea.media;
+            }
+
+            this.isOpenModal = false;
+
+            this.$axios.post('/memberarea', data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+                validateStatus: status => status >= 200 && status < 300 || status === 422
+            })
+            .then((response) => {
+                console.log(response);
+                if (response.status == 201) {
+                    setTimeout(() => {
+                        return this.$router.push(response.data.slug);
+                    }, 500);
+                } else if (response.status == 422 && response.data.errors.slug) {
+                    setTimeout(() => {
+                        return this.notification('error', 'Esse slug já está sendo utilizado, escolha outro!');
+                    }, 500);
+                } else if (response.status == 422 && response.data.errors.image == "The image failed to upload.") {
+                    setTimeout(() => {
+                        return this.notification('error', 'Não foi possível processar sua imagem, só são permitidas imagens até 4MB.');
+                    }, 500);
+                }
+            }).catch((error) => {
+                return this.notification('error', 'Ocorreu um erro durante a criação, tente novamente!');
+            });
+        },
+
+        /* Notificações */
+        notification(type, text) {
+            if (type == 'error') {
+                this.notifications.error.showErrorNotification = true;
+                this.notifications.error.textErrorNotification = text;
+    
+                setTimeout(() => {
+                    this.notifications.error.showErrorNotification = false;
+                    this.notifications.error.textErrorNotification = '';
+                }, 2500);
+            }
+
+            if (type == 'success') {
+                this.notifications.success.showSuccessNotification = true;
+                this.notifications.success.textSuccessNotification = text;
+    
+                setTimeout(() => {
+                    this.notifications.success.showSuccessNotification = false;
+                    this.notifications.success.textSuccessNotification = '';
+                }, 2500);
+            }
+
+            if (type == 'info') {
+                this.notifications.info.showInfoNotification = true;
+                this.notifications.info.textInfoNotification = text;
+    
+                setTimeout(() => {
+                    this.notifications.info.showInfoNotification = false;
+                    this.notifications.info.textInfoNotification = '';
+                }, 2500);
+            }
+        },
     },
 
     created() {
@@ -114,9 +229,9 @@ export default {
                     <div v-for="(area, index) in memberAreas" :key="index" class="thumb-wrapper w-full sm:w-1/2 lg:w-1/5 xl:w-1/6">
                         <a :href="area.member_area.slug">
                             <div class="thumb-container w-full rounded-lg overflow-hidden">
-                                <img v-if="area.member_area.media == null" src="../../assets/img/capa-pepper-null.png" alt="" />
+                                <img v-if="area.member_area.media == null" src="../../assets/img/capa-pepper-null.png" class="w-full aspect-video bg-slate-500 object-cover bg-opacity-10" alt="" />
 
-                                <img v-if="area.member_area.media != null" class="w-full aspect-video bg-slate-500 object-cover bg-opacity-10" :src="area.member_area.thumbnail.media" />
+                                <img v-else class="w-full aspect-video bg-slate-500 object-cover bg-opacity-10" :src="area.member_area.media.file_url" />
                             </div>
                             <div class="px-1 py-3 font-semibold text-sm mb-2 transition duration-300">
                                 {{ area.member_area.title }}
@@ -143,7 +258,7 @@ export default {
         </div>
     </div>
 
-
+    <!-- Modal para criar nova área de membros -->
     <TransitionRoot appear :show="isOpenModal" as="template">
         <Dialog as="div" @close="closeModal" class="relative z-50">
             <TransitionChild
@@ -181,7 +296,8 @@ export default {
                                             required
                                             placeholder="Nome que irá aparecer para seus alunos"
                                             maxlength="200"
-                                            :class="pepper.darkMode.form.inputWhiteBg" />
+                                            :class="pepper.darkMode.form.inputWhiteBg"
+                                            v-model="formCreateMemberArea.title" />
                                     </div>
 
                                     <!-- Slug -->
@@ -199,7 +315,9 @@ export default {
                                                 placeholder="slug-da-sua-area"
                                                 maxlength="200"
                                                 class="rounded-none rounded-r-md px-2 border-l-gray-100"
-                                                :class="pepper.darkMode.form.inputWhiteBg" />
+                                                :class="pepper.darkMode.form.inputWhiteBg"
+                                                v-model="formCreateMemberArea.slug" 
+                                                v-on:keyup="formatSlugWithStopping($event)" />
                                         </div>
                                     </div>
 
@@ -251,7 +369,7 @@ export default {
                                 <button
                                     type="button"
                                     class="ml-1 inline-flex justify-center rounded-md border border-transparent bg-pepper-primary px-4 py-2 text-sm font-medium text-white hover:bg-red-700"
-                                    @click="closeModal">
+                                    @click="postCreateMemberArea">
                                     Confirmar
                                 </button>
                             </div>
@@ -261,6 +379,21 @@ export default {
             </div>
         </Dialog>
     </TransitionRoot>
+
+    <!-- Notificações -->
+    <transition appear name="slide-fade">
+        <div v-if="
+            notifications.error.showErrorNotification || 
+            notifications.success.showSuccessNotification ||
+            notifications.info.showInfoNotification
+        " class="float-right min-w-full fixed bottom-3 right-0 md:right-3">
+            <AlertSuccess v-if="notifications.success.showSuccessNotification" :title="notifications.success.textSuccessNotification" />
+
+            <AlertError v-if="notifications.error.showErrorNotification" :title="notifications.error.textErrorNotification" />
+
+            <AlertInfo v-if="notifications.info.showInfoNotification" :title="notifications.info.textInfoNotification" />
+        </div>
+    </transition>
 
 </template>
 
