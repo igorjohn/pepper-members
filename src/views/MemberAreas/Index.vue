@@ -40,6 +40,7 @@ export default {
             pepper: this.pepper,
             preview: null,
             image: null,
+            viewUI: false,
             hasAdmin: false,
             memberAreas: {}
         };
@@ -65,6 +66,8 @@ export default {
     },
 
     created() {
+        document.title = 'Areas – Pepper Members';
+
         this.$axios.get('/user/access')
         .then((result) => {
             console.log(result.data);
@@ -88,56 +91,21 @@ export default {
 </script>
 
 <template>
-
-    <div class="md:min-h-screen w-full flex flex-col md:justify-between">
-
-        <header id="header-mobile" class="bg-pepper-dark-3 flex justify-between w-full py-1.5">
-            <!-- Logo -->
-            <div v-html="menuLogo"></div>
-
-            <div class="flex items-center justify-start px-2">
-                <div class="block py-4 px-2">
-                    <h6 class="font-bold text-sm">Olá, Gilney</h6>
+    <div v-if="viewUI" class="md:min-h-screen w-full items-center flex flex-col justify-center grid">
+        <!-- Empty State (Para usuários que não tenham acesso a nenhuma área) -->
+        <div v-if="memberAreas.length <= 0" class="px-6 pt-20 pb-10 max-w-7xl mx-auto flex flex-col justify-center items-center">
+            <div :class="pepper.darkMode.card.container" class="p-5 mt-8">
+                <div class="flex space-x-2 justify-center items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="flex-none fill-none text-red-500 h-5 w-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                    </svg>
+                    <div class="leading-tight text-sm text-gray-200 font-medium">Nenhuma área de membros cadastrada.</div>
                 </div>
-                <Menu as="div" :show="showHeaderDropdown" @close="showHeaderDropdown = false" class="relative ml-2 mr-2">
-                    <div class="inline-flex flex-row justify-center items-center h-full">
-                        <MenuButton class="flex p-0 rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-gray-800">
-                            <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
-                        </MenuButton>
-                        <svg class="w-5 h-5 mt-2 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill="currentColor" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                        </svg>
-                    </div>
-                    <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
-                        <MenuItems class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                            <MenuItem v-slot="{ active }">
-                            <router-link
-                                to="/area/perfil"
-                                :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">
-                                Meu perfil
-                            </router-link>
-                            </MenuItem>
-                            <MenuItem v-slot="{ active }">
-                            <router-link
-                                to="/memberareas"
-                                :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">
-                                Áreas de membros
-                            </router-link>
-                            </MenuItem>
-                            <MenuItem v-slot="{ active }">
-                            <router-link
-                                to="#"
-                                :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-red-600']">
-                                Desconectar
-                            </router-link>
-                            </MenuItem>
-                        </MenuItems>
-                    </transition>
-                </Menu>
             </div>
-        </header>
+        </div>
 
-        <div class="px-6 py-20 max-w-7xl mx-auto flex flex-col justify-center items-center">
+        <!-- Listagem das áreas que o usuário tem acesso -->
+        <div v-if="memberAreas.length > 0" class="px-6 pt-20 pb-10 max-w-7xl mx-auto flex flex-col justify-center items-center">
             <div class="w-full mb-14">
                 <h3 class="font-semibold text-lg mb-14 text-center">
                     Escolha a área de membros que deseja acessar:
@@ -157,16 +125,18 @@ export default {
                     </div>
                 </div>
             </div>
-            <div v-if="hasAdmin" class="flex items-center justify-center mb-14">
-                <button @click="openModal" type="button" :class="pepper.darkMode.button.primary">
-                    <PlusIcon class="-ml-1 mr-1 h-4 w-4 font-bold" aria-hidden="true" />
-                    <span>Criar nova área de membros</span>
-                </button>
-            </div>
+        </div>
+
+        <!-- Botão para cadastro de nova área -->
+        <div v-if="hasAdmin" class="flex items-center justify-center mb-14">
+            <button @click="openModal" type="button" :class="pepper.darkMode.button.primary">
+                <PlusIcon class="-ml-1 mr-1 h-4 w-4 font-bold" aria-hidden="true" />
+                <span>Criar nova área de membros</span>
+            </button>
         </div>
 
         <!-- Footer -->
-        <div class="flex items-center justify-center my-10">
+        <div class="flex items-center justify-center mb-7">
             <span class="text-xs text-gray-500 text-center font-medium">
                 Pepper Members © 2023 - Todos os direitos reservados
             </span>
