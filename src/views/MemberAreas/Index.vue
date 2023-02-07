@@ -24,25 +24,6 @@ const menuLogo = `
 // Mock images
 import Cinetica from "@/assets/img/mock/cinetica.png";
 
-
-const memberAreas = [
-    {
-        router: '/area',
-        title: 'The Walking Dead',
-        thumbnail: 'https://nerdreactor.com/wp-content/uploads/2017/09/The-Walking-Dead-_S8_14x48BB_REF1-thumb.jpg',
-    },
-    {
-        router: '/area',
-        title: 'Curso de Programação',
-        thumbnail: 'https://www.memesmonkey.com/images/memesmonkey/9f/9f098b405bac22358a2f73abc09f3c24.jpeg',
-    },
-    {
-        router: '/area',
-        title: 'Cinética - Escola do Movimento!',
-        thumbnail: Cinetica,
-    },
-]
-
 let isOpenModal = ref(false);
 function openModal() {
     isOpenModal.value = true;
@@ -59,12 +40,13 @@ export default {
             pepper: this.pepper,
             preview: null,
             image: null,
-            hasAdmin: false
+            hasAdmin: false,
+            memberAreas: {}
         };
     },
 
     methods: {
-        previewImage: function (event) {
+        previewImage(event) {
             var input = event.target;
             if (input.files) {
                 var reader = new FileReader();
@@ -76,7 +58,7 @@ export default {
                 reader.readAsDataURL(input.files[0]);
             }
         },
-        reset: function () {
+        reset() {
             this.image = null;
             this.preview = null;
         }
@@ -86,7 +68,6 @@ export default {
         this.$axios.get('/user/access')
         .then((result) => {
             console.log(result.data);
-            this.numberOfCards = result.data.length;
             this.memberAreas = result.data;
 
             result.data.forEach(area => {
@@ -162,20 +143,21 @@ export default {
                     Escolha a área de membros que deseja acessar:
                 </h3>
                 <div id="member-areas-container">
-                    <div v-for="a in memberAreas" class="thumb-wrapper w-full sm:w-1/2 lg:w-1/5 xl:w-1/6">
-                        <router-link :to="a.router">
+                    <div v-for="(area, index) in memberAreas" :key="index" class="thumb-wrapper w-full sm:w-1/2 lg:w-1/5 xl:w-1/6">
+                        <a :href="area.member_area.slug">
                             <div class="thumb-container w-full rounded-lg overflow-hidden">
-                                <img class="w-full aspect-video bg-slate-500 object-cover bg-opacity-10"
-                                    :src="a.thumbnail" />
+                                <img v-if="area.member_area.media == null" src="../../assets/img/capa-pepper-null.png" alt="" />
+
+                                <img v-if="area.member_area.media != null" class="w-full aspect-video bg-slate-500 object-cover bg-opacity-10" :src="area.member_area.thumbnail.media" />
                             </div>
                             <div class="px-1 py-3 font-semibold text-sm mb-2 transition duration-300">
-                                {{ a.title }}
+                                {{ area.member_area.title }}
                             </div>
-                        </router-link>
+                        </a>
                     </div>
                 </div>
             </div>
-            <div class="flex items-center justify-center mb-14">
+            <div v-if="hasAdmin" class="flex items-center justify-center mb-14">
                 <button @click="openModal" type="button" :class="pepper.darkMode.button.primary">
                     <PlusIcon class="-ml-1 mr-1 h-4 w-4 font-bold" aria-hidden="true" />
                     <span>Criar nova área de membros</span>
