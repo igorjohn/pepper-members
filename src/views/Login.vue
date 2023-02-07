@@ -23,7 +23,6 @@ export default {
                 },
             },
             pepper: this.pepper,
-            loader: false,
             formLogin: {
                 email: null,
                 password: null,
@@ -70,9 +69,7 @@ export default {
                 return this.$router.push("/memberareas");
             }).catch((error) => {
                 return console.log(error);
-            }).finally(() => {
-                this.loader = false;
-            });
+            })
         },
 
         notification(type, text) {

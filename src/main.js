@@ -7,25 +7,6 @@ import VueAxios from 'vue-axios';
 import './styles.css';
 
 axios.defaults.baseURL = process.env.VUE_APP_ROOT_API;
-axios.interceptors.response.use(function (response) {
-    return Promise.resolve(response);
-}, function (error) {
-    console.log(localStorage.getItem('token'));
-    console.log(error);
-    if (
-        error.response.data.message == "Unauthenticated." ||
-        error.response.status == 500
-    ) {
-        if (localStorage.getItem('token')) {
-            localStorage.removeItem('token');
-        }
-        router.replace({
-            path: "/login",
-            query: { redirect: router.currentRoute.fullPath }
-          });
-    }
-    return console.log(error.response);
-});
 
 const app = createApp(App)
 app.config.globalProperties.pepper = {

@@ -97,7 +97,6 @@ export default {
 
             console.log(this.hasAdmin);
 
-            this.loader = false;
             this.viewUI = true;
         })
         .catch((error) => {
@@ -109,7 +108,7 @@ export default {
 
 <template>
 
-    <div class="md:min-h-screen w-screen flex flex-col md:justify-between">
+    <div class="md:min-h-screen w-full flex flex-col md:justify-between">
 
         <header id="header-mobile" class="bg-pepper-dark-3 flex justify-between w-full py-1.5">
             <!-- Logo -->
