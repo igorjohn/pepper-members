@@ -1,13 +1,111 @@
-<script type="text/javascript">
+<script>
+import AlertError from '@/components/AlertError.vue';
+import AlertInfo from '@/components/AlertInfo.vue';
+import AlertSuccess from '@/components/AlertSuccess.vue';
+import { ref } from 'vue'
 
 export default {
+    components: { AlertSuccess, AlertError, AlertInfo },
     data() {
         return {
-            pepper: this.pepper
+            notifications: {
+                error: {
+                    showErrorNotification: false,
+                    textErrorNotification: '',
+                },
+                success: {
+                    showSuccessNotification: false,
+                    textSuccessNotification: '',
+                },
+                info: {
+                    showInfoNotification: false,
+                    textInfoNotification: '',
+                },
+            },
+            pepper: this.pepper,
+            loader: false,
+            formLogin: {
+                email: null,
+                password: null,
+            }
         }
     },
-    mounted() {
-        document.title = 'Login – Pepper Members'
+    setup() {
+        /* Notificação */
+        let showNotification = ref(false);
+        function notification(type) {
+            showNotification.value = true;
+            setTimeout(() => {
+                showNotification.value = false;
+            }, 2000);
+        }
+    },
+    created() {
+        /* Setando o título da página */
+        document.title = 'Login – Pepper Members';
+
+        /* Verificando se a página de login foi acessada com os dados na URL */
+        const actualUrl = window.location.href;
+        const url = new URL(actualUrl);
+        const emailParam = url.searchParams.get("e");
+        const passwordParam = url.searchParams.get("p");
+        if (emailParam && passwordParam) {
+            this.formLogin.email = emailParam;
+            this.formLogin.password = passwordParam;
+            this.postLogin();
+        }
+    },
+    methods: {
+        /* Fazendo a requisição para login */
+        postLogin() {
+            if (!this.formLogin.email || !this.formLogin.password) {
+                return this.notification('error', 'Você não preencheu todos os dados corretamente!');
+            }
+
+            this.$axios.post("/user/login", {
+                email: this.formLogin.email,
+                password: this.formLogin.password
+            }).then((response) => {
+                localStorage.setItem("token", response.data.token);
+                return this.$router.push("/memberareas");
+            }).catch((error) => {
+                return console.log(error);
+            }).finally(() => {
+                this.loader = false;
+            });
+        },
+
+        notification(type, text) {
+            if (type == 'error') {
+                this.notifications.error.showErrorNotification = true;
+                this.notifications.error.textErrorNotification = text;
+    
+                setTimeout(() => {
+                    this.notifications.error.showErrorNotification = false;
+                    this.notifications.error.textErrorNotification = '';
+                }, 2500);
+            }
+
+            if (type == 'success') {
+                this.notifications.success.showSuccessNotification = true;
+                this.notifications.success.textSuccessNotification = text;
+    
+                setTimeout(() => {
+                    this.notifications.success.showSuccessNotification = false;
+                    this.notifications.success.textSuccessNotification = '';
+                }, 2500);
+            }
+
+            if (type == 'info') {
+                this.notifications.info.showInfoNotification = true;
+                this.notifications.info.textInfoNotification = text;
+    
+                setTimeout(() => {
+                    this.notifications.info.showInfoNotification = false;
+                    this.notifications.info.textInfoNotification = '';
+                }, 2500);
+            }
+        },
     }
 };
 
@@ -26,11 +124,11 @@ export default {
                 <div class="-space-y-px rounded-md shadow-sm">
                     <div class="mb-4">
                         <label for="email-address" :class="pepper.darkMode.form.label">E-mail:</label>
-                        <input value="admin@admin.com" id="email-address" name="email" type="email" autocomplete="email" required="" :class="pepper.darkMode.form.input" placeholder="email@email.com" />
+                        <input id="email-address" name="email" type="email" autocomplete="email" required :class="pepper.darkMode.form.input" placeholder="email@email.com" v-model="formLogin.email" />
                     </div>
                     <div>
                         <label for="password" :class="pepper.darkMode.form.label">Digite sua senha</label>
-                        <input value="123456" id="password" name="password" type="password" autocomplete="current-password" required="" :class="pepper.darkMode.form.input" />
+                        <input id="password" name="password" type="password" autocomplete="current-password" required :class="pepper.darkMode.form.input" v-model="formLogin.password" />
                     </div>
                 </div>
 
@@ -45,15 +143,28 @@ export default {
                     </div>
                 </div>
 
-                <router-link
-                    to="/memberareas"
-                    :class="pepper.darkMode.button.login">
+                <button :class="pepper.darkMode.button.login" @click="postLogin">
                     Fazer login
-                </router-link>
+                </button>
 
             </div>
         </div>
     </div>
+
+    <!-- Notificações -->
+    <transition appear name="slide-fade">
+        <div v-if="
+            notifications.error.showErrorNotification || 
+            notifications.success.showSuccessNotification ||
+            notifications.info.showInfoNotification
+        " class="float-right min-w-full fixed bottom-3 right-0 md:right-3">
+            <AlertSuccess v-if="notifications.success.showSuccessNotification" :title="notifications.success.textSuccessNotification" />
+
+            <AlertError v-if="notifications.error.showErrorNotification" :title="notifications.error.textErrorNotification" />
+
+            <AlertInfo v-if="notifications.info.showInfoNotification" :title="notifications.info.textInfoNotification" />
+        </div>
+    </transition>
 </template>
 
 <style scoped>
