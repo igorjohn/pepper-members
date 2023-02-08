@@ -30,7 +30,7 @@ export default {
         this.loader = false;
       }, 1000);
       return Promise.resolve(response);
-    }, function (error) {
+    }, (error) => {
       console.log(localStorage.getItem('token'));
       console.log(error);
       if (
@@ -40,6 +40,9 @@ export default {
         if (localStorage.getItem('token')) {
             localStorage.removeItem('token');
         }
+        
+        this.loader = false;
+
         router.replace({
             path: "/login",
             query: { redirect: router.currentRoute.fullPath }
