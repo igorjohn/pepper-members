@@ -131,64 +131,71 @@ import {
     DialogPanel,
     DialogTitle,
 } from '@headlessui/vue'
+import Loader from '@/components/Loader.vue';
 
 
 export default {
-    data () {
+    data() {
         return {
             pepper: this.pepper,
             preview: null,
+            viewUI: false,
+            loader: true,
             image: null,
             coverFormat: 1,
             categories: [],
             productsWithoutAccess: [],
         };
     },
-    
     props: {
         memberAreaInfos: Object
     },
-
     created() {
         this.$axios.get(`memberarea/categories/${this.memberAreaInfos.id}`)
         .then((response) => {
-            this.categories = response.data.allCategories.category
-            this.productsWithoutAccess = response.data.productsWithoutAccess
+            this.categories = response.data.allCategories.category;
+            this.productsWithoutAccess = response.data.productsWithoutAccess;
+            this.viewUI = true;
+            this.loader = false;
             console.log(this.categories);
             console.log(this.productsWithoutAccess);
-        })
+        });
     },
-
     methods: {
-        previewImage (event) {
+        previewImage(event) {
             var input = event.target;
             if (input.files) {
                 var reader = new FileReader();
                 reader.onload = (e) => {
                     this.preview = e.target.result;
-                }
+                };
                 this.image = input.files[0];
                 console.log(this.image);
                 reader.readAsDataURL(input.files[0]);
             }
         },
-        resizeTo () {
+        resizeTo() {
             this.image = null;
             this.preview = null;
         }
-    }
+    },
+    components: { Loader }
 };
 </script>
 
 <template>
+    <!-- Loader -->
+    <section v-if="loader">
+        <Loader />
+    </section>
 
     <!-- Banner image -->
-    <img v-if="memberAreaInfos.banner"
+    <img v-if="memberAreaInfos.banner && viewUI"
         class="rounded-md w-full h-auto border border-zinc-800 bg-zinc-900 mb-12"
         :src="memberAreaInfos.banner.file_url" />
 
     <!-- Header -->
-    <div class="lg:flex lg:justify-between pb-8">
+    <div v-if="viewUI" class="lg:flex lg:justify-between pb-8">
         <Header title="Meus conteúdos"></Header>
         <!-- Action buttons -->
         <div v-if="memberAreaInfos.access.role == 'admin'" class="mt-5 flex lg:mt-0 lg:ml-4">
@@ -213,7 +220,7 @@ export default {
     </div>
 
     <!-- Empty state -->
-    <div v-if="category.length == 0" class="p-5 mt-6" :class="pepper.darkMode.card.container">
+    <div v-if="category.length == 0 && viewUI" class="p-5 mt-6" :class="pepper.darkMode.card.container">
         <div class="flex space-x-2 justify-center items-center">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="flex-none fill-none text-red-500 h-5 w-5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
@@ -223,7 +230,7 @@ export default {
     </div>
 
     <!-- For: Category -->
-    <div v-for="category in categories">
+    <div v-if="viewUI" v-for="category in categories">
         <div v-if="(category.products.length > 0 && memberAreaInfos.access.role != 'admin') || memberAreaInfos.access.role == 'admin'" class="md:flex md:items-center mb-6">
             <h3 class="font-bold text-white text-xl md:w-auto mb-3 md:mb-0">
                 {{ category.title }}
@@ -280,7 +287,7 @@ export default {
     </div>
 
 
-    <div v-if="productsWithoutAccess.length > 0" class="pt-2">
+    <div v-if="productsWithoutAccess.length > 0 && viewUI" class="pt-2">
         <div class="md:flex md:items-center mb-6">
             <h3 class="font-bold text-white text-xl md:w-auto mb-3 md:mb-0">
                 {{ vitrine.title }}
