@@ -8,6 +8,10 @@ const open = ref(false);
 
 let showHeaderDropdown = ref(false);
 
+const props = defineProps({
+    memberAreaInfos: Object
+});
+
 const menuLogo = `
     <div class="inline-flex h-full items-center justify-center px-4 lg:px-6">
         <img src="https://peppermembers.com/img/logotipo-white-pepper.52ff1608.png" style="height: 22px;" />
@@ -17,6 +21,7 @@ const sidebarLinks = [
     {
         route: '',
         isAdmin: false,
+        isActive: true,
         text: 'Meus conteúdos',
         icon: `
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-400">
@@ -26,6 +31,7 @@ const sidebarLinks = [
     {
         route: 'certificados',
         isAdmin: false,
+        isActive: true,
         text: 'Certificados',
         icon: `
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-400">
@@ -34,6 +40,7 @@ const sidebarLinks = [
     },
     {
         route: 'contato',
+        isActive: props.memberAreaInfos.support_email || props.memberAreaInfos.support_whatsapp ? true : false,
         isAdmin: false,
         text: 'Contato e suporte',
         icon: `
@@ -44,6 +51,7 @@ const sidebarLinks = [
     {
         route: 'perfil',
         isAdmin: false,
+        isActive: true,
         text: 'Meu perfil',
         icon: `
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-400">
@@ -53,6 +61,7 @@ const sidebarLinks = [
     {
         route: 'memberareas',
         isAdmin: false,
+        isActive: true,
         text: 'Áreas de membros',
         icon: `
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-400">
@@ -62,6 +71,7 @@ const sidebarLinks = [
     // Admin routes:
     {
         isAdmin: true,
+        isActive: true,
         text: 'Adicionar',
         icon: `
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-400">
@@ -82,6 +92,7 @@ const sidebarLinks = [
     {
         route: 'alunos',
         isAdmin: true,
+        isActive: true,
         text: 'Gerenciar alunos',
         icon: `
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-400">
@@ -91,6 +102,7 @@ const sidebarLinks = [
     {
         route: 'comentarios',
         isAdmin: true,
+        isActive: true,
         text: 'Comentários',
         badgeNumber: 27,
         icon: `
@@ -101,6 +113,7 @@ const sidebarLinks = [
     {
         route: 'categorias',
         isAdmin: true,
+        isActive: true,
         text: 'Categorias',
         icon: `
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-400">
@@ -110,6 +123,7 @@ const sidebarLinks = [
     {
         route: 'integracoes',
         isAdmin: true,
+        isActive: true,
         text: 'Integrações',
         icon: `
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-400">
@@ -119,6 +133,7 @@ const sidebarLinks = [
     {
         route: 'configuracoes',
         isAdmin: true,
+        isActive: true,
         text: 'Configurações',
         icon: `
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-400">
@@ -184,7 +199,7 @@ export default {
                 <nav id="sidebarMenu">
                     <template v-for="u in sidebarLinks">
                         <router-link
-                            v-if="(!u.submenu || u.submenu == false) && u.isAdmin == false"
+                            v-if="(!u.submenu || u.submenu == false) && u.isAdmin == false && u.isActive"
                             :to="u.route != 'memberareas' ? `/${this.$route.params.area}/${u.route}` : '/memberareas'"
                             class="sidebar-li-router space-x-3 transition duration-200 hover:bg-gray-800 hover:text-white">
                             <div v-html="u.icon"></div>
