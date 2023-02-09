@@ -227,7 +227,7 @@ export default {
                 </h3>
                 <div id="member-areas-container">
                     <div v-for="(area, index) in memberAreas" :key="index" class="thumb-wrapper w-full sm:w-1/2 lg:w-1/5 xl:w-1/6">
-                        <a :href="area.member_area.slug">
+                        <a v-if="area.userLostAccess != 1 || area.role == 'admin'" :href="area.member_area.slug">
                             <div class="thumb-container w-full rounded-lg overflow-hidden">
                                 <img v-if="area.member_area.media == null" src="../../assets/img/capa-pepper-null.png" class="w-full aspect-video bg-slate-500 object-cover bg-opacity-10" alt="" />
 

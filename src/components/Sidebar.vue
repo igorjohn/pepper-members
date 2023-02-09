@@ -221,7 +221,7 @@ export default {
                         </div>
                         <router-link
                             v-if="(!a.submenu || a.submenu == false) && a.isAdmin == true"
-                            :to="a.route"
+                            :to="a.route != 'memberareas' ? `/${this.$route.params.area}/${a.route}` : '/memberareas'"
                             class="sidebar-li-router transition duration-200 hover:bg-gray-800 hover:text-white justify-between">
                             <div class="inline-flex space-x-3 items-center">
                                 <div v-html="a.icon"></div>
@@ -264,7 +264,7 @@ export default {
                                                 <router-link
                                                     @click="open = false"
                                                     v-if="(!u.submenu || u.submenu == false) && u.isAdmin == false"
-                                                    :to="`/${this.$route.params.area}/${u.route}`"
+                                                    :to="u.route != 'memberareas' ? `/${this.$route.params.area}/${u.route}` : '/memberareas'"
                                                     class="sidebar-li-router space-x-3 transition duration-200 hover:bg-gray-800 hover:text-white focus:outline-none focus:ring-0">
                                                     <div v-html="u.icon"></div>
                                                     <span>{{ u.text }}</span>
@@ -301,7 +301,7 @@ export default {
                                                 </div>
                                                 <router-link
                                                     v-if="(!a.submenu || a.submenu == false) && a.isAdmin == true"
-                                                    :to="a.route"
+                                                    :to="a.route != 'memberareas' ? `/${this.$route.params.area}/${a.route}` : '/memberareas'"
                                                     @click="open = false"
                                                     class="sidebar-li-router transition duration-200 hover:bg-gray-800 hover:text-white justify-between">
                                                     <div class="inline-flex space-x-3 items-center">

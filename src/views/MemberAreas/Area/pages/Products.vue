@@ -139,7 +139,9 @@ export default {
             pepper: this.pepper,
             preview: null,
             image: null,
-            coverFormat: 1
+            coverFormat: 1,
+            categories: [],
+            productsWithoutAccess: [],
         };
     },
     
@@ -148,7 +150,13 @@ export default {
     },
 
     created() {
-        console.log(this.memberAreaInfos);
+        this.$axios.get(`memberarea/categories/${this.memberAreaInfos.id}`)
+        .then((response) => {
+            this.categories = response.data.allCategories.category
+            this.productsWithoutAccess = response.data.productsWithoutAccess
+            console.log(this.categories);
+            console.log(this.productsWithoutAccess);
+        })
     },
 
     methods: {
@@ -175,15 +183,15 @@ export default {
 <template>
 
     <!-- Banner image -->
-    <img v-if="memberAreaBanner.showBanner && memberAreaBanner.imgUrl !== ''"
+    <img v-if="memberAreaInfos.banner"
         class="rounded-md w-full h-auto border border-zinc-800 bg-zinc-900 mb-12"
-        :src="memberAreaBanner.imgUrl" />
+        :src="memberAreaInfos.banner.file_url" />
 
     <!-- Header -->
     <div class="lg:flex lg:justify-between pb-8">
         <Header title="Meus conteúdos"></Header>
         <!-- Action buttons -->
-        <div class="mt-5 flex lg:mt-0 lg:ml-4">
+        <div v-if="memberAreaInfos.access.role == 'admin'" class="mt-5 flex lg:mt-0 lg:ml-4">
             <span class="block">
                 <button
                     type="button"
@@ -215,45 +223,56 @@ export default {
     </div>
 
     <!-- For: Category -->
-    <div v-for="c in category">
-        <div class="md:flex md:items-center mb-6">
+    <div v-for="category in categories">
+        <div v-if="(category.products.length > 0 && memberAreaInfos.access.role != 'admin') || memberAreaInfos.access.role == 'admin'" class="md:flex md:items-center mb-6">
             <h3 class="font-bold text-white text-xl md:w-auto mb-3 md:mb-0">
-                {{ c.name }}
+                {{ category.title }}
             </h3>
         </div>
         <div class="w-full grid gap-4 mb-12"
             :class="coverFormat ? 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'">
-            <template v-for="p in product">
-                <router-link :to="p.route" v-if="p.belongsToCategory == c.id" class="text-gray-200 hover:text-indigo-500 transition duration-500">
+            <template v-for="product in category.products">
+                <router-link :to="`/${this.$route.params.area}/${product.id}`" class="text-gray-200 hover:text-indigo-500 transition duration-500">
                     <div
                         class="scale-hover relative w-full overflow-hidden cursor-pointer border border-pepper-dark-4 hover:border-indigo-800 transition duration-500 rounded-lg"
                         :class="coverFormat ? 'aspect-movie' : 'aspect-video'">
 
                         <!-- Course image -->
                         <img
-                            class="w-full mx-auto h-full object-cover bg-gray-500 bg-opacity-10"
-                            :src="p.thumbnail">
+                            v-if="product.media"
+                            :src="product.media.file_url"
+                            class="w-full mx-auto h-full object-cover bg-gray-500 bg-opacity-10" />
+
+                        <img
+                            v-if="!product.media && coverFormat == 0"
+                            src="@/assets/img/capa-pepper-null.png"
+                            class="w-full mx-auto h-full object-cover bg-gray-500 bg-opacity-10" />
+
+                        <img
+                            v-if="!product.media && coverFormat == 1"
+                            src="@/assets/img/capa-pepper-null-vertical.png"
+                            class="w-full mx-auto h-full object-cover bg-gray-500 bg-opacity-10" />
 
                         <!-- Não publicado -->
-                        <span v-if="!p.isPublished" class="absolute top-0 right-0 m-2 px-2 py-1 font-semibold text-white bg-red-800 border border-red-500 text-xs rounded-md leading-tight shadow-lg">
+                        <span v-if="product.status == 0" class="absolute top-0 right-0 m-2 px-2 py-1 font-semibold text-white bg-red-800 border border-red-500 text-xs rounded-md leading-tight shadow-lg">
                             Não publicado
                         </span>
 
                         <!-- Concluído -->
-                        <span v-if="p.userProgress == 100" class="absolute top-0 right-0 m-2 px-2 py-1 font-semibold text-white bg-emerald-500 border border-emerald-700 text-xs rounded-md leading-tight shadow-lg">
+                        <!-- <span v-if="p.userProgress == 100" class="absolute top-0 right-0 m-2 px-2 py-1 font-semibold text-white bg-emerald-500 border border-emerald-700 text-xs rounded-md leading-tight shadow-lg">
                             Concluído
-                        </span>
+                        </span> -->
 
                         <!-- User progress -->
-                        <div class="absolute bottom-0 left-0 overflow-hidden flex justify-end items-end w-full h-full rounded-b-md">
+                        <!-- <div class="absolute bottom-0 left-0 overflow-hidden flex justify-end items-end w-full h-full rounded-b-md">
                             <div class="pepper-progress w-full h-1 bg-pepper-dark-4">
                                 <div class="pepper-progress-current h-1 bg-red-600" :style="'width:' + p.userProgress + '%'"></div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
                     <span class="mt-1 text-truncate-2l max-w-full text-sm font-semibold p-1">
-                        {{ p.title }}
+                        {{ product.title }}
                     </span>
                 </router-link>
             </template>
@@ -261,7 +280,7 @@ export default {
     </div>
 
 
-    <div v-if="vitrine && vitrine.shownProducts.length !== 0" class="pt-2">
+    <div v-if="productsWithoutAccess.length > 0" class="pt-2">
         <div class="md:flex md:items-center mb-6">
             <h3 class="font-bold text-white text-xl md:w-auto mb-3 md:mb-0">
                 {{ vitrine.title }}
@@ -270,15 +289,26 @@ export default {
 
         <div class="w-full grid gap-4 mb-8"
             :class="coverFormat ? 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'">
-            <template v-for="v in vitrine.shownProducts">
-                <a :href="v.linkHref" target="_blank" class="text-gray-200 hover:text-indigo-500 transition duration-500">
+            <template v-for="v in productsWithoutAccess">
+                <a :href="v.sale_page" target="_blank" class="text-gray-200 hover:text-indigo-500 transition duration-500">
                     <div
                         class="scale-hover relative w-full overflow-hidden cursor-pointer border border-pepper-dark-4 hover:border-indigo-800 transition duration-500 rounded-lg"
                         :class="coverFormat ? 'aspect-movie' : 'aspect-video'">
 
                         <img
-                            class="w-full mx-auto h-full object-cover bg-gray-500 bg-opacity-10 grayscale rounded-md border-none my-0"
-                            :src="v.img" />
+                            v-if="v.media"
+                            :src="v.media.file_url"
+                            class="w-full mx-auto h-full object-cover bg-gray-500 bg-opacity-10 grayscale rounded-md border-none my-0" />
+
+                        <img
+                            v-if="!v.media && coverFormat == 0"
+                            src="@/assets/img/capa-pepper-null.png"
+                            class="w-full mx-auto h-full object-cover bg-gray-500 bg-opacity-10 grayscale rounded-md border-none my-0" />
+
+                        <img
+                            v-if="!v.media && coverFormat == 1"
+                            src="@/assets/img/capa-pepper-null-vertical.png"
+                            class="w-full mx-auto h-full object-cover bg-gray-500 bg-opacity-10 grayscale rounded-md border-none my-0" />
 
                         <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 text-red-500 drop-shadow-[1px_5px_12px_rgba(220,38,38,0.9)]">
