@@ -1,14 +1,19 @@
 <script setup>
 
-function sendEmail() {
+const props = defineProps({
+    memberAreaInfos: Object
+});
 
+const studentName = props.memberAreaInfos.access.user.name;
+const studentEmail = props.memberAreaInfos.access.user.email;
+function sendEmail() {
+    console.log(studentName)
+    console.log(studentEmail)
     // Email de suporte da área de membros:
-    const supportEmail = 'produtor@gmail.com';
+    const supportEmail = props.memberAreaInfos.support_email;
 
     // Dados do remetente:
-    const studentName = 'João Otávio da Rocha Neto';
-    const studentEmail = 'joao.otavio.rn@gmail.com';
-    const memberAreaName = 'Nome da área de membros';
+    const memberAreaName = props.memberAreaInfos.title;
 
     // Dados da mensagem:
     var subject = document.querySelector('#subject').value;
@@ -20,9 +25,8 @@ function sendEmail() {
 }
 
 function sendWhatsappMessage() {
-
-    const supportPhone = '5551987991234';
-    const memberAreaName = 'Nome da área de membros';
+    const supportPhone = props.memberAreaInfos.support_whatsapp;
+    const memberAreaName = props.memberAreaInfos.title;
     const message = 'Olá, sou aluno(a) da ' + memberAreaName + ' e tenho uma dúvida.'
 
     let hrefWhatsapp = 'https://api.whatsapp.com/send?phone=' + supportPhone + '&text=' + message;
@@ -39,6 +43,10 @@ export default {
         return {
             pepper: this.pepper
         }
+    },
+
+    props: {
+        memberAreaInfos: Object
     }
 }
 </script>
@@ -59,17 +67,6 @@ export default {
                         Envie a sua mensagem para o suporte do produtor:
                     </span>
                 </div>
-                <div class="col-span-2">
-                    <label :class="pepper.darkMode.form.label">
-                        Área de membros:
-                    </label>
-                    <select
-                        :class="pepper.darkMode.form.select">
-                        <option value="Cinética: Escola do movimento" selected disabled>
-                            Cinética: Escola do movimento
-                        </option>
-                    </select>
-                </div>
                 <div class="col-span-2 md:col-span-1">
                     <label :class="pepper.darkMode.form.label">
                         Seu nome:
@@ -77,7 +74,8 @@ export default {
                     <input
                         type="text"
                         readonly
-                        value="José Afonso Oliveira Antunes"
+                        placeholder="Digite o seu nome"
+                        v-model="studentName"
                         :class="pepper.darkMode.form.input" />
                 </div>
                 <div class="col-span-2 md:col-span-1">
@@ -88,7 +86,7 @@ export default {
                         type="email"
                         readonly
                         placeholder="Digite o e-mail"
-                        value="igor@gmail.com"
+                        v-model="studentEmail"
                         :class="pepper.darkMode.form.input" />
                 </div>
                 <div class="col-span-2">
@@ -119,6 +117,7 @@ export default {
             </div>
             <div :class="pepper.darkMode.card.footer">
                 <button
+                    v-if="memberAreaInfos.support_whatsapp"
                     @click="sendWhatsappMessage"
                     :class="pepper.darkMode.button.successButton">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" stroke="none" :class="pepper.darkMode.svgIcon.button.small">
@@ -128,6 +127,7 @@ export default {
                     WhatsApp
                 </button>
                 <button
+                    v-if="memberAreaInfos.support_email"
                     @click="sendEmail"
                     :class="pepper.darkMode.button.primary">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" stroke="none" :class="pepper.darkMode.svgIcon.button.small">
