@@ -26,7 +26,11 @@ export default {
             formLogin: {
                 email: null,
                 password: null,
-            }
+            },
+            formResetPassword: {
+                email: null
+            },
+            tab: 1
         }
     },
     setup() {
@@ -72,6 +76,34 @@ export default {
             })
         },
 
+        recoverPassword() {
+            if (!this.formResetPassword.email) {
+                return this.notification('error', 'Você não informou o seu e-mail!');
+            }
+
+            this.notification('info', 'Estamos enviando a recuperação de senha para o seu e-mail!');
+
+            this.$axios.post(`/user/forgot-password`, {
+                email: this.formResetPassword.email
+            }, {
+                validateStatus: status => status >= 200 && status < 422
+            })
+            .then((response) => {
+                this.formResetPassword.email = '';
+                console.log(response);
+                if (response.status == 200) {
+                    this.notification('success', 'Enviamos o e-mail de recuperação, confira na sua caixa de mensagens!');
+                    return;
+                } else if (response.status == 404) {
+                    this.notification('error', 'Não foi possível encontrar o endereço de e-mail!');
+                } else if (response.status == 401) {
+                    this.notification('error', 'Você já solicitou uma recuperação nos últimos 10 minutos!');
+                } else {
+                    this.notification('error', 'Ocorreu um erro durante o envio do e-mail e não foi possível concluir!');
+                }
+            });
+        },
+
         notification(type, text) {
             if (type == 'error') {
                 this.notifications.error.showErrorNotification = true;
@@ -110,7 +142,8 @@ export default {
 
 <template>
     <div class="flex h-full items-center justify-center login-container">
-        <div id="bg-gradient-container" class="flex h-full w-full items-center justify-center pt-24 pb-12 px-6 lg:px-8 lg:pt-32">
+        <!-- Tela de Login -->
+        <div v-if="tab == 1" id="bg-gradient-container" class="flex h-full w-full items-center justify-center pt-24 pb-12 px-6 lg:px-8 lg:pt-32">
             <div class="w-full max-w-md space-y-4 lg:space-y-6">
                 <div>
                     <img class="mx-auto h-6 w-auto" src="../assets/img/pepper-logo-dark.svg" alt="Pepper members" />
@@ -136,7 +169,7 @@ export default {
                     </div>
 
                     <div class="text-sm">
-                        <router-link to="/forgot-password" class="font-semibold text-indigo-500 hover:text-indigo-600">Esqueceu sua senha?</router-link>
+                        <a @click="tab = 2" class="font-semibold text-indigo-500 hover:text-indigo-600 cursor-pointer">Esqueceu sua senha?</a>
                     </div>
                 </div>
 
@@ -144,6 +177,35 @@ export default {
                     Fazer login
                 </button>
 
+            </div>
+        </div>
+
+        <!-- Tela de esqueci a senha -->
+        <div v-if="tab == 2" id="bg-gradient-container" class="flex h-full w-full items-center justify-center pt-24 pb-12 px-6 lg:px-8 lg:pt-32">
+            <div class="w-full max-w-md space-y-4 lg:space-y-6">
+                <div>
+                    <img class="mx-auto h-6 w-auto" src="../assets/img/pepper-logo-dark.svg" alt="Pepper Members" />
+                    <h2 class="mt-6 text-center text-xl lg:text-2xl font-bold tracking-tight text-gray-100">Recuperar minha senha</h2>
+                </div>
+                <div class="mb-4">
+                    <label for="email-address" :class="pepper.darkMode.form.label">Digite o seu e-mail para recuperar a senha:</label>
+                    <input id="email-address" v-model="formResetPassword.email" name="email" type="email" autocomplete="email" :class="pepper.darkMode.form.input" placeholder="email@email.com" />
+                </div>
+                <button
+                    @click="recoverPassword"
+                    :class="pepper.darkMode.button.login">
+                    Recuperar senha
+                </button>
+                <div class="text-sm pt-4">
+                    <router-link to="/login" class="font-semibold text-indigo-500 hover:text-indigo-600 flex items-center justify-start">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-1">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75" />
+                        </svg>
+                        <span @click="tab = 1">
+                            Lembrou sua senha? Faça login
+                        </span>
+                    </router-link>
+                </div>
             </div>
         </div>
     </div>
