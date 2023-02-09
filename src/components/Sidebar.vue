@@ -15,7 +15,7 @@ const menuLogo = `
 
 const sidebarLinks = [
     {
-        route: '/area',
+        route: '',
         isAdmin: false,
         text: 'Meus conteúdos',
         icon: `
@@ -24,7 +24,7 @@ const sidebarLinks = [
         </svg>`
     },
     {
-        route: '/area/certificados',
+        route: 'certificados',
         isAdmin: false,
         text: 'Certificados',
         icon: `
@@ -33,7 +33,7 @@ const sidebarLinks = [
         </svg>`
     },
     {
-        route: '/area/contato',
+        route: 'contato',
         isAdmin: false,
         text: 'Contato e suporte',
         icon: `
@@ -42,7 +42,7 @@ const sidebarLinks = [
         </svg>`
     },
     {
-        route: '/area/perfil',
+        route: 'perfil',
         isAdmin: false,
         text: 'Meu perfil',
         icon: `
@@ -51,7 +51,7 @@ const sidebarLinks = [
         </svg>`
     },
     {
-        route: '/memberareas',
+        route: 'memberareas',
         isAdmin: false,
         text: 'Áreas de membros',
         icon: `
@@ -71,16 +71,16 @@ const sidebarLinks = [
         children: [
             {
                 text: 'Novo curso',
-                route: '/area/criar-curso'
+                route: 'criar-curso'
             },
             {
                 text: 'Novo certificado',
-                route: '/area/criar-certificado'
+                route: 'criar-certificado'
             }
         ]
     },
     {
-        route: '/area/alunos',
+        route: 'alunos',
         isAdmin: true,
         text: 'Gerenciar alunos',
         icon: `
@@ -89,7 +89,7 @@ const sidebarLinks = [
         </svg>`
     },
     {
-        route: '/area/comentarios',
+        route: 'comentarios',
         isAdmin: true,
         text: 'Comentários',
         badgeNumber: 27,
@@ -99,7 +99,7 @@ const sidebarLinks = [
         </svg>`
     },
     {
-        route: '/area/categorias',
+        route: 'categorias',
         isAdmin: true,
         text: 'Categorias',
         icon: `
@@ -108,7 +108,7 @@ const sidebarLinks = [
         </svg>`
     },
     {
-        route: '/area/integracoes',
+        route: 'integracoes',
         isAdmin: true,
         text: 'Integrações',
         icon: `
@@ -117,7 +117,7 @@ const sidebarLinks = [
         </svg>`
     },
     {
-        route: '/area/configuracoes',
+        route: 'configuracoes',
         isAdmin: true,
         text: 'Configurações',
         icon: `
@@ -141,6 +141,9 @@ export default {
             showSidebarDesktop: true
         };
     },
+    props: {
+        memberAreaInfos: Object
+    },
     methods: {
         toggleShow() {
             this.showMenu = !this.showMenu;
@@ -161,7 +164,7 @@ export default {
     <div id="navbar-container" class="flex flex-col w-screen md:w-auto md:flex-row md:h-screen md:fixed z-10">
         <!-- Header MOBILE -->
         <header id="header-mobile" class="bg-pepper-dark-3 flex justify-between items-center w-full md:hidden">
-            <router-link to="/area" class="mt-2">
+            <router-link :to="`/${this.$route.params.area}`" class="mt-2">
                 <div v-html="menuLogo"></div>
             </router-link>
             <div @click="open = true" id="mobile-menu-button" class="m-2 p-2 focus:outline-none hover:text-gray-400 hover:bg-gray-900 text-gray-500 rounded-md cursor-pointer">
@@ -174,7 +177,7 @@ export default {
         <aside id="sidebar" :class="[showSidebarDesktop ? 'translate-x-0' : '-translate-x-80', 'hidden md:flex bg-pepper-dark-2 md:h-full h-full md:w-64 2xl:w-72 w-3/4 space-y-6 pt-5 px-0 absolute inset-y-0 left-0 transform md:relative transition duration-200 ease-in-out flex-col justify-between overflow-y-auto z-50']">
             <div class="flex flex-col space-y-6">
                 <!-- Logo -->
-                <router-link to="/area">
+                <router-link :to="`/${this.$route.params.area}`">
                     <div v-html="menuLogo"></div>
                 </router-link>
                 <!-- Sidebar menu -->
@@ -182,17 +185,17 @@ export default {
                     <template v-for="u in sidebarLinks">
                         <router-link
                             v-if="(!u.submenu || u.submenu == false) && u.isAdmin == false"
-                            :to="u.route"
+                            :to="u.route != 'memberareas' ? `/${this.$route.params.area}/${u.route}` : '/memberareas'"
                             class="sidebar-li-router space-x-3 transition duration-200 hover:bg-gray-800 hover:text-white">
                             <div v-html="u.icon"></div>
                             <span>{{ u.text }}</span>
                         </router-link>
                     </template>
                     <!-- Admin -->
-                    <span class="text-xs font-bold tracking-wide mt-8 mb-4 block px-6 uppercase text-gray-300">
+                    <span v-if="memberAreaInfos.access.role == 'admin'" class="text-xs font-bold tracking-wide mt-8 mb-4 block px-6 uppercase text-gray-300">
                         Administrador
                     </span>
-                    <template v-for="a in sidebarLinks">
+                    <template v-if="memberAreaInfos.access.role == 'admin'" v-for="a in sidebarLinks">
                         <!-- Submenu -->
                         <div v-if="(a.submenu == true && a.isAdmin == true)">
                             <a
@@ -254,14 +257,14 @@ export default {
                                     <div id="sidebar-mobile" class="flex h-full flex-col overflow-y-scroll bg-pepper-dark-2 py-6 shadow-xl">
                                         <div class="h-full flex flex-col" aria-hidden="true">
                                             <!-- Logo -->
-                                            <router-link to="/area" @click="open = false" class="focus:ring-0 outline-none focus:ring-offset-0">
+                                            <router-link :to="`/${this.$route.params.area}`" @click="open = false" class="focus:ring-0 outline-none focus:ring-offset-0">
                                                 <div v-html="menuLogo" class="mb-4 mx-2"></div>
                                             </router-link>
                                             <template v-for="u in sidebarLinks">
                                                 <router-link
                                                     @click="open = false"
                                                     v-if="(!u.submenu || u.submenu == false) && u.isAdmin == false"
-                                                    :to="u.route"
+                                                    :to="`/${this.$route.params.area}/${u.route}`"
                                                     class="sidebar-li-router space-x-3 transition duration-200 hover:bg-gray-800 hover:text-white focus:outline-none focus:ring-0">
                                                     <div v-html="u.icon"></div>
                                                     <span>{{ u.text }}</span>
@@ -334,12 +337,13 @@ export default {
             </div>
             <div class="flex items-center">
                 <div class="block py-4 px-3">
-                    <h6 class="font-bold text-sm">Olá, Gilney</h6>
+                    <h6 class="font-bold text-sm">Olá, {{ memberAreaInfos.access.user.name.split(" ")[0] }}</h6>
                 </div>
                 <Menu as="div" :show="showHeaderDropdown" @close="showHeaderDropdown = false" class="relative ml-2 mr-2 mt-1">
                     <div class="inline-flex flex-row justify-center items-center h-full">
                         <MenuButton class="flex p-0 rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-gray-800">
-                            <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" />
+                            <img class="h-8 w-8 rounded-full" v-if="!memberAreaInfos.access.user.media" src="@/assets/img/user-photo.png" alt="">
+                            <img class="h-8 w-8 rounded-full" v-if="memberAreaInfos.access.user.media" :src="memberAreaInfos.access.user.media.file_url" alt="">
                         </MenuButton>
                         <ChevronDownIcon class="text-red-500 w-4 h-4 mt-2 mx-[2px]" />
                     </div>
@@ -347,7 +351,7 @@ export default {
                         <MenuItems class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                             <MenuItem v-slot="{ active }">
                             <router-link
-                                to="/area/perfil"
+                                :to="`/${this.$route.params.area}/perfil`"
                                 :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">
                                 Meu perfil
                             </router-link>

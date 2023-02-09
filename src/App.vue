@@ -35,7 +35,7 @@ export default {
       console.log(error);
       if (
         error.response.data.message == "Unauthenticated." ||
-        error.response.status == 500
+        error.response.status == 401
       ) {
         if (localStorage.getItem('token')) {
             localStorage.removeItem('token');

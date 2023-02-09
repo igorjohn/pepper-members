@@ -123,10 +123,7 @@ function notification() {
 </script>
 
 <script type="text/javascript">
-import { ref } from 'vue'
-
 import Header from "@/components/Header.vue";
-
 import {
     TransitionRoot,
     TransitionChild,
@@ -137,8 +134,7 @@ import {
 
 
 export default {
-
-    data: function () {
+    data () {
         return {
             pepper: this.pepper,
             preview: null,
@@ -146,9 +142,17 @@ export default {
             coverFormat: 1
         };
     },
+    
+    props: {
+        memberAreaInfos: Object
+    },
+
+    created() {
+        console.log(this.memberAreaInfos);
+    },
 
     methods: {
-        previewImage: function (event) {
+        previewImage (event) {
             var input = event.target;
             if (input.files) {
                 var reader = new FileReader();
@@ -160,7 +164,7 @@ export default {
                 reader.readAsDataURL(input.files[0]);
             }
         },
-        reset: function () {
+        resizeTo () {
             this.image = null;
             this.preview = null;
         }
