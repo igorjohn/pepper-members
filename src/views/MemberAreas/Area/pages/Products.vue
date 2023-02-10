@@ -10,7 +10,6 @@ import {
 
 import { PlusIcon } from '@heroicons/vue/20/solid'
 
-
 // Mock images
 import CursoPowerlifting from "@/assets/img/mock/curso-powerlifting.png";
 import CursoBiomecanica from "@/assets/img/mock/curso-biomecanica.png";
@@ -26,88 +25,10 @@ function closeModal() {
     isOpenModalAddCategory.value = false;
 }
 
-
-// Input combobox
-const category = [
-    { id: 1, name: 'Empreendedorismo' },
-    { id: 2, name: 'Educação física e fisioterapia' },
-    { id: 3, name: 'Programação ágil' },
-]
-
-const product = [
-    {
-        id: 1,
-        belongsToCategory: 1,
-        isPublished: true,
-        title: 'Aprendendo a vender online com escala',
-        route: '/area/produto',
-        userProgress: 32,
-        thumbnail: 'https://www.userede.com.br/content/userede/pt-br/blog/quais-ferramentas-de-marketing-digital-posso-usar-para-divulgar-meu-negocio-na-internet/_jcr_content/root/responsivegrid/tabcontainer_4788725/tabs-container-1/productdetails_copy/bottom-container/card_copy_copy_copy_94108686/card-container-content-responsivegrid/image.coreimg.jpeg/1557325623466.jpeg'
-    },
-    {
-        id: 2,
-        belongsToCategory: 1,
-        isPublished: false,
-        title: 'Scripts para vender no automático pelo Whatsapp',
-        route: '/area/produto',
-        userProgress: 2,
-        thumbnail: 'https://www.talksup.com.br/wp-content/uploads/2018/08/talksup-home2.png'
-    },
-    {
-        id: 3,
-        belongsToCategory: 2,
-        isPublished: true,
-        title: 'Curso de biomecânica avançada',
-        route: '/area/produto',
-        userProgress: 91,
-        thumbnail: CursoBiomecanica
-    },
-    {
-        id: 4,
-        belongsToCategory: 2,
-        isPublished: true,
-        title: 'Curso de Powerlifting e Agachamento',
-        route: '/area/produto',
-        userProgress: 43,
-        thumbnail: CursoPowerlifting
-    },
-    {
-        id: 5,
-        belongsToCategory: 2,
-        isPublished: true,
-        title: 'Periodização e Controle de Carga no Treinamento Físico',
-        route: '/area/produto',
-        userProgress: 0,
-        thumbnail: CursoPeriodizacao
-    },
-    {
-        id: 6,
-        belongsToCategory: 3,
-        isPublished: true,
-        title: 'Método indiano – Fature 5 dígitos com jQuery',
-        route: '/area/produto',
-        userProgress: 100,
-        thumbnail: 'https://www.memesmonkey.com/images/memesmonkey/9f/9f098b405bac22358a2f73abc09f3c24.jpeg'
-    }
-]
-
-
-const vitrine = {
-    title: 'Você pode também ter interesse em:',
-    shownProducts: [
-        {
-            img: 'https://vueschool.io/images/sections/the-vuejs-master-class/thumbnail-masterclass.png',
-            title: 'Curso de Vue3',
-            linkHref: 'https://google.com/'
-        }
-    ]
-}
-
 const memberAreaBanner = {
     showBanner: true,
     imgUrl: 'https://www.brvidaaph.com.br/images/banner-interno-curso.jpg'
 }
-
 
 let showNotification = ref(false);
 function notification() {
@@ -206,7 +127,7 @@ export default {
             }
 
             this.loader = true;
-            
+
             this.notification('info', 'Estamos criando a sua categoria, aguarde enquanto finalizamos!');
 
             this.$axios.post('/category', {
@@ -288,7 +209,7 @@ export default {
             </span>
             <span class="ml-1">
                 <router-link
-                    to="/area/criar-curso"
+                    :to="`/${this.$route.params.area}/criar-curso`"
                     :class="pepper.darkMode.button.headerPrimary">
                     <PlusIcon class="-ml-1 mr-1 h-4 w-4 font-bold" aria-hidden="true" />
                     Adicionar curso
@@ -298,7 +219,7 @@ export default {
     </div>
 
     <!-- Empty state -->
-    <div v-if="category.length == 0 && viewUI" class="p-5 mt-6" :class="pepper.darkMode.card.container">
+    <div v-if="categories.length == 0 && viewUI" class="p-5 mt-6" :class="pepper.darkMode.card.container">
         <div class="flex space-x-2 justify-center items-center">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="flex-none fill-none text-red-500 h-5 w-5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
@@ -368,7 +289,7 @@ export default {
     <div v-if="productsWithoutAccess.length > 0 && viewUI" class="pt-2">
         <div class="md:flex md:items-center mb-6">
             <h3 class="font-bold text-white text-xl md:w-auto mb-3 md:mb-0">
-                {{ vitrine.title }}
+                Você pode também ter interesse em:
             </h3>
         </div>
 

@@ -24,9 +24,7 @@ export default {
 
     /* Intecerptando o callback das requests */
     axios.interceptors.response.use((response) => {
-      setTimeout(() => {
-        this.loader = false;
-      }, 1000);
+      this.loader = false;
       return Promise.resolve(response);
     }, (error) => {
       console.log(localStorage.getItem('token'));
@@ -45,9 +43,7 @@ export default {
             query: { redirect: router.currentRoute.fullPath }
         });
       }
-      setTimeout(() => {
-        this.loader = false;
-      }, 1000);
+      this.loader = false;
       return console.log(error.response);
     });
   },
@@ -60,7 +56,7 @@ export default {
 
 <template>
   <section v-if="loader">
-    <Loader />
+    <Loader :show="loader" />
   </section>
   
   <router-view />
