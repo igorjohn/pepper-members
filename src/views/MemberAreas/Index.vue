@@ -129,9 +129,10 @@ export default {
             .then((response) => {
                 console.log(response);
                 if (response.status == 201) {
+                    this.notification('success', 'A área de membros foi criada com sucesso, estamos te redirecionando!');
                     setTimeout(() => {
                         return this.$router.push(response.data.slug);
-                    }, 500);
+                    }, 2000);
                 } else if (response.status == 422 && response.data.errors.slug) {
                     setTimeout(() => {
                         return this.notification('error', 'Esse slug já está sendo utilizado, escolha outro!');

@@ -133,10 +133,27 @@ import {
 } from '@headlessui/vue'
 import Loader from '@/components/Loader.vue';
 
+import AlertError from '@/components/AlertError.vue';
+import AlertInfo from '@/components/AlertInfo.vue';
+import AlertSuccess from '@/components/AlertSuccess.vue';
 
 export default {
     data() {
         return {
+            notifications: {
+                error: {
+                    showErrorNotification: false,
+                    textErrorNotification: '',
+                },
+                success: {
+                    showSuccessNotification: false,
+                    textSuccessNotification: '',
+                },
+                info: {
+                    showInfoNotification: false,
+                    textInfoNotification: '',
+                },
+            },
             pepper: this.pepper,
             preview: null,
             viewUI: false,
@@ -145,6 +162,9 @@ export default {
             coverFormat: 1,
             categories: [],
             productsWithoutAccess: [],
+            formCreateCategory: {
+                title: ''
+            }
         };
     },
     props: {
@@ -152,11 +172,13 @@ export default {
     },
     created() {
         this.$axios.get(`memberarea/categories/${this.memberAreaInfos.id}`)
-        .then((response) => {
+            .then((response) => {
             this.categories = response.data.allCategories.category;
             this.productsWithoutAccess = response.data.productsWithoutAccess;
-            this.viewUI = true;
+
             this.loader = false;
+            this.viewUI = true;
+
             console.log(this.categories);
             console.log(this.productsWithoutAccess);
         });
@@ -177,18 +199,74 @@ export default {
         resizeTo() {
             this.image = null;
             this.preview = null;
-        }
+        },
+        postCreateCategory() {
+            if (!this.formCreateCategory.title) {
+                return this.notification('error', 'Você não preencheu o título!');
+            }
+
+            this.loader = true;
+            
+            this.notification('info', 'Estamos criando a sua categoria, aguarde enquanto finalizamos!');
+
+            this.$axios.post('/category', {
+                member_area_id: this.memberAreaInfos.id,
+                title: this.formCreateCategory.title
+            }, {
+                validateStatus: status => status >= 200 && status < 300 || status == 404
+            })
+            .then((response) => {
+                if (response.status = 201) {
+                    this.notification('success!', 'A sua categoria foi criada com sucesso!');
+                
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000);
+                } else {
+                    this.notification('error', 'Ocorreu um erro durante a criação e não foi possível criar!');
+                    this.formCreateCategory.title = '';
+
+                    this.loader = false;
+                }
+            });
+        },
+        notification(type, text) {
+            if (type == 'error') {
+                this.notifications.error.showErrorNotification = true;
+                this.notifications.error.textErrorNotification = text;
+    
+                setTimeout(() => {
+                    this.notifications.error.showErrorNotification = false;
+                    this.notifications.error.textErrorNotification = '';
+                }, 2500);
+            }
+
+            if (type == 'success') {
+                this.notifications.success.showSuccessNotification = true;
+                this.notifications.success.textSuccessNotification = text;
+    
+                setTimeout(() => {
+                    this.notifications.success.showSuccessNotification = false;
+                    this.notifications.success.textSuccessNotification = '';
+                }, 2500);
+            }
+
+            if (type == 'info') {
+                this.notifications.info.showInfoNotification = true;
+                this.notifications.info.textInfoNotification = text;
+    
+                setTimeout(() => {
+                    this.notifications.info.showInfoNotification = false;
+                    this.notifications.info.textInfoNotification = '';
+                }, 2500);
+            }
+        },
     },
     components: { Loader }
 };
 </script>
 
 <template>
-    <!-- Loader -->
-    <section v-if="loader">
-        <Loader />
-    </section>
-
     <!-- Banner image -->
     <img v-if="memberAreaInfos.banner && viewUI"
         class="rounded-md w-full h-auto border border-zinc-800 bg-zinc-900 mb-12"
@@ -366,7 +444,8 @@ export default {
                                     type="text"
                                     required
                                     placeholder="Digite aqui"
-                                    class="border border-gray-300 text-gray-700 text-sm bg-white placeholder-gray-400 focus:border-indigo-500 w-full rounded-md py-3 px-3 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]" />
+                                    class="border border-gray-300 text-gray-700 text-sm bg-white placeholder-gray-400 focus:border-indigo-500 w-full rounded-md py-3 px-3 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]"
+                                    v-model="formCreateCategory.title" />
                                 <div class="mt-4 pb-4 text-xs text-gray-500 flex flex-row items-center justify-start">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-1 opacity-70">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
@@ -384,7 +463,7 @@ export default {
                                 <button
                                     type="button"
                                     class="ml-1 inline-flex justify-center rounded-md border border-transparent bg-pepper-primary px-4 py-2 text-sm font-medium text-white hover:bg-red-700"
-                                    @click="closeModal">
+                                    @click="postCreateCategory">
                                     Adicionar
                                 </button>
                             </div>
@@ -394,5 +473,25 @@ export default {
             </div>
         </Dialog>
     </TransitionRoot>
+
+    <!-- Loader -->
+    <section v-if="loader">
+        <Loader :show="loader" />
+    </section>
+
+    <!-- Notificações -->
+    <transition appear name="slide-fade">
+        <div v-if="
+            notifications.error.showErrorNotification || 
+            notifications.success.showSuccessNotification ||
+            notifications.info.showInfoNotification
+        " class="float-right min-w-full fixed bottom-3 right-0 md:right-3">
+            <AlertSuccess v-if="notifications.success.showSuccessNotification" :title="notifications.success.textSuccessNotification" />
+
+            <AlertError v-if="notifications.error.showErrorNotification" :title="notifications.error.textErrorNotification" />
+
+            <AlertInfo v-if="notifications.info.showInfoNotification" :title="notifications.info.textInfoNotification" />
+        </div>
+    </transition>
 
 </template>

@@ -13,10 +13,8 @@ export default {
   created() {
     /* Interceptando as requests */
     axios.interceptors.request.use(async (config) => { 
-      const bukectUrl = 'pepper-images-dev.s3';
-
       this.loader = true;
-
+      const bukectUrl = 'pepper-images-dev.s3';
       if (!config.url.includes(bukectUrl)) {
         config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
       }

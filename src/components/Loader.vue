@@ -1,10 +1,14 @@
 <script setup>
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel } from '@headlessui/vue';
+
+const props = defineProps({
+    show: Boolean
+});
 </script>
 
 <template>
     <section id="loader-bg" class="blured-3">
-        <TransitionRoot appear :show="true" as="template">
+        <TransitionRoot appear :show="props.show" as="template">
             <Dialog as="div" class="relative z-50">
                 <TransitionChild
                     as="template"
@@ -27,9 +31,7 @@ import { TransitionRoot, TransitionChild, Dialog, DialogPanel } from '@headlessu
                             leave-from="opacity-100 scale-100"
                             leave-to="opacity-0 scale-95">
                             <DialogPanel class="w-full max-w-2xl flex flex-col items-center justify-center transform p-6 transition-all overflow-visible">
-                                <!-- Spinner -->
                                 <div class="pepper-loading w-20 h-20"></div>
-                                <!-- Icon preloader -->
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 163 193" version="1.1" class="w-8 h-8 fixed">
                                     <g xmlns="http://www.w3.org/2000/svg">
                                         <g>
@@ -47,7 +49,7 @@ import { TransitionRoot, TransitionChild, Dialog, DialogPanel } from '@headlessu
     </section>
 </template>
 
-<style scoped>
+<style>
 #loader-bg {
     width: 100%;
     height: 100vh;
